@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">purpulse</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="abdomen">使用前，請先確認電極接頭與貼片是否扣好，再將電極貼片底紙撕開，將綠色部分貼到右腹部，如上圖所示。</string>
+    <string name="lefthand">使用前，請先確認電極接頭與貼片是否扣好，再將電極貼片底紙撕開，將黃色部分貼到左手手腕內側，如上圖所示。</string>
+    <string name="righthand">使用前，請先確認電極接頭與貼片是否扣好，再將電極貼片底紙撕開，將紅色部分貼到右手手腕內側，如上圖所示。</string>
+    <string name="location_permission_title">Location permission required</string>
+    <string name="location_permission_message">This app does not use location information, but scanning for Bluetooth LE devices requires this permission</string>
+    <string name="location_denied_title">Location permission denied</string>
+    <string name="location_denied_message">As location permission has not been granted, this app cannot scan for Bluetooth LE devices.</string>
+
+</resources>
