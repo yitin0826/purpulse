@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -47,7 +48,7 @@ public class DeviceFragment extends ListFragment {
     private final ArrayList<BluetoothDevice> listItems = new ArrayList<>();
     private ArrayAdapter<BluetoothDevice> listAdapter;
 
-    private TextView txt_btstatus;
+    private TextView txt_btstatus,text3;
     private Button btn_btsearch, btn_btstop;
 
     public DeviceFragment() {
@@ -105,11 +106,13 @@ public class DeviceFragment extends ListFragment {
                     view = getActivity().getLayoutInflater().inflate(R.layout.devicelist_item, parent, false);
                 TextView text1 = view.findViewById(R.id.text1);
                 TextView text2 = view.findViewById(R.id.text2);
+                text3 = view.findViewById(R.id.text3);
                 if (device.getName() == null || device.getName().isEmpty())
                     text1.setText("<unnamed>");
                 else
                     text1.setText(device.getName());
                 text2.setText(device.getAddress());
+                text3.setText("未連接");
                 return view;
             }
         };
@@ -257,5 +260,12 @@ public class DeviceFragment extends ListFragment {
             default:
         }
         scanState = ScanState.NONE;
+    }
+
+    @Override
+    public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id){
+        stopScan();
+        BluetoothDevice device = listItems.get(position-1);
+
     }
 }
