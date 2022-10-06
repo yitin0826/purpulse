@@ -1,6 +1,7 @@
 package com.example.purpulse;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -103,16 +104,18 @@ public class RighthandFragment extends Fragment {
         lp.width = (int)(display.getWidth()*0.7);
         lp.height = (int)(display.getHeight()*0.2);
         dialog.getWindow().setAttributes(lp);
+        dialog.setCancelable(false);
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog.dismiss();
+                startActivity(new Intent(getActivity(),PulseActivity.class));
             }
         });
         btn_no.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                dialog.dismiss();
             }
         });
     }

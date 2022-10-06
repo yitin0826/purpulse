@@ -52,12 +52,6 @@ public class ConnectionActivity extends AppCompatActivity {
         circleIndicator = findViewById(R.id.indicator);
     }
 
-    public void showToast(String msg){
-
-        Toast.makeText(ConnectionActivity.this,msg+"",Toast.LENGTH_SHORT).show();
-
-    }
-
     ViewPager.OnPageChangeListener lis = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -66,18 +60,7 @@ public class ConnectionActivity extends AppCompatActivity {
 
         @Override
         public void onPageSelected(int position) {
-            switch (position){
-                case 0:
-                    showToast("fragment1");
-                    break;
-                case 1:
-                    showToast("fragment2");
-                    break;
-                case 2:
-                    showToast("fragment3");
-                    break;
-                default:
-            }
+
         }
 
         @Override

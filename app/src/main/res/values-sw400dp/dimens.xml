@@ -832,4 +832,64 @@
     <dimen name="sp_42">46.6667sp</dimen>
     	
     <dimen name="sp_48">53.3333sp</dimen>
+    	
+    <dimen name="sp_50">55.5556sp</dimen>
+    	
+    <dimen name="sp_52">57.7778sp</dimen>
+    	
+    <dimen name="sp_54">60.0000sp</dimen>
+    	
+    <dimen name="sp_56">62.2222sp</dimen>
+    	
+    <dimen name="sp_58">64.4444sp</dimen>
+    	
+    <dimen name="sp_60">66.6667sp</dimen>
+    	
+    <dimen name="sp_62">68.8889sp</dimen>
+    	
+    <dimen name="sp_64">71.1111sp</dimen>
+    	
+    <dimen name="sp_66">73.3333sp</dimen>
+    	
+    <dimen name="sp_68">75.5556sp</dimen>
+    	
+    <dimen name="sp_70">77.7778sp</dimen>
+    	
+    <dimen name="sp_72">80.0000sp</dimen>
+    	
+    <dimen name="sp_74">82.2222sp</dimen>
+    	
+    <dimen name="sp_76">84.4444sp</dimen>
+    	
+    <dimen name="sp_78">86.6667sp</dimen>
+    	
+    <dimen name="sp_80">88.8889sp</dimen>
+    	
+    <dimen name="sp_82">91.1111sp</dimen>
+    	
+    <dimen name="sp_84">93.3333sp</dimen>
+    	
+    <dimen name="sp_86">95.5556sp</dimen>
+    	
+    <dimen name="sp_88">97.7778sp</dimen>
+    	
+    <dimen name="sp_90">100.0000sp</dimen>
+    	
+    <dimen name="sp_92">102.2222sp</dimen>
+    	
+    <dimen name="sp_94">104.4444sp</dimen>
+    	
+    <dimen name="sp_96">106.6667sp</dimen>
+    	
+    <dimen name="text_margin">17.7778dp</dimen>
+    	
+    <dimen name="activity_horizontal_margin">17.7778dp</dimen>
+    	
+    <dimen name="activity_vertical_margin">17.7778dp</dimen>
+    	
+    <dimen name="nav_header_vertical_spacing">8.8889dp</dimen>
+    	
+    <dimen name="nav_header_height">195.5556dp</dimen>
+    	
+    <dimen name="fab_margin">17.7778dp</dimen>
 </resources>
