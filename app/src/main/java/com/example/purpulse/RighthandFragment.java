@@ -1,5 +1,6 @@
 package com.example.purpulse;
 
+import android.app.Dialog;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,9 +8,11 @@ import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -29,7 +32,9 @@ public class RighthandFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private TextView txt_rightteach;
-    private Button btn_ecgstart;
+    private Button btn_ecgstart,btn_yes,btn_no;
+    Dialog dialog;
+    View dialogView;
 
     public RighthandFragment() {
         // Required empty public constructor
@@ -69,17 +74,46 @@ public class RighthandFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_righthand, container,false);
         txt_rightteach = view.findViewById(R.id.txt_rightteach);
         btn_ecgstart = view.findViewById(R.id.btn_ecgstart);
-        btn_ecgstart.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+        btn_ecgstart.setOnClickListener(lis);
         txt_rightteach.setText(R.string.righthand);
         ForegroundColorSpan redSpan = new ForegroundColorSpan(getResources().getColor(R.color.red));
         SpannableStringBuilder builder = new SpannableStringBuilder(txt_rightteach.getText().toString());
         builder.setSpan(redSpan,32,34, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         txt_rightteach.setText(builder);
         return view;
+    }
+
+    View.OnClickListener lis = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            getDialog();
+        }
+    };
+
+    public void getDialog(){
+        dialog = new Dialog(getActivity(),R.style.custom_dialog);
+        dialogView = getLayoutInflater().inflate(R.layout.dialog_view,null);
+        dialog.setContentView(dialogView);
+        btn_yes = dialogView.findViewById(R.id.btn_yes);
+        btn_no = dialogView.findViewById(R.id.btn_no);
+        dialog.show();
+        WindowManager windowManager = getActivity().getWindowManager();
+        Display display = windowManager.getDefaultDisplay();
+        WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
+        lp.width = (int)(display.getWidth()*0.7);
+        lp.height = (int)(display.getHeight()*0.2);
+        dialog.getWindow().setAttributes(lp);
+        btn_yes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+        btn_no.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 }

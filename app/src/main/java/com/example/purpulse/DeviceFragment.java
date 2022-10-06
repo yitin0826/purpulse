@@ -7,6 +7,7 @@ import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
@@ -16,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.text.SpannableStringBuilder;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +25,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,11 +36,12 @@ import androidx.fragment.app.ListFragment;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DeviceFragment extends ListFragment {
+public class DeviceFragment extends ListFragment implements SerialListener {
 
     private enum ScanState {NONE, LE_SCAN, DISCOVERY, DISCOVERY_FINISHED}
     private ScanState scanState = ScanState.NONE;
     private static final long LE_SCAN_PERIOD = 10000;
+    private static final int REQUEST_ENABLE_BT = 2;
     private final Handler leScanStopHandler = new Handler();
     private final BluetoothAdapter.LeScanCallback leScanCallback;
     private final Runnable leScanStopCallBack;
@@ -48,8 +52,12 @@ public class DeviceFragment extends ListFragment {
     private final ArrayList<BluetoothDevice> listItems = new ArrayList<>();
     private ArrayAdapter<BluetoothDevice> listAdapter;
 
+    public String status;
     private TextView txt_btstatus,text3;
     private Button btn_btsearch, btn_btstop;
+
+    private enum Connected { False, Pending, True}
+    private Connected connected = Connected.False;
 
     public DeviceFragment() {
         leScanCallback = (device, rssi, scanRecord) -> {
@@ -149,6 +157,8 @@ public class DeviceFragment extends ListFragment {
             txt_btstatus.setText("設備不支持藍芽");
         } else if (!bluetoothAdapter.isEnabled()) {
             txt_btstatus.setText("尚未開啟藍芽");
+            Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
+            startActivityForResult(enableBtIntent,REQUEST_ENABLE_BT);
             btn_btsearch.setEnabled(false);
         } else {
             txt_btstatus.setText("已開啟藍芽，點擊搜尋裝置來重新整理裝置列表");
@@ -265,7 +275,73 @@ public class DeviceFragment extends ListFragment {
     @Override
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id){
         stopScan();
-        BluetoothDevice device = listItems.get(position-1);
+        startActivity(new Intent(getActivity(),ConnectionActivity.class));
+//        try{
+//            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
+//            BluetoothDevice device = listItems.get(position-1);
+//            status = "連接中";
+//            statusjudge();
+//            connected = Connected.Pending;
+//        }catch (Exception e){
+//            onSerialConnectError(e);
+//        }
+//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+//        builder.setTitle("連接狀態");
+//        builder.setMessage(status);
+//        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(getActivity(),"確定",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//        builder.setNegativeButton("中立",(dialog, which) -> {
+//            Toast.makeText(getActivity(),"中立",Toast.LENGTH_SHORT).show();
+//        });
+//        builder.setNeutralButton("取消",(dialog, which) -> {
+//            Toast.makeText(getActivity(),"取消",Toast.LENGTH_SHORT).show();
+//        });
+//        builder.setCancelable(false);
+//        builder.show();
 
+    }
+
+    public void statusjudge(){
+        if (status.equals("已連接")){
+            text3.setText("已連接");
+            Toast.makeText(getActivity(),status,Toast.LENGTH_SHORT).show();
+        }else if (status.equals("連接中")){
+            text3.setText("連接中");
+            Toast.makeText(getActivity(),status,Toast.LENGTH_SHORT).show();
+        }else {
+            text3.setText("未連接");
+            Toast.makeText(getActivity(),status,Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void status(String str){
+        SpannableStringBuilder spn = new SpannableStringBuilder(str);
+    }
+
+    /**SerialListener**/
+    @Override
+    public void onSerialConnect(){
+        status = "已連接";
+        connected = Connected.True;
+    }
+
+    @Override
+    public void onSerialConnectError(Exception e) {
+        status = "連接失敗"+e.getMessage();
+        connected = Connected.False;
+    }
+
+    @Override
+    public void onSerialRead(byte[] data) {
+    }
+
+    @Override
+    public void onSerialIoError(Exception e) {
+        status = "連接中斷"+e.getMessage();
+        connected = Connected.False;
     }
 }
