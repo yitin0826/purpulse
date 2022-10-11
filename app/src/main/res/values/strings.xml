@@ -14,5 +14,10 @@
     <string name="drawer_close">Drawer closed</string>
     <string name="scatter">心電散點圖是一種將由複雜曲線組成的心電圖轉化成富有特點並更加易於識別的幾何圖形，將大數據心電現象用"圖像"的型態呈現出來，以利於判斷各項疾病的罹患機率。</string>
     <string name="taiji">白色(陽)表交感神經， 黑色(陰)表副交感，圓圈大小表自律神經總體功能，若圓圈愈大表示自律神經功能愈強，愈小則愈弱，白色愈多表交感強，黑色較多表副交感強。</string>
-
+    <string name="title_activity_editprofile">EditprofileActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+    <string name="previous">Previous</string>
 </resources>

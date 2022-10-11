@@ -12,6 +12,10 @@
     <color name="blue">#1b75bb</color>
     <color name="green">#548235</color>
     <color name="yellow">#FFD306</color>
-    <color name="red">#D94600</color>
+    <color name="red">#CE0000</color>
     <color name="colorPrimary">#d84315</color>
+    <color name="info_g">#008037</color>
+    <color name="info_y">#EA7500</color>
+    <color name="info_r">#CE0000</color>
+    <color name="info_p">#5B00AE</color>
 </resources>

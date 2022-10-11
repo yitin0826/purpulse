@@ -36,7 +36,7 @@ import androidx.fragment.app.ListFragment;
 import java.util.ArrayList;
 import java.util.Collections;
 
-public class DeviceFragment extends ListFragment implements SerialListener {
+public class DeviceFragment extends ListFragment {
 
     private enum ScanState {NONE, LE_SCAN, DISCOVERY, DISCOVERY_FINISHED}
     private ScanState scanState = ScanState.NONE;
@@ -55,9 +55,6 @@ public class DeviceFragment extends ListFragment implements SerialListener {
     public String status;
     private TextView txt_btstatus,text3;
     private Button btn_btsearch, btn_btstop;
-
-    private enum Connected { False, Pending, True}
-    private Connected connected = Connected.False;
 
     public DeviceFragment() {
         leScanCallback = (device, rssi, scanRecord) -> {
@@ -139,8 +136,6 @@ public class DeviceFragment extends ListFragment implements SerialListener {
             }
         }
     };
-
-
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -276,33 +271,6 @@ public class DeviceFragment extends ListFragment implements SerialListener {
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id){
         stopScan();
         startActivity(new Intent(getActivity(),ConnectionActivity.class));
-//        try{
-//            bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
-//            BluetoothDevice device = listItems.get(position-1);
-//            status = "連接中";
-//            statusjudge();
-//            connected = Connected.Pending;
-//        }catch (Exception e){
-//            onSerialConnectError(e);
-//        }
-//        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-//        builder.setTitle("連接狀態");
-//        builder.setMessage(status);
-//        builder.setPositiveButton("確定", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(getActivity(),"確定",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//        builder.setNegativeButton("中立",(dialog, which) -> {
-//            Toast.makeText(getActivity(),"中立",Toast.LENGTH_SHORT).show();
-//        });
-//        builder.setNeutralButton("取消",(dialog, which) -> {
-//            Toast.makeText(getActivity(),"取消",Toast.LENGTH_SHORT).show();
-//        });
-//        builder.setCancelable(false);
-//        builder.show();
-
     }
 
     public void statusjudge(){
@@ -320,28 +288,5 @@ public class DeviceFragment extends ListFragment implements SerialListener {
 
     private void status(String str){
         SpannableStringBuilder spn = new SpannableStringBuilder(str);
-    }
-
-    /**SerialListener**/
-    @Override
-    public void onSerialConnect(){
-        status = "已連接";
-        connected = Connected.True;
-    }
-
-    @Override
-    public void onSerialConnectError(Exception e) {
-        status = "連接失敗"+e.getMessage();
-        connected = Connected.False;
-    }
-
-    @Override
-    public void onSerialRead(byte[] data) {
-    }
-
-    @Override
-    public void onSerialIoError(Exception e) {
-        status = "連接中斷"+e.getMessage();
-        connected = Connected.False;
     }
 }

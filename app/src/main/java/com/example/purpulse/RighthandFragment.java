@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 /**
@@ -34,6 +36,7 @@ public class RighthandFragment extends Fragment {
     private String mParam2;
     private TextView txt_rightteach;
     private Button btn_ecgstart,btn_yes,btn_no;
+    private Spinner spinner;
     Dialog dialog;
     View dialogView;
 
@@ -97,12 +100,16 @@ public class RighthandFragment extends Fragment {
         dialog.setContentView(dialogView);
         btn_yes = dialogView.findViewById(R.id.btn_yes);
         btn_no = dialogView.findViewById(R.id.btn_no);
+        spinner = dialogView.findViewById(R.id.spinner);
         dialog.show();
+        ArrayAdapter adapter = ArrayAdapter.createFromResource(getActivity(),R.array.status_array,R.layout.spinnertext);
+        adapter.setDropDownViewResource(R.layout.spinnertext);
+        spinner.setAdapter(adapter);
         WindowManager windowManager = getActivity().getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
         lp.width = (int)(display.getWidth()*0.7);
-        lp.height = (int)(display.getHeight()*0.2);
+        lp.height = (int)(display.getHeight()*0.25);
         dialog.getWindow().setAttributes(lp);
         dialog.setCancelable(false);
         btn_yes.setOnClickListener(new View.OnClickListener() {

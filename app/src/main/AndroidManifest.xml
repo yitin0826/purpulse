@@ -28,6 +28,15 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="31">
         <activity
+            android:name=".EditprofileActivity"
+            android:exported="false"
+            android:label="@string/title_activity_editprofile"
+            android:theme="@style/Theme.Purpulse.NoActionBar">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".PulseActivity"
             android:exported="false">
             <meta-data

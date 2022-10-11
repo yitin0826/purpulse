@@ -25,7 +25,7 @@
         <item name="overlapAnchor">false</item>  <!--讓跳出的選項視窗不會遮住Toolbar-->
     </style>
 
-    <style name="myNavigationDrawerStyle" >
+    <style name="myNavigationDrawerStyle">
         <item name="android:fontFamily">@font/jf_openhuninn</item>
     </style>
 

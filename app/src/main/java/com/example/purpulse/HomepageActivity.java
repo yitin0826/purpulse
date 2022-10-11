@@ -28,11 +28,14 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
     private Toolbar hp_toolbar;
     private DrawerLayout hp_drawerlayout;
     private NavigationView hp_navigation;
+    public View view;
+    public String activity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_homepage);
+        activity = "device";
         hp_img = findViewById(R.id.hp_img);
         hp_img.setOnClickListener(lis);
         hp_drawerlayout = findViewById(R.id.hp_drawerlayout);
@@ -63,17 +66,41 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
 
             // 依照id判斷點了哪個項目並做相應事件
             if (id == R.id.action_profile) {
-                // 按下「首頁」要做的事
-                startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
-                return true;
+                if (activity.equals("profile")){
+                    return true;
+                }else {
+                    startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    return true;
+                }
+            }else if (id == R.id.action_record) {
+                if (activity.equals("record")){
+                    return true;
+                }else {
+                    //startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    return true;
+                }
+            }else if (id == R.id.action_device){
+                if (activity.equals("device")){
+                    return true;
+                }else {
+                    startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    return true;
+                }
+            }else if (id == R.id.action_pulse){
+                if (activity.equals("pulse")){
+                    return true;
+                }else {
+                    startActivity(new Intent(HomepageActivity.this,PulseActivity.class));
+                    return true;
+                }
+            }else {
+                if (activity.equals("notify")){
+                    return true;
+                }else {
+                    startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    return true;
+                }
             }
-            else if (id == R.id.action_record) {
-                // 按下「使用說明」要做的事
-                //Toast.makeText(MainActivity.this, "使用說明", Toast.LENGTH_SHORT).show();
-                return true;
-            }
-            // 略..
-            return false;
         }
     };
 
