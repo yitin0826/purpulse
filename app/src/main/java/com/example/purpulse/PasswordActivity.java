@@ -24,7 +24,7 @@ public class PasswordActivity extends AppCompatActivity {
         public void onClick(View view) {
             switch (view.getId()){
                 case R.id.pw_confirm:{
-                    startActivity(new Intent(PasswordActivity.this,CodeActivity.class));
+                    startActivity(new Intent(PasswordActivity.this,NewpasswordActivity.class));
                     break;
                 }
             }

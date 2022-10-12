@@ -27,10 +27,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import java.util.ArrayList;
@@ -168,7 +170,7 @@ public class DeviceFragment extends ListFragment {
         getActivity().unregisterReceiver(discoveryBroadcastReceiver);
     }
 
-    @SuppressLint({"StaticFieldLeak", "MissingPermission"})
+    @SuppressLint({"StaticFieldLeak"})
 // AsyncTask needs reference to this fragment
     private void startScan() {
         if (scanState != ScanState.NONE)
@@ -176,6 +178,10 @@ public class DeviceFragment extends ListFragment {
         scanState = ScanState.LE_SCAN;
         /**確認是否已開啟取得手機位置功能以及權限*/
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (getActivity().checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                    != PackageManager.PERMISSION_GRANTED) {
+                requestPermissions(new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1000);
+            }
             if (getActivity().checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                 scanState = DeviceFragment.ScanState.NONE;
                 AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -270,6 +276,12 @@ public class DeviceFragment extends ListFragment {
     @Override
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id){
         stopScan();
+//        BluetoothDevice device = listItems.get(position-1);
+//        Bundle args = new Bundle();
+//        args.putString("device", device.getAddress());
+//        Fragment fragment = new TerminalFragment();
+//        fragment.setArguments(args);
+//        getFragmentManager().beginTransaction().replace(R.id.device,fragment,"terminal").addToBackStack(null).commit();
         startActivity(new Intent(getActivity(),ConnectionActivity.class));
     }
 

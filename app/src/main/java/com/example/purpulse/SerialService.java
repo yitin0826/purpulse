@@ -16,11 +16,18 @@ import android.os.Looper;
 import androidx.annotation.Nullable;
 import androidx.core.app.NotificationCompat;
 
+import com.example.purpulse.SerialListener;
+
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.Queue;
 
+/**
+ * create notification and queue serial data while activity is not in the foreground
+ * use listener chain: SerialSocket -> SerialService -> UI fragment
+ */
 public class SerialService extends Service implements SerialListener {
+
     class SerialBinder extends Binder {
         SerialService getService() { return SerialService.this; }
     }
@@ -243,4 +250,5 @@ public class SerialService extends Service implements SerialListener {
             }
         }
     }
+
 }

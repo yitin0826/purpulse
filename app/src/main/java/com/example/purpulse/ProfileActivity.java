@@ -43,9 +43,11 @@ public class ProfileActivity extends AppCompatActivity {
             switch (view.getId()){
                 case R.id.pf_img:{
                     pf_drawerlayout.openDrawer(Gravity.RIGHT);
+                    break;
                 }
                 case R.id.btn_edit:{
                     startActivity(new Intent(ProfileActivity.this, EditprofileActivity.class));
+                    break;
                 }
             }
 

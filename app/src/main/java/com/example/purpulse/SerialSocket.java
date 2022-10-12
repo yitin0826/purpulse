@@ -1,6 +1,5 @@
 package com.example.purpulse;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
@@ -15,6 +14,8 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Build;
 import android.util.Log;
+
+import com.example.purpulse.SerialListener;
 
 import java.io.IOException;
 import java.security.InvalidParameterException;
@@ -105,12 +106,10 @@ class SerialSocket extends BluetoothGattCallback {
         };
     }
 
-    @SuppressLint("MissingPermission")
     String getName() {
         return device.getName() != null ? device.getName() : device.getAddress();
     }
 
-    @SuppressLint("MissingPermission")
     void disconnect() {
         Log.d(TAG, "disconnect");
         listener = null; // ignore remaining data and errors
@@ -147,7 +146,6 @@ class SerialSocket extends BluetoothGattCallback {
     /**
      * connect-success and most connect-errors are returned asynchronously to listener
      */
-    @SuppressLint("MissingPermission")
     void connect(SerialListener listener) throws IOException {
         if(connected || gatt != null)
             throw new IOException("already connected");
@@ -192,7 +190,6 @@ class SerialSocket extends BluetoothGattCallback {
         }
     }
 
-    @SuppressLint("MissingPermission")
     @Override
     public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
         // status directly taken from gat_api.h, e.g. 133=0x85=GATT_ERROR ~= timeout
@@ -252,7 +249,6 @@ class SerialSocket extends BluetoothGattCallback {
             connectCharacteristics2(gatt);
     }
 
-    @SuppressLint("MissingPermission")
     private void connectCharacteristics2(BluetoothGatt gatt) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Log.d(TAG, "request max MTU");
@@ -274,7 +270,6 @@ class SerialSocket extends BluetoothGattCallback {
         connectCharacteristics3(gatt);
     }
 
-    @SuppressLint("MissingPermission")
     private void connectCharacteristics3(BluetoothGatt gatt) {
         int writeProperties = writeCharacteristic.getProperties();
         if((writeProperties & (BluetoothGattCharacteristic.PROPERTY_WRITE +     // Microbit,HM10-clone have WRITE
@@ -341,14 +336,13 @@ class SerialSocket extends BluetoothGattCallback {
         if(characteristic == readCharacteristic) { // NOPMD - test object identity
             byte[] data = readCharacteristic.getValue();
             onSerialRead(data);
-            Log.d(TAG,"read, len="+data.length);
+//            Log.d(TAG,"read, len="+data.length);
         }
     }
 
     /*
      * write
      */
-    @SuppressLint("MissingPermission")
     void write(byte[] data) throws IOException {
         if(canceled || !connected || writeCharacteristic == null)
             throw new IOException("not connected");
@@ -403,7 +397,6 @@ class SerialSocket extends BluetoothGattCallback {
         }
     }
 
-    @SuppressLint("MissingPermission")
     private void writeNext() {
         final byte[] data;
         synchronized (writeBuffer) {
@@ -507,7 +500,6 @@ class SerialSocket extends BluetoothGattCallback {
         private BluetoothGattCharacteristic readCreditsCharacteristic, writeCreditsCharacteristic;
         private int readCredits, writeCredits;
 
-        @SuppressLint("MissingPermission")
         @Override
         boolean connectCharacteristics(BluetoothGattService gattService) {
             Log.d(TAG, "service telit tio 2.0");
@@ -623,7 +615,6 @@ class SerialSocket extends BluetoothGattCallback {
             writeCreditsCharacteristic = null;
         }
 
-        @SuppressLint("MissingPermission")
         private void grantReadCredits() {
             final int minReadCredits = 16;
             final int maxReadCredits = 64;
@@ -647,4 +638,3 @@ class SerialSocket extends BluetoothGattCallback {
     }
 
 }
-

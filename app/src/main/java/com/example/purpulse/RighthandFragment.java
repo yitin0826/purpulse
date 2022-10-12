@@ -108,8 +108,8 @@ public class RighthandFragment extends Fragment {
         WindowManager windowManager = getActivity().getWindowManager();
         Display display = windowManager.getDefaultDisplay();
         WindowManager.LayoutParams lp = dialog.getWindow().getAttributes();
-        lp.width = (int)(display.getWidth()*0.7);
-        lp.height = (int)(display.getHeight()*0.25);
+        lp.width = ViewGroup.LayoutParams.WRAP_CONTENT;
+        lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
         dialog.getWindow().setAttributes(lp);
         dialog.setCancelable(false);
         btn_yes.setOnClickListener(new View.OnClickListener() {

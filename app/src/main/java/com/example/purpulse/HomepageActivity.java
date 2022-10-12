@@ -106,7 +106,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
 
     @Override
     public void onBackStackChanged() {
-        getSupportActionBar().setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount()>0);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(getSupportFragmentManager().getBackStackEntryCount()>0);
     }
 
     @Override

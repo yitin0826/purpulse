@@ -105,7 +105,7 @@
         <com.google.android.material.tabs.TabLayout
             android:id="@+id/tl_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/dp_60"
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginStart="@dimen/dp_55"
             android:layout_marginEnd="@dimen/dp_55"
@@ -114,7 +114,7 @@
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/vp_result"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_300"
+            android:layout_height="@dimen/dp_270"
             android:paddingTop="@dimen/dp_10"
             android:layout_marginStart="@dimen/dp_55"
             android:layout_marginEnd="@dimen/dp_55"/>
