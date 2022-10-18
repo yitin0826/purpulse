@@ -36,12 +36,14 @@
         <EditText
             android:id="@+id/edit_account"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_30"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
             android:textSize="@dimen/sp_18"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:singleLine="true"/>
 
     </LinearLayout>
 
@@ -66,12 +68,15 @@
         <EditText
             android:id="@+id/edit_password"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_30"
+            android:layout_height="match_parent"
             android:layout_gravity="center"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
             android:textSize="@dimen/sp_18"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
 
     </LinearLayout>
 

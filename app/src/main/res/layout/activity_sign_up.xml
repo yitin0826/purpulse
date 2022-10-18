@@ -58,13 +58,16 @@
             android:textColor="@color/white"/>
 
         <EditText
-            android:id="@+id/edit_1"
+            android:id="@+id/edit_nickname"
             android:layout_width="@dimen/dp_185"
             android:layout_height="@dimen/dp_31"
             android:layout_toRightOf="@+id/text_1"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
-            android:textColor="@android:color/black" />
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/sp_15"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/txt_2"
@@ -82,14 +85,16 @@
             android:id="@+id/signup_account"
             android:layout_width="@dimen/dp_185"
             android:layout_height="@dimen/dp_31"
-            android:layout_below="@+id/edit_1"
+            android:layout_below="@+id/edit_nickname"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_20"
-            android:layout_alignEnd="@+id/edit_1"
+            android:layout_alignEnd="@+id/edit_nickname"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
-            android:textSize="@dimen/sp_20"
-            android:textColor="@android:color/black" />
+            android:textSize="@dimen/sp_15"
+            android:textColor="@android:color/black"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/txt_3"
@@ -111,10 +116,12 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_21"
             android:layout_alignEnd="@+id/signup_account"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
-            android:textSize="@dimen/sp_20"
-            android:textColor="@android:color/black" />
+            android:textSize="@dimen/sp_15"
+            android:textColor="@android:color/black"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/text_2"
@@ -129,17 +136,19 @@
             android:textColor="@color/white"/>
 
         <EditText
-            android:id="@+id/edit_2"
+            android:id="@+id/edit_mail"
             android:layout_width="@dimen/dp_185"
             android:layout_height="@dimen/dp_31"
             android:layout_below="@+id/signup_password"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_21"
             android:layout_alignEnd="@+id/signup_password"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
-            android:textSize="@dimen/sp_20"
-            android:textColor="@android:color/black" />
+            android:textSize="@dimen/sp_15"
+            android:textColor="@android:color/black"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/text_3"
@@ -154,17 +163,20 @@
             android:textColor="@color/white"/>
 
         <EditText
-            android:id="@+id/edit_3"
+            android:id="@+id/edit_birthday"
             android:layout_width="@dimen/dp_185"
             android:layout_height="@dimen/dp_31"
-            android:layout_below="@+id/edit_2"
+            android:layout_below="@+id/edit_mail"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_21"
-            android:layout_alignStart="@+id/edit_2"
+            android:layout_alignStart="@+id/edit_mail"
             android:background="@drawable/textinputborder"
+            android:paddingStart="@dimen/dp_5"
+            android:inputType="none"
             android:ems="8"
-            android:textSize="@dimen/sp_20"
-            android:textColor="@android:color/black" />
+            android:textSize="@dimen/sp_15"
+            android:textColor="@android:color/black"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/text_4"
@@ -179,13 +191,13 @@
             android:textColor="@color/white"/>
 
         <Spinner
-            android:id="@+id/spin_4"
+            android:id="@+id/spin_sex"
             android:layout_width="@dimen/dp_80"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edit_3"
+            android:layout_below="@+id/edit_birthday"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_21"
-            android:layout_alignStart="@+id/edit_3"
+            android:layout_alignStart="@+id/edit_birthday"
             android:background="@drawable/spinnerstyle"/>
 
         <TextView
@@ -201,17 +213,19 @@
             android:textColor="@color/white"/>
 
         <EditText
-            android:id="@+id/edit_5"
+            android:id="@+id/edit_height"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_31"
-            android:layout_below="@+id/spin_4"
+            android:layout_below="@+id/spin_sex"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_21"
-            android:layout_alignStart="@+id/spin_4"
+            android:layout_alignStart="@+id/spin_sex"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
-            android:textSize="@dimen/sp_20"
-            android:textColor="@android:color/black" />
+            android:textSize="@dimen/sp_15"
+            android:textColor="@android:color/black"
+            android:singleLine="true"/>
 
         <TextView
             android:id="@+id/text_6"
@@ -226,17 +240,20 @@
             android:textColor="@color/white"/>
 
         <EditText
-            android:id="@+id/edit_6"
+            android:id="@+id/edit_weight"
             android:layout_width="@dimen/dp_80"
             android:layout_height="@dimen/dp_31"
-            android:layout_below="@+id/edit_5"
+            android:layout_below="@+id/edit_height"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="@dimen/dp_21"
-            android:layout_alignStart="@+id/edit_5"
+            android:layout_alignStart="@+id/edit_height"
+            android:paddingStart="@dimen/dp_5"
             android:background="@drawable/textinputborder"
             android:ems="8"
-            android:textSize="@dimen/sp_20"
-            android:textColor="@android:color/black" />
+            android:textSize="@dimen/sp_15"
+            android:textColor="@android:color/black"
+            android:imeOptions="actionDone"
+            android:singleLine="true"/>
 
     </RelativeLayout>
 

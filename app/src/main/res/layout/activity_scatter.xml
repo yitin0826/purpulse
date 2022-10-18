@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout
+    android:id="@+id/result_drawerlayout"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="right">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ScatterActivity"
+        android:orientation="vertical"
+        android:background="@drawable/background">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="@dimen/dp_12"
+            android:orientation="horizontal">
+
+            <ImageButton
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:backgroundTint="@null"
+                android:background="@null"
+                app:srcCompat="@drawable/chevron_back_svgrepo_com"/>
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_70"
+                android:layout_weight="2"
+                app:srcCompat="@mipmap/logo_horizontal" />
+
+            <Space
+                android:layout_width="0dp"
+                android:layout_height="@dimen/dp_40"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <com.google.android.material.navigation.NavigationView
+        android:id="@+id/result_navigation"
+        android:layout_width="@dimen/dp_250"
+        android:layout_height="match_parent"
+        android:layout_gravity="end"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/drawer"
+        app:headerLayout="@layout/navigation_header"
+        app:itemIconSize="@dimen/dp_40"
+        app:itemVerticalPadding="@dimen/dp_20"
+        app:itemHorizontalPadding="@dimen/dp_20"
+        android:theme="@style/myNavigationDrawerStyle"/>
+
+</androidx.drawerlayout.widget.DrawerLayout>

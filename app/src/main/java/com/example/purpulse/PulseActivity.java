@@ -123,7 +123,7 @@ public class PulseActivity extends AppCompatActivity {
                 if (activity.equals("notify")){
                     return true;
                 }else {
-                    startActivity(new Intent(PulseActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(PulseActivity.this,NotifyActivity.class));
                     return true;
                 }
             }

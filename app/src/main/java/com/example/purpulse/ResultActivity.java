@@ -65,7 +65,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void infoWindow(){
-        View view = LayoutInflater.from(context).inflate(R.layout.infowindow,null);
+        View view = LayoutInflater.from(context).inflate(R.layout.popwindow_info,null);
         info = new PopupWindow(view);
         info.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
         info.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -155,7 +155,7 @@ public class ResultActivity extends AppCompatActivity {
                 if (activity.equals("notify")){
                     return true;
                 }else {
-                    //startActivity(new Intent(ResultActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(ResultActivity.this,NotifyActivity.class));
                     return true;
                 }
             }

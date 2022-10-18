@@ -76,7 +76,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    //startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(HomepageActivity.this,RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){
@@ -97,7 +97,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
                 if (activity.equals("notify")){
                     return true;
                 }else {
-                    startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(HomepageActivity.this,NotifyActivity.class));
                     return true;
                 }
             }

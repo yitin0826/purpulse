@@ -31,6 +31,34 @@
         tools:ignore="AllowBackup,GoogleAppIndexingWarning"
         tools:targetApi="31">
         <activity
+            android:name=".RecordActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".TaijiActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ResultActivity2"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name=".ScatterActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".NotifyActivity"
             android:exported="false">
             <meta-data
@@ -123,6 +151,10 @@
                 android:value="" />
         </activity>
         <activity android:name=".LoginActivity" />
+
+        <receiver
+            android:name=".AlertReceiver"
+            android:exported="true" />
     </application>
 
 </manifest>
