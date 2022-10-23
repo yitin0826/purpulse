@@ -41,11 +41,11 @@
                 android:id="@+id/pf_img"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_40"
-                android:layout_weight="1"
                 android:layout_gravity="center"
-                android:backgroundTint="@null"
+                android:layout_weight="1"
                 android:background="@null"
-                app:srcCompat="@drawable/account_circle_svgrepo_com"/>
+                android:backgroundTint="@null"
+                app:srcCompat="@drawable/account_circle_svgrepo_com" />
 
         </LinearLayout>
 

@@ -4,9 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -27,6 +29,10 @@ public class LoginActivity extends AppCompatActivity {
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
 
+    /**記住我**/
+    private SharedPreferences preferences;
+    private SharedPreferences.Editor editor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,16 @@ public class LoginActivity extends AppCompatActivity {
         btn_login.setOnClickListener(lis);
         btn_gosignup.setOnClickListener(lis);
         btn_forgetpw.setOnClickListener(lis);
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean isRemember = preferences.getBoolean("remember",false);
+        if(isRemember){
+            String acc = preferences.getString("acc","");
+            String pas = preferences.getString("pas","");
+            edittext_account.setText(acc);
+            edittext_password.setText(pas);
+            checkBox.setChecked(true);
+        }
 
         Stetho.initializeWithDefaults(this);
         // 建立SQLiteOpenHelper物件

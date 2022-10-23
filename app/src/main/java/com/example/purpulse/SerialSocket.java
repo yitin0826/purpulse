@@ -15,8 +15,6 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.util.Log;
 
-import com.example.purpulse.SerialListener;
-
 import java.io.IOException;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;

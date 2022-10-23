@@ -37,7 +37,7 @@ import java.util.Date;
 
 public class NotifyActivity extends AppCompatActivity {
 
-    private ImageButton btn_alarmadd;
+    private ImageButton btn_alarmadd,notify_img;
     private PopupWindow alarmset;
     private Context context;
     private Button alarm_ok;
@@ -60,10 +60,12 @@ public class NotifyActivity extends AppCompatActivity {
         context = this;
         activity = "notify";
         btn_alarmadd = findViewById(R.id.btn_alarmadd);
+        notify_img = findViewById(R.id.notify_img);
         notify_drawerlayout = findViewById(R.id.notify_drawerlayout);
         notify_navigation = findViewById(R.id.notify_navigation);
         notify_navigation.setNavigationItemSelectedListener(NavigationLis);
         btn_alarmadd.setOnClickListener(lis);
+        notify_img.setOnClickListener(lis);
         list_alarm = findViewById(R.id.list_alarm);
         //list_alarm.setOnItemClickListener(list_lis);
         alarm_adapter = new ListAdapter(NotifyActivity.this, alarmList);
@@ -91,7 +93,7 @@ public class NotifyActivity extends AppCompatActivity {
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    //startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(NotifyActivity.this,RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){
@@ -105,7 +107,7 @@ public class NotifyActivity extends AppCompatActivity {
                 if (activity.equals("pulse")){
                     return true;
                 }else {
-                    startActivity(new Intent(NotifyActivity.this,PulseActivity.class));
+                    startActivity(new Intent(NotifyActivity.this,ConnectionActivity.class));
                     return true;
                 }
             }else {
@@ -123,6 +125,10 @@ public class NotifyActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
+                case R.id.notify_img:{
+                    notify_drawerlayout.openDrawer(Gravity.RIGHT);
+                    break;
+                }
                 case R.id.btn_alarmadd:{
                     alarmset.showAtLocation(view, Gravity.CENTER_HORIZONTAL, 0, 0);
                     break;

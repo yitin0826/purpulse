@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.graphics.Paint;
@@ -19,8 +21,9 @@ import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class PulseActivity extends AppCompatActivity {
+public class PulseActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
 
+    private Fragment fragment = new ConnectFragment();
     private ImageButton pulse_img;
     private DrawerLayout pulse_drawerlayout;
     private NavigationView pulse_navigation;
@@ -28,32 +31,34 @@ public class PulseActivity extends AppCompatActivity {
     private TextView progressText;
     int i = 0;
     private Button btn_resultconfirm;
-    public String activity;
+    public String activity,device;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pulse);
         activity = "pulse";
-        btn_resultconfirm = findViewById(R.id.btn_resultconfirm);
-        btn_resultconfirm.setOnClickListener(lis);
-        btn_resultconfirm.setPaintFlags(btn_resultconfirm.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        Intent intent = this.getIntent();
+        device = intent.getStringExtra("device");
+        Bundle args = new Bundle();
+        args.putString("device",device);
+        fragment.setArguments(args);
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+        if (savedInstanceState == null)
+            getSupportFragmentManager().beginTransaction().add(R.id.pulse, fragment, "pulse").commit();
+        else
+            onBackStackChanged();
         pulse_img = findViewById(R.id.pulse_img);
         pulse_img.setOnClickListener(lis);
         pulse_drawerlayout = findViewById(R.id.pulse_drawerlayout);
         pulse_navigation = findViewById(R.id.pulse_navigation);
         pulse_navigation.setNavigationItemSelectedListener(NavigationLis);
-        //initProgressBar();
     }
 
     View.OnClickListener lis = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.btn_resultconfirm:{
-                    startActivity(new Intent(PulseActivity.this,ResultActivity.class));
-                    break;
-                }
                 case R.id.pulse_img:{
                     pulse_drawerlayout.openDrawer(Gravity.RIGHT);
                     break;
@@ -61,26 +66,6 @@ public class PulseActivity extends AppCompatActivity {
             }
         }
     };
-
-//    public void initProgressBar(){
-//        progressBar = findViewById(R.id.progressbar);
-//        progressText = findViewById(R.id.progress_text);
-//        final Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (i<=100){
-//                    progressText.setText(""+i+"%");
-//                    progressBar.setProgress(i);
-//                    i+=1;
-//                    handler.postDelayed(this,900);
-//                }
-//                else {
-//                    handler.removeCallbacks(this);
-//                }
-//            }
-//        },200);
-//    }
 
     NavigationView.OnNavigationItemSelectedListener NavigationLis = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -102,14 +87,14 @@ public class PulseActivity extends AppCompatActivity {
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    //startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(PulseActivity.this,RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){
                 if (activity.equals("device")){
                     return true;
                 }else {
-                    startActivity(new Intent(PulseActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(PulseActivity.this,HomepageActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_pulse){
@@ -129,4 +114,7 @@ public class PulseActivity extends AppCompatActivity {
             }
         }
     };
+
+    public void onBackStackChanged() {
+    }
 }

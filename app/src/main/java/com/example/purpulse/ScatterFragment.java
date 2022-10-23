@@ -1,5 +1,6 @@
 package com.example.purpulse;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
@@ -71,6 +72,12 @@ public class ScatterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_scatter, container,false);
         txt_scatter = view.findViewById(R.id.txt_scatter);
         btn_scatter = view.findViewById(R.id.btn_scatter);
+        btn_scatter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(),ScatterActivity.class));
+            }
+        });
         btn_scatter.setPaintFlags(btn_scatter.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         SpannableStringBuilder span = new SpannableStringBuilder("縮排"+txt_scatter.getText());
         span.setSpan(new ForegroundColorSpan(Color.TRANSPARENT), 0, 2,Spanned.SPAN_INCLUSIVE_EXCLUSIVE);

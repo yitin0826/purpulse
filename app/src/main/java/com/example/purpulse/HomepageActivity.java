@@ -90,7 +90,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
                 if (activity.equals("pulse")){
                     return true;
                 }else {
-                    startActivity(new Intent(HomepageActivity.this,PulseActivity.class));
+                    startActivity(new Intent(HomepageActivity.this,ConnectionActivity.class));
                     return true;
                 }
             }else {

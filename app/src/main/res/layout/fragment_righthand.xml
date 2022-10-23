@@ -33,12 +33,12 @@
         android:layout_height="@dimen/dp_50"/>
 
     <Button
-        android:id="@+id/btn_ecgstart"
+        android:id="@+id/btn_ecgnext"
         android:layout_width="@dimen/dp_100"
         android:layout_height="@dimen/dp_50"
         android:layout_gravity="right"
         android:layout_marginRight="@dimen/dp_10"
-        android:text="開始測量"
+        android:text="下一頁"
         android:textSize="@dimen/sp_20"
         android:textColor="@color/white"
         android:background="@drawable/buttonborder2"/>

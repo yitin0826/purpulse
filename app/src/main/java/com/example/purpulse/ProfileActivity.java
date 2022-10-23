@@ -74,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    //startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(ProfileActivity.this,RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){

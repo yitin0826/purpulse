@@ -39,7 +39,7 @@ public class ResultActivity extends AppCompatActivity {
     private List<Fragment> fragmentList = new ArrayList<>();
     public static int lastPosition = 0;
     private ImageButton result_img,btn_info;
-    private Button btn_ok;
+    private Button btn_ok,btn_next;
     private DrawerLayout result_drawerlayout;
     private NavigationView result_navigation;
     public String activity;
@@ -54,8 +54,10 @@ public class ResultActivity extends AppCompatActivity {
         context = this;
         result_img = findViewById(R.id.result_img);
         btn_info = findViewById(R.id.btn_info);
+        btn_next = findViewById(R.id.btn_next);
         result_img.setOnClickListener(lis);
         btn_info.setOnClickListener(lis);
+        btn_next.setOnClickListener(lis);
         result_drawerlayout = findViewById(R.id.result_drawerlayout);
         result_navigation = findViewById(R.id.result_navigation);
         result_navigation.setNavigationItemSelectedListener(NavigationLis);
@@ -110,6 +112,10 @@ public class ResultActivity extends AppCompatActivity {
                     info.dismiss();
                     break;
                 }
+                case R.id.btn_next:{
+                    startActivity(new Intent(ResultActivity.this,ResultActivity2.class));
+                    break;
+                }
             }
         }
     };
@@ -134,7 +140,7 @@ public class ResultActivity extends AppCompatActivity {
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    //startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(ResultActivity.this,RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){

@@ -8,6 +8,7 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.fragment.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,11 +28,19 @@ public class ConnectionActivity extends AppCompatActivity {
     private List<Fragment> fragmentList = new ArrayList<>();
     private ConnectionPagerAdapter adapter;
     private CircleIndicator circleIndicator;
+    private String device;
+    Fragment fragment = new RighthandFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
+        Intent intent = this.getIntent();
+        device = intent.getStringExtra("device");
+        //Toast.makeText(ConnectionActivity.this,device,Toast.LENGTH_SHORT).show();
+        Bundle args = new Bundle();
+        args.putString("device",device);
+        fragment.setArguments(args);
         initView();
         initFragment();
     }
@@ -39,7 +48,7 @@ public class ConnectionActivity extends AppCompatActivity {
     private void initFragment(){
         fragmentList.add(new AbdomenFragment());
         fragmentList.add(new LefthandFragment());
-        fragmentList.add(new RighthandFragment());
+        fragmentList.add(fragment);
         adapter = new ConnectionPagerAdapter(getSupportFragmentManager(),fragmentList);
         viewPager.setAdapter(adapter);
         viewPager.setCurrentItem(0);

@@ -38,7 +38,7 @@
                 app:srcCompat="@mipmap/logo_horizontal" />
 
             <ImageButton
-                android:id="@+id/pf_img"
+                android:id="@+id/notify_img"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dp_40"
                 android:layout_weight="1"

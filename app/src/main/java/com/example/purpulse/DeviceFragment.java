@@ -2,22 +2,28 @@ package com.example.purpulse;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.content.pm.PackageManager;
 import android.location.LocationManager;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.os.Looper;
+import android.text.Spannable;
 import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,18 +33,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.FloatRange;
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
-public class DeviceFragment extends ListFragment {
+public class DeviceFragment extends ListFragment{
 
     private enum ScanState {NONE, LE_SCAN, DISCOVERY, DISCOVERY_FINISHED}
     private ScanState scanState = ScanState.NONE;
@@ -54,9 +55,15 @@ public class DeviceFragment extends ListFragment {
     private final ArrayList<BluetoothDevice> listItems = new ArrayList<>();
     private ArrayAdapter<BluetoothDevice> listAdapter;
 
-    public String status;
     private TextView txt_btstatus,text3;
     private Button btn_btsearch, btn_btstop;
+
+    private enum Connected {False,Pending,True}
+    private Connected connected = Connected.False;
+    private SerialService service;
+    private boolean initialStart = true;
+    private BluetoothDevice device;
+    private String deviceAddress;
 
     public DeviceFragment() {
         leScanCallback = (device, rssi, scanRecord) -> {
@@ -88,10 +95,12 @@ public class DeviceFragment extends ListFragment {
         leScanStopCallBack = this::stopScan;
     }
 
+    /** LifeCycle **/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+        setRetainInstance(true);
         /**確認手機是否支援藍牙*/
         if(getActivity().getPackageManager().hasSystemFeature(PackageManager.FEATURE_BLUETOOTH)){
             bluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -125,27 +134,6 @@ public class DeviceFragment extends ListFragment {
         };
     }
 
-    View.OnClickListener lis = new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            switch (view.getId()) {
-                case R.id.btn_btsearch:
-                    startScan();
-                    break;
-                case R.id.btn_btstop:
-                    stopScan();
-                    break;
-            }
-        }
-    };
-
-    @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        setListAdapter(null);
-        setListAdapter(listAdapter);
-    }
-
     @Override
     public void onResume() {
         super.onResume();
@@ -164,11 +152,33 @@ public class DeviceFragment extends ListFragment {
     }
 
     @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        setListAdapter(null);
+        setListAdapter(listAdapter);
+    }
+
+    @Override
     public void onPause() {
         super.onPause();
         stopScan();
         getActivity().unregisterReceiver(discoveryBroadcastReceiver);
     }
+
+
+    View.OnClickListener lis = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            switch (view.getId()) {
+                case R.id.btn_btsearch:
+                    startScan();
+                    break;
+                case R.id.btn_btstop:
+                    stopScan();
+                    break;
+            }
+        }
+    };
 
     @SuppressLint({"StaticFieldLeak"})
 // AsyncTask needs reference to this fragment
@@ -276,29 +286,13 @@ public class DeviceFragment extends ListFragment {
     @Override
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id){
         stopScan();
-//        BluetoothDevice device = listItems.get(position-1);
-//        Bundle args = new Bundle();
-//        args.putString("device", device.getAddress());
-//        Fragment fragment = new TerminalFragment();
-//        fragment.setArguments(args);
-//        getFragmentManager().beginTransaction().replace(R.id.device,fragment,"terminal").addToBackStack(null).commit();
-        startActivity(new Intent(getActivity(),ConnectionActivity.class));
-    }
-
-    public void statusjudge(){
-        if (status.equals("已連接")){
-            text3.setText("已連接");
-            Toast.makeText(getActivity(),status,Toast.LENGTH_SHORT).show();
-        }else if (status.equals("連接中")){
-            text3.setText("連接中");
-            Toast.makeText(getActivity(),status,Toast.LENGTH_SHORT).show();
-        }else {
-            text3.setText("未連接");
-            Toast.makeText(getActivity(),status,Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    private void status(String str){
-        SpannableStringBuilder spn = new SpannableStringBuilder(str);
+        device = listItems.get(position);
+        Bundle args = new Bundle();
+        args.putString("device",device.getAddress());
+        Intent intent = new Intent();
+        intent.setClass(getActivity(),ConnectionActivity.class);
+        intent.putExtra("device",device.getAddress());
+        //Toast.makeText(getActivity(),device.getAddress(),Toast.LENGTH_SHORT).show();
+        startActivity(intent);
     }
 }
