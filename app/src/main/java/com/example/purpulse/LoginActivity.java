@@ -73,13 +73,17 @@ public class LoginActivity extends AppCompatActivity {
                     D.moveToFirst();
                     for (int i=0;i<D.getCount();i++){   //登入檢查
                         if (edittext_account.getText().toString().equals(D.getString(1))  && edittext_password.getText().toString().equals(D.getString(2))){
+                            editor = preferences.edit();    //記住我
                             if (checkBox.isChecked()) {    //記住我
-                                edittext_account.setText(D.getString(1));
-                                edittext_password.setText(D.getString(2));
+                                editor.putBoolean("remember",true);
+                                editor.putString("acc",edittext_account.getText().toString());
+                                editor.putString("pas",edittext_password.getText().toString());
                             }else {
-                                edittext_account.setText("");
-                                edittext_password.setText("");
+                                editor.clear();             //記住我
                             }
+                            editor.apply();                 //記住我
+                            Note.account = edittext_account.getText().toString();
+                            Toast.makeText(LoginActivity.this,Note.account,Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(LoginActivity.this, HomepageActivity.class));
                         }else {
                             if (edittext_account.getText().toString().length()<1 | edittext_password.getText().toString().length()<1){

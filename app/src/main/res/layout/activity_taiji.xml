@@ -38,7 +38,7 @@
 
     </LinearLayout>
 
-    <com.example.purpulse.MyCanvas
+    <com.example.purpulse.TaijiView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_250"
         android:layout_marginTop="@dimen/dp_10"

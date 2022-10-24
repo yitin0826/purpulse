@@ -46,8 +46,8 @@ public class OutPutCSV extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.customer_result);
-        tv_result = findViewById(R.id.tv_result);
+        //setContentView(R.layout.customer_result);
+        //tv_result = findViewById(R.id.tv_result);
         mHandler = new MHandler();
         makeCSV();
 

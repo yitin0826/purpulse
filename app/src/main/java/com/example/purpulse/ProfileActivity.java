@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,10 +16,9 @@ import android.widget.ImageButton;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
 
     private ImageButton pf_img;
-    private Button btn_edit;
     private DrawerLayout pf_drawerlayout;
     private NavigationView pf_navigation;
     public String activity;
@@ -29,12 +29,15 @@ public class ProfileActivity extends AppCompatActivity {
         setContentView(R.layout.activity_profile);
         activity = "profile";
         pf_img = findViewById(R.id.pf_img);
-        btn_edit = findViewById(R.id.btn_edit);
         pf_img.setOnClickListener(lis);
-        btn_edit.setOnClickListener(lis);
         pf_drawerlayout = findViewById(R.id.pf_drawerlayout);
         pf_navigation = findViewById(R.id.pf_navigation);
         pf_navigation.setNavigationItemSelectedListener(NavigationLis);
+        getSupportFragmentManager().addOnBackStackChangedListener(this);
+        if (savedInstanceState == null)
+            getSupportFragmentManager().beginTransaction().add(R.id.relativ_profile, new ProfileFragment(), "profile").commit();
+        else
+            onBackStackChanged();
     }
 
     View.OnClickListener lis = new View.OnClickListener() {
@@ -45,12 +48,7 @@ public class ProfileActivity extends AppCompatActivity {
                     pf_drawerlayout.openDrawer(Gravity.RIGHT);
                     break;
                 }
-                case R.id.btn_edit:{
-                    startActivity(new Intent(ProfileActivity.this, EditprofileActivity.class));
-                    break;
-                }
             }
-
         }
     };
 
@@ -101,4 +99,9 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackStackChanged() {
+
+    }
 }

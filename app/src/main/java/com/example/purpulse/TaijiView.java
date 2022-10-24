@@ -10,7 +10,7 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 
-public class MyCanvas extends View {
+public class TaijiView extends View {
 
     Paint paint;
     private Paint whitePaint;
@@ -18,17 +18,17 @@ public class MyCanvas extends View {
     private Paint side;
     private float degrees = 0;
 
-    public MyCanvas(Context context) {
+    public TaijiView(Context context) {
         super(context);
         init();
     }
 
-    public MyCanvas(Context context, AttributeSet attributeSet){
+    public TaijiView(Context context, AttributeSet attributeSet){
         super(context,attributeSet);
         init();
     }
 
-    public MyCanvas(Context context,AttributeSet attributeSet,int defStyleAttr){
+    public TaijiView(Context context, AttributeSet attributeSet, int defStyleAttr){
         super(context,attributeSet,defStyleAttr);
         init();
     }
