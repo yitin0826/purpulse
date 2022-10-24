@@ -37,14 +37,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class ConnectFragment extends Fragment implements ServiceConnection, SerialListener{
+public class PulseFragment extends Fragment implements ServiceConnection, SerialListener{
 
     private enum Connected {False, Pending, True}
 
     private String deviceAddress;
     private SerialService service;
 
-    private TextView receive_text,progress_text;
+    private TextView receive_text,progress_text,txt_end;
     private Button btn_start,btn_resultconfirm,btn_yes,btn_no;
     private ProgressBar progressbar;
     int i = 0;
@@ -153,6 +153,7 @@ public class ConnectFragment extends Fragment implements ServiceConnection, Seri
         btn_start.setOnClickListener(lis);
         progressbar = view.findViewById(R.id.progressbar);
         progress_text = view.findViewById(R.id.progress_text);
+        txt_end = view.findViewById(R.id.txt_end);
         btn_resultconfirm = view.findViewById(R.id.btn_resultconfirm);
         btn_resultconfirm.setPaintFlags(btn_resultconfirm.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
         return view;
@@ -304,10 +305,21 @@ public class ConnectFragment extends Fragment implements ServiceConnection, Seri
                 else {
                     handler.removeCallbacks(this);
                 }
+                /** 結束跳到OutPutCSV **/
+                if (i>100){
+                    /** 停止接收數據 **/
+                    receiveData = false;
+                    Intent intent = new Intent(getActivity(), OutPutCSV.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("saveList", (ArrayList<String>) saveList);
+                    intent.putExtras(bundle);
+                    getActivity().startActivity(intent);
+                }
             }
         },200);
     }
 
+    /** 確認用戶測量狀態 **/
     public void getDialog(){
         dialog = new Dialog(getActivity(),R.style.custom_dialog);
         dialogView = getLayoutInflater().inflate(R.layout.dialog_view,null);
@@ -333,7 +345,7 @@ public class ConnectFragment extends Fragment implements ServiceConnection, Seri
                 receive_text.setVisibility(View.INVISIBLE);
                 btn_start.setVisibility(View.INVISIBLE);
                 wave_view.setVisibility(View.VISIBLE);
-
+                initProgressBar();
             }
         });
         btn_no.setOnClickListener(new View.OnClickListener() {
