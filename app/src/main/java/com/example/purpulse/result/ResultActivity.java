@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.result;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +25,11 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.purpulse.NotifyActivity;
+import com.example.purpulse.profile.ProfileActivity;
+import com.example.purpulse.PulseActivity;
+import com.example.purpulse.R;
+import com.example.purpulse.RecordActivity;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -133,14 +138,14 @@ public class ResultActivity extends AppCompatActivity {
                 if (activity.equals("profile")){
                     return true;
                 }else {
-                    startActivity(new Intent(ResultActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(ResultActivity.this, ProfileActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_record) {
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    startActivity(new Intent(ResultActivity.this,RecordActivity.class));
+                    startActivity(new Intent(ResultActivity.this, RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){
@@ -154,14 +159,14 @@ public class ResultActivity extends AppCompatActivity {
                 if (activity.equals("pulse")){
                     return true;
                 }else {
-                    startActivity(new Intent(ResultActivity.this,PulseActivity.class));
+                    startActivity(new Intent(ResultActivity.this, PulseActivity.class));
                     return true;
                 }
             }else {
                 if (activity.equals("notify")){
                     return true;
                 }else {
-                    startActivity(new Intent(ResultActivity.this,NotifyActivity.class));
+                    startActivity(new Intent(ResultActivity.this, NotifyActivity.class));
                     return true;
                 }
             }

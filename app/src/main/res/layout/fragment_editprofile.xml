@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="@dimen/dp_20"
-    tools:context=".EditprofileFragment"
+    tools:context=".profile.EditprofileFragment"
     android:orientation="vertical">
 
     <RelativeLayout

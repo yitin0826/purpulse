@@ -1,9 +1,12 @@
-package com.example.purpulse;
+package com.example.purpulse.result;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.widget.ListView;
+
+import com.example.purpulse.NameMapping;
+import com.example.purpulse.R;
 
 import java.util.ArrayList;
 

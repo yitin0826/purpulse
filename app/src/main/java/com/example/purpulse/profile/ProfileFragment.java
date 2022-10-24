@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.profile;
 
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -12,8 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.purpulse.Note;
+import com.example.purpulse.R;
+import com.example.purpulse.SqlDataBaseHelper;
 import com.facebook.stetho.Stetho;
 
 import java.util.ArrayList;

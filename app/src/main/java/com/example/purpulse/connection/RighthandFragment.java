@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.connection;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -19,6 +19,9 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.purpulse.PulseActivity;
+import com.example.purpulse.R;
 
 public class RighthandFragment extends Fragment {
 
@@ -58,7 +61,7 @@ public class RighthandFragment extends Fragment {
             Bundle args = new Bundle();
             args.putString("device",deviceAddress);
             Intent intent = new Intent();
-            intent.setClass(getActivity(),PulseActivity.class);
+            intent.setClass(getActivity(), PulseActivity.class);
             intent.putExtra("device",deviceAddress);
             startActivity(intent);
         }

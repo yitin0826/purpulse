@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.result;
 
 import android.content.Context;
 import android.graphics.Canvas;

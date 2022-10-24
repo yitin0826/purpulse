@@ -38,21 +38,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".TaijiActivity"
+            android:name=".result.TaijiActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ResultActivity2"
+            android:name=".result.ResultActivity2"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ScatterActivity"
+            android:name=".result.ScatterActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -66,15 +66,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".EditprofileActivity"
-            android:exported="false"
-            android:label="@string/title_activity_editprofile"
-            android:theme="@style/Theme.Purpulse.NoActionBar">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".PulseActivity"
             android:exported="false">
             <meta-data
@@ -82,14 +73,14 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ResultActivity"
+            android:name=".result.ResultActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".ProfileActivity"
+            android:name=".profile.ProfileActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -117,7 +108,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".ConnectionActivity"
+            android:name=".connection.ConnectionActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

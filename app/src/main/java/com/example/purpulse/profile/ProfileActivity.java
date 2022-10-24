@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.profile;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,9 +11,12 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
+import com.example.purpulse.HomepageActivity;
+import com.example.purpulse.PulseActivity;
+import com.example.purpulse.R;
+import com.example.purpulse.RecordActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class ProfileActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
@@ -72,21 +75,21 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    startActivity(new Intent(ProfileActivity.this,RecordActivity.class));
+                    startActivity(new Intent(ProfileActivity.this, RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){
                 if (activity.equals("device")){
                     return true;
                 }else {
-                    startActivity(new Intent(ProfileActivity.this,HomepageActivity.class));
+                    startActivity(new Intent(ProfileActivity.this, HomepageActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_pulse){
                 if (activity.equals("pulse")){
                     return true;
                 }else {
-                    startActivity(new Intent(ProfileActivity.this,PulseActivity.class));
+                    startActivity(new Intent(ProfileActivity.this, PulseActivity.class));
                     return true;
                 }
             }else {

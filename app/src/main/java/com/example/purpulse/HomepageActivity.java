@@ -1,7 +1,6 @@
 package com.example.purpulse;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -13,14 +12,11 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListAdapter;
-import android.widget.ListView;
 
+import com.example.purpulse.connection.ConnectionActivity;
+import com.example.purpulse.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
-
-import java.util.ArrayList;
 
 public class HomepageActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
 
@@ -69,7 +65,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
                 if (activity.equals("profile")){
                     return true;
                 }else {
-                    startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(HomepageActivity.this, ProfileActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_record) {
@@ -90,7 +86,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
                 if (activity.equals("pulse")){
                     return true;
                 }else {
-                    startActivity(new Intent(HomepageActivity.this,ConnectionActivity.class));
+                    startActivity(new Intent(HomepageActivity.this, ConnectionActivity.class));
                     return true;
                 }
             }else {

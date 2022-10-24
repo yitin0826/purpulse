@@ -1,8 +1,10 @@
-package com.example.purpulse;
+package com.example.purpulse.result;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.example.purpulse.R;
 
 public class ResultActivity2 extends AppCompatActivity {
 

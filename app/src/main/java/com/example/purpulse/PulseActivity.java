@@ -17,6 +17,7 @@ import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.example.purpulse.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class PulseActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
@@ -78,7 +79,7 @@ public class PulseActivity extends AppCompatActivity implements FragmentManager.
                 if (activity.equals("profile")){
                     return true;
                 }else {
-                    startActivity(new Intent(PulseActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(PulseActivity.this, ProfileActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_record) {

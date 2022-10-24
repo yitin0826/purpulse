@@ -1,26 +1,27 @@
-package com.example.purpulse;
+package com.example.purpulse.profile;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
+
+import androidx.fragment.app.Fragment;
+
+import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.purpulse.R;
+import com.example.purpulse.SqlDataBaseHelper;
 import com.facebook.stetho.Stetho;
 
 import java.util.ArrayList;
 
-public class EditprofileActivity extends AppCompatActivity {
+public class EditprofileFragment extends Fragment {
 
-    //全域變數
     private ArrayList data;
     EditText editText_nickname, edit_mail, edit_birthday, edit_height, edit_weight;
     Spinner spin_sex;
@@ -35,45 +36,25 @@ public class EditprofileActivity extends AppCompatActivity {
     private String account;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editprofile);
-        init();
-        //收資料
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        data = bundle.getStringArrayList("editdata");
-        Log.d("data", "" + data);
-        account = data.get(6).toString();
-
-        Stetho.initializeWithDefaults(this);
-        // 建立SQLiteOpenHelper物件
-        sqlDataBaseHelper = new SqlDataBaseHelper(EditprofileActivity.this, DataBaseName, null, DataBaseVersion, DataBaseTable);
-        DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
-        Cursor D = DB.rawQuery("SELECT * FROM Users WHERE email LIKE '" + data.get(1) + "'", null);
-        D.moveToFirst();
     }
 
-    public void init(){
-        //定義
-        editText_nickname = findViewById(R.id.edit_nickname);
-        edit_mail = findViewById(R.id.edit_mail);
-        edit_birthday = findViewById(R.id.edit_birthday);
-        spin_sex = findViewById(R.id.spin_sex);
-        edit_height = findViewById(R.id.edit_height);
-        edit_weight = findViewById(R.id.edit_weight);
-        btn_signup = findViewById(R.id.btn_signup);
-
-        //按鈕
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_editprofile, container, false);
+        editText_nickname = view.findViewById(R.id.edit_nickname);
+        edit_mail = view.findViewById(R.id.edit_mail);
+        edit_birthday = view.findViewById(R.id.edit_birthday);
+        spin_sex = view.findViewById(R.id.spin_sex);
+        edit_height = view.findViewById(R.id.edit_height);
+        edit_weight = view.findViewById(R.id.edit_weight);
+        btn_signup = view.findViewById(R.id.btn_signup);
         btn_signup.setOnClickListener(btn);
-
-        //下拉選單選項
-        ArrayAdapter sp_sex = new ArrayAdapter(this, android.R.layout.simple_spinner_item, sex);
-        sp_sex.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spin_sex.setAdapter(sp_sex);
-
         //設定預設值
         int sp;
+        data = getArguments().getStringArrayList("editdata");
         editText_nickname.setText("" + data.get(0));
         edit_mail.setText("" + data.get(1));
         edit_birthday.setText("" + data.get(2));
@@ -85,6 +66,14 @@ public class EditprofileActivity extends AppCompatActivity {
         }
         edit_height.setText("" + data.get(4));
         edit_weight.setText("" + data.get(5));
+
+        Stetho.initializeWithDefaults(getActivity());
+        // 建立SQLiteOpenHelper物件
+        sqlDataBaseHelper = new SqlDataBaseHelper(getActivity(), DataBaseName, null, DataBaseVersion, DataBaseTable);
+        DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+        Cursor D = DB.rawQuery("SELECT * FROM Users WHERE email LIKE '" + data.get(1) + "'", null);
+        D.moveToFirst();
+        return view;
     }
 
     View.OnClickListener btn = new View.OnClickListener() {
@@ -117,20 +106,19 @@ public class EditprofileActivity extends AppCompatActivity {
                             try {
                                 DB.execSQL("UPDATE Users SET name='"+nickname+"',email='"+mail+"',birthday='"+birthday+"'," +
                                         "gender='"+gender+"',height='"+height+"',weight='"+weight+"' WHERE account LIKE '"+data.get(6)+"'");
-                                Intent intent = new Intent();
-                                intent.setClass(EditprofileActivity.this,ProfileActivity.class);
                                 Bundle bundle = new Bundle();
                                 bundle.putString("account",""+account);
-                                intent.putExtras(bundle);
-                                startActivity(intent);
+                                Fragment fragment = new ProfileFragment();
+                                fragment.setArguments(bundle);
+                                getFragmentManager().beginTransaction().replace(R.id.relativ_profile, fragment, "edit_end").addToBackStack(null).commit();
                             }catch (Exception e){
-                                Toast.makeText(EditprofileActivity.this, "失敗", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getActivity(), "失敗", Toast.LENGTH_SHORT).show();
                             }
                         }else {
-                            Toast.makeText(EditprofileActivity.this, "請勿留空", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "請勿留空", Toast.LENGTH_SHORT).show();
                         }
                     } else {     //不符合
-                        Toast.makeText(EditprofileActivity.this, "無效信箱格式", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "無效信箱格式", Toast.LENGTH_SHORT).show();
                     }
                 }
             }

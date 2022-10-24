@@ -1,18 +1,18 @@
-package com.example.purpulse;
+package com.example.purpulse.connection;
 
-import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.purpulse.R;
 
 /**
  * A simple {@link Fragment} subclass.

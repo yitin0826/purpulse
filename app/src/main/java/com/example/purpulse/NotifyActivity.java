@@ -5,19 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
-import android.app.Activity;
-import android.bluetooth.BluetoothDevice;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.VibrationEffect;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -25,14 +20,13 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.PopupWindow;
 import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.Toast;
 
+import com.example.purpulse.connection.ConnectionActivity;
+import com.example.purpulse.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class NotifyActivity extends AppCompatActivity {
@@ -86,7 +80,7 @@ public class NotifyActivity extends AppCompatActivity {
                 if (activity.equals("profile")){
                     return true;
                 }else {
-                    startActivity(new Intent(NotifyActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(NotifyActivity.this, ProfileActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_record) {
@@ -107,7 +101,7 @@ public class NotifyActivity extends AppCompatActivity {
                 if (activity.equals("pulse")){
                     return true;
                 }else {
-                    startActivity(new Intent(NotifyActivity.this,ConnectionActivity.class));
+                    startActivity(new Intent(NotifyActivity.this, ConnectionActivity.class));
                     return true;
                 }
             }else {

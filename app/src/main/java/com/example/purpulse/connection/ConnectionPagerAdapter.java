@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.connection;
 
 import androidx.fragment.app.FragmentManager;
 

@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.result;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -7,7 +7,6 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
-import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.style.ForegroundColorSpan;
@@ -16,6 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.purpulse.R;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -75,7 +76,7 @@ public class ScatterFragment extends Fragment {
         btn_scatter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(),ScatterActivity.class));
+                startActivity(new Intent(getActivity(), ScatterActivity.class));
             }
         });
         btn_scatter.setPaintFlags(btn_scatter.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);

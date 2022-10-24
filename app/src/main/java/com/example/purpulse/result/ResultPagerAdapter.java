@@ -1,4 +1,4 @@
-package com.example.purpulse;
+package com.example.purpulse.result;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.example.purpulse.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class RecordActivity extends AppCompatActivity {
                 if (activity.equals("profile")){
                     return true;
                 }else {
-                    startActivity(new Intent(RecordActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(RecordActivity.this, ProfileActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_record) {

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TaijiActivity"
+    tools:context=".result.TaijiActivity"
     android:orientation="vertical"
     android:background="@drawable/background">
 
@@ -38,7 +38,7 @@
 
     </LinearLayout>
 
-    <com.example.purpulse.TaijiView
+    <com.example.purpulse.result.TaijiView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_250"
         android:layout_marginTop="@dimen/dp_10"
