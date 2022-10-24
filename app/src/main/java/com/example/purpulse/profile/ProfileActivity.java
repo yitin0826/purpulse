@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
     private DrawerLayout pf_drawerlayout;
     private NavigationView pf_navigation;
     public String activity;
+    private String account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,10 +41,16 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
         pf_navigation = findViewById(R.id.pf_navigation);
         pf_navigation.setNavigationItemSelectedListener(NavigationLis);
         getSupportFragmentManager().addOnBackStackChangedListener(this);
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        account = bundle.getString("account");
+        Log.d("Act_account",""+account);
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction().add(R.id.relativ_profile, new ProfileFragment(), "profile").commit();
         else
             onBackStackChanged();
+
+
     }
 
     View.OnClickListener lis = new View.OnClickListener() {
@@ -104,6 +112,10 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
             }
         }
     };
+    //傳帳號當識別資料
+    public String getAcc(){
+        return account;
+    }
 
     @Override
     public void onBackStackChanged() {

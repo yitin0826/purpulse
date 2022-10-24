@@ -1,10 +1,14 @@
 package com.example.purpulse.profile;
 
+import android.app.Activity;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -22,6 +26,7 @@ import java.util.ArrayList;
 
 public class ProfileFragment extends Fragment {
 
+    //全域變數
     private Button btn_edit;
     private TextView name,mail,birthday,gender,height,weight;
     private String Account;
@@ -31,11 +36,19 @@ public class ProfileFragment extends Fragment {
     private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
+    private FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+    }
 
+    //收資料
+    @Override
+    public void onAttach(Context context){
+        super.onAttach(context);
+        Account = ((ProfileActivity)context).getAcc();
+        Log.d("Account",""+Account);
     }
 
     @Override
@@ -51,17 +64,15 @@ public class ProfileFragment extends Fragment {
         btn_edit = view.findViewById(R.id.btn_edit);
         btn_edit.setOnClickListener(lis);
         editdata = new ArrayList<>();
-        //收帳號
-        Account = Note.account;
-        Log.d("acc","" + Account);
 
+        //查看SQL的套件
         Stetho.initializeWithDefaults(getActivity());
         // 建立SQLiteOpenHelper物件
         sqlDataBaseHelper = new SqlDataBaseHelper(getActivity(),DataBaseName,null,DataBaseVersion,DataBaseTable);
         DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
         Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ Account +"'",null);
         D.moveToFirst();
-        //設定預設值
+        //從資料庫抓要顯示的值
         name.setText(D.getString(0));
         mail.setText(D.getString(3));
         birthday.setText(D.getString(4));
@@ -81,12 +92,20 @@ public class ProfileFragment extends Fragment {
             editdata.add(height.getText().toString());
             editdata.add(weight.getText().toString());
             editdata.add(Account);
+            //打包資料
+            EditprofileFragment fragment = new EditprofileFragment();
             Bundle bundle = new Bundle();
             bundle.putStringArrayList("editdata",editdata);
-            Fragment fragment = new EditprofileFragment();
             fragment.setArguments(bundle);
-            getFragmentManager().beginTransaction().replace(R.id.relativ_profile, new EditprofileFragment(), "edit").addToBackStack(null).commit();
-            //editdata.clear();
+            //切換頁面
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.relativ_profile,fragment);
+            fragmentTransaction.commit();
+            Log.d("data1",""+bundle);
+            //清空陣列
+            editdata.clear();
         }
     };
+
+
 }
