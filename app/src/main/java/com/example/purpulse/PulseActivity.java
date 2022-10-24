@@ -1,6 +1,7 @@
 package com.example.purpulse;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -115,5 +116,16 @@ public class PulseActivity extends AppCompatActivity implements FragmentManager.
     };
 
     public void onBackStackChanged() {
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("提示訊息")
+                .setMessage("若返回則當前量測資料會被清除，確定要結束量測嗎？")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
+                    super.onBackPressed();
+                }).create().show();
     }
 }

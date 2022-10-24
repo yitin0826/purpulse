@@ -1,6 +1,7 @@
 package com.example.purpulse.result;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
@@ -25,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.purpulse.HomepageActivity;
 import com.example.purpulse.NotifyActivity;
 import com.example.purpulse.profile.ProfileActivity;
 import com.example.purpulse.PulseActivity;
@@ -219,5 +221,13 @@ public class ResultActivity extends AppCompatActivity {
         fragmentList.add(new TaijiFragment());
         ResultPagerAdapter adapter = new ResultPagerAdapter(getSupportFragmentManager(),fragmentList);
         viewPager.setAdapter(adapter);
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(ResultActivity.this, HomepageActivity.class);
+        startActivity(i);
+        finish();
+        super.onBackPressed();
     }
 }

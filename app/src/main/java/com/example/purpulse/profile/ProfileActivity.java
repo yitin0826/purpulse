@@ -12,8 +12,10 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.purpulse.HomepageActivity;
+import com.example.purpulse.LoginActivity;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
 import com.example.purpulse.RecordActivity;

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
+import com.example.purpulse.result.ResultActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     Handler handler = new Handler();
@@ -14,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Runnable r = new Runnable() {
         @Override
         public void run() {
-            Intent intent = new Intent(getApplicationContext(),LoginActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         }

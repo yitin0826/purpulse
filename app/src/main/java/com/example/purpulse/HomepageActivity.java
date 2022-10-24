@@ -1,6 +1,7 @@
 package com.example.purpulse;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -13,6 +14,7 @@ import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import com.example.purpulse.connection.ConnectionActivity;
 import com.example.purpulse.profile.ProfileActivity;
@@ -109,5 +111,16 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("提示訊息")
+                .setMessage("確定要離開這個頁面嗎？")
+                .setNegativeButton(android.R.string.no, null)
+                .setPositiveButton(android.R.string.yes, (arg0, arg1) -> {
+                    super.onBackPressed();
+                }).create().show();
     }
 }

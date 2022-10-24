@@ -23,6 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText edittext_account,edittext_password;
     CheckBox checkBox;
 
+    private int back = 0;
     private static final String DataBaseName = "db";
     private static final int DataBaseVersion = 4;
     private static String DataBaseTable = "Users";
@@ -107,4 +108,14 @@ public class LoginActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void onBackPressed() {
+        back+=1;
+        if (back == 1){
+            Toast.makeText(LoginActivity.this, "再點擊一次則退出程式",Toast.LENGTH_SHORT).show();
+        }else if (back>1){
+            super.onBackPressed();
+        }
+    }
 }
