@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -29,6 +30,7 @@ public class LoginActivity extends AppCompatActivity {
     private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
+    private boolean login = false;
 
     /**記住我**/
     private SharedPreferences preferences;
@@ -68,32 +70,42 @@ public class LoginActivity extends AppCompatActivity {
     View.OnClickListener lis = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.btn_login:{
-                    Cursor D = DB.rawQuery("SELECT * FROM " + DataBaseTable,null);
-                    D.moveToFirst();
-                    for (int i=0;i<D.getCount();i++){   //登入檢查
-                        if (edittext_account.getText().toString().equals(D.getString(1))  && edittext_password.getText().toString().equals(D.getString(2))){
-                            editor = preferences.edit();    //記住我
-                            if (checkBox.isChecked()) {    //記住我
-                                editor.putBoolean("remember",true);
-                                editor.putString("acc",edittext_account.getText().toString());
-                                editor.putString("pas",edittext_password.getText().toString());
-                            }else {
-                                editor.clear();             //記住我
+            switch (view.getId()) {
+                case R.id.btn_login: {
+                    if (edittext_account.getText().toString().length() < 1 | edittext_password.getText().toString().length() < 1) {
+                        Toast.makeText(LoginActivity.this, "欄位不得空白", Toast.LENGTH_SHORT).show();
+                        break;
+                    } else {
+                        //利用Curse去一筆一筆查看資料庫資料
+                        Cursor D = DB.rawQuery("SELECT * FROM " + DataBaseTable, null);
+                        D.moveToFirst();
+                        for (int i = 0; i < D.getCount(); i++) {   //登入檢查
+                            if (edittext_account.getText().toString().equals(D.getString(1)) && edittext_password.getText().toString().equals(D.getString(2))) {
+                                editor = preferences.edit();    //記住我
+                                if (checkBox.isChecked()) {    //記住我
+                                    editor.putBoolean("remember", true);
+                                    editor.putString("acc", edittext_account.getText().toString());
+                                    editor.putString("pas", edittext_password.getText().toString());
+                                } else {
+                                    editor.clear();             //記住我
+                                }
+                                editor.apply();                 //記住我
+                                //傳帳號過去當識別資料
+                                Intent intent = new Intent();
+                                intent.setClass(LoginActivity.this,HomepageActivity.class);
+                                Bundle bundle = new Bundle();
+                                bundle.putString("account",""+edittext_account.getText().toString());
+                                intent.putExtras(bundle);
+                                startActivity(intent);
+                                login = true;
+                                break;
                             }
-                            editor.apply();                 //記住我
-                            Note.account = edittext_account.getText().toString();
-                            Toast.makeText(LoginActivity.this,Note.account,Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, HomepageActivity.class));
-                        }else {
-                            if (edittext_account.getText().toString().length()<1 | edittext_password.getText().toString().length()<1){
-                                Toast.makeText(LoginActivity.this,"欄位不得空白",Toast.LENGTH_SHORT).show();
-                            }else {
-                                Toast.makeText(LoginActivity.this,"帳號或密碼錯誤",Toast.LENGTH_SHORT).show();
-                            }
+                            D.moveToNext();     //指標往下
                         }
-                        D.moveToNext();
+
+                    }
+                    if (login == false){
+                        Toast.makeText(LoginActivity.this, "帳號或密碼錯誤", Toast.LENGTH_SHORT).show();
                     }
                     break;
                 }

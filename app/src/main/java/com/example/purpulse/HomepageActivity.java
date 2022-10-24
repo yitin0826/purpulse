@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -28,6 +29,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
     private NavigationView hp_navigation;
     public View view;
     public String activity;
+    private String account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +46,11 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
             getSupportFragmentManager().beginTransaction().add(R.id.device, new DeviceFragment(), "devices").commit();
         else
             onBackStackChanged();
+        //收帳號
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+        account = bundle.getString("account");
+        Log.d("acc",""+account);
     }
 
     View.OnClickListener lis = new View.OnClickListener() {
@@ -67,7 +74,13 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
                 if (activity.equals("profile")){
                     return true;
                 }else {
-                    startActivity(new Intent(HomepageActivity.this, ProfileActivity.class));
+                    //傳帳號過去當識別資料
+                    Intent intent = new Intent();
+                    intent.setClass(HomepageActivity.this,ProfileActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putString("account",""+account);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
                     return true;
                 }
             }else if (id == R.id.action_record) {
