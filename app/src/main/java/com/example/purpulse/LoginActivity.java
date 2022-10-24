@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_gosignup.setOnClickListener(lis);
         btn_forgetpw.setOnClickListener(lis);
 
+
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         boolean isRemember = preferences.getBoolean("remember",false);
         if(isRemember){
