@@ -3,6 +3,8 @@ package com.example.purpulse;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -42,6 +44,14 @@ public class OutPutCSV extends AppCompatActivity {
     private TextView tv_result;
     public static Handler mHandler;
     private String json;
+    private Double RMSSD,sdNN,LFHF,LFn,HFn,Heart;
+    private static final String DataBaseName = "db";
+    private static final int DataBaseVersion = 6;
+    private static String DataBaseTable = "Users";
+    private static SQLiteDatabase DB;
+    private SqlDataBaseHelper sqlDataBaseHelper;
+    private String account = Note.account;
+    private ArrayList<Double> RRi = new ArrayList<Double>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -51,6 +61,11 @@ public class OutPutCSV extends AppCompatActivity {
         mHandler = new MHandler();
         makeCSV();
 
+        // 建立SQLiteOpenHelper物件
+        sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+        DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+        Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '" + Note.account + "'", null);
+        D.moveToFirst();
     }
 
     /**
@@ -191,18 +206,39 @@ public class OutPutCSV extends AppCompatActivity {
                 JSONObject jsonObject = new JSONObject(json);
                 Log.d("JsonTT", "" + jsonObject.getString("f_name"));
 
+                RMSSD = jsonObject.getDouble("RMSSD");
                 Log.d("JsonTT", "" + jsonObject.getDouble("RMSSD"));
+                sdNN = jsonObject.getDouble("sdNN");
                 Log.d("JsonTT", "" + jsonObject.getDouble("sdNN"));
+                LFHF = jsonObject.getDouble("LF/HF");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LF/HF"));
+                LFn = jsonObject.getDouble("LFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LFn"));
+                HFn = jsonObject.getDouble("HFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("HFn"));
+                Heart = jsonObject.getDouble("ecg_hr_mean");
                 Log.d("JsonTT", "" + jsonObject.getDouble("ecg_hr_mean"));
 
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");
                 for (int i = 0; i < RRArray.length(); i++) {
                     double RR = (double) RRArray.get(i);
                     Log.d("JsonTT", "catchData: "+RR);
+                    RRi.add(RR);
                 }
+                Log.d("RRi",""+RRi);
+
+                //更新資料
+                DB.execSQL("UPDATE Users SET RMSSD = '"+jsonObject.getDouble("RMSSD")+"'," +
+                        "sdNN = '"+jsonObject.getDouble("sdNN")+"'," +
+                        "LFHF = '"+jsonObject.getDouble("LF/HF")+"'," +
+                        "LFn = '"+jsonObject.getDouble("LFn")+"'," +
+                        "HFn = '"+jsonObject.getDouble("HFn")+"'," +
+                        "Heart = '"+jsonObject.getDouble("ecg_hr_mean")+"'," +
+                        "RRi = '"+RRi+"' WHERE account LIKE '"+Note.account+"'");
+
+                //清空陣列
+                RRi.clear();
+
             } catch (JSONException e) {
                 e.printStackTrace();
             }

@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 public class SqlDataBaseHelper extends SQLiteOpenHelper {
     private static final String DataBaseName = "db";
-    private static final int DataBaseVersion = 4;
+    private static final int DataBaseVersion = 8;
 
     public SqlDataBaseHelper(@Nullable Context context, @Nullable String name,
                              @Nullable SQLiteDatabase.CursorFactory factory, int version, String TableName) {
@@ -26,7 +26,14 @@ public class SqlDataBaseHelper extends SQLiteOpenHelper {
                 "birthday TEXT not null," +
                 "gender TEXT not null," +
                 "height TEXT not null," +
-                "weight TEXT not null" +
+                "weight TEXT not null," +
+                "RMSSD NONE," +
+                "sdNN NONE," +
+                "LFHF NONE," +
+                "LFn NONE," +
+                "HFn NONE," +
+                "Heart NONE," +
+                "RRi NONE" +
                 ")";
         Log.d("test","test");
         sqLiteDatabase.execSQL(SqlTable);
