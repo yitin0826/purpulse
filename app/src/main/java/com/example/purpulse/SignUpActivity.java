@@ -38,7 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
     Context context;
 
     private static final String DataBaseName = "db";
-    private static final int DataBaseVersion = 4;
+    private static final int DataBaseVersion = 6;
     private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
@@ -107,7 +107,7 @@ public class SignUpActivity extends AppCompatActivity {
                         if (D.getCount()<1){  //當一開始啥都沒有的時候
                             try {
                                 DB.execSQL("INSERT INTO Users(name,account,password,email,birthday,gender,height,weight) " +
-                                        "VALUES('" + nickname + "','" + account + "','" + password + "','" + mail + "','" + birthday + "','" + height + "','" + weight + "','" + gender + "')");
+                                        "VALUES('" + nickname + "','" + account + "','" + password + "','" + mail + "','" + birthday + "','" + gender + "','" + height + "','" + weight + "')");
                                 startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                 break;
                             }catch (InputMismatchException e){
@@ -121,7 +121,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 }else {
                                     try {
                                         DB.execSQL("INSERT INTO Users(name,account,password,email,birthday,gender,height,weight) " +
-                                                "VALUES('" + nickname + "','" + account + "','" + password + "','" + mail + "','" + birthday + "','" + height + "','" + weight + "','" + gender + "')");
+                                                "VALUES('" + nickname + "','" + account + "','" + password + "','" + mail + "','" + birthday + "','" + gender + "','" + height + "','" + weight + "')");
                                         startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                         break;
                                     }catch (InputMismatchException e){

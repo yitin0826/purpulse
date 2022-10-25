@@ -26,7 +26,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private int back = 0;
     private static final String DataBaseName = "db";
-    private static final int DataBaseVersion = 4;
+    private static final int DataBaseVersion = 6;
     private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;

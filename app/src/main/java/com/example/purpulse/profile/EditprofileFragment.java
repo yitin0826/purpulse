@@ -30,7 +30,7 @@ public class EditprofileFragment extends Fragment {
     Button btn_signup;
     String[] sex = new String[]{"男", "女"};
     private static final String DataBaseName = "db";
-    private static final int DataBaseVersion = 4;
+    private static final int DataBaseVersion = 6;
     private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
