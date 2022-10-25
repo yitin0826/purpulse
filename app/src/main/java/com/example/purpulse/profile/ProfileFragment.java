@@ -29,26 +29,22 @@ public class ProfileFragment extends Fragment {
     //全域變數
     private Button btn_edit;
     private TextView name,mail,birthday,gender,height,weight;
-    private String Account;
-    private ArrayList<String> editdata;
+    private String Account = Note.account;
     private static final String DataBaseName = "db";
     private static final int DataBaseVersion = 4;
     private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
-    private FragmentManager fragmentManager;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
-    //收資料
     @Override
     public void onAttach(Context context){
         super.onAttach(context);
-        Account = ((ProfileActivity)context).getAcc();
-        Log.d("Account",""+Account);
+        Log.d("Account_ProfileFragment",""+Account);
     }
 
     @Override
@@ -63,7 +59,6 @@ public class ProfileFragment extends Fragment {
         weight = view.findViewById(R.id.TV_weight);
         btn_edit = view.findViewById(R.id.btn_edit);
         btn_edit.setOnClickListener(lis);
-        editdata = new ArrayList<>();
 
         //查看SQL的套件
         Stetho.initializeWithDefaults(getActivity());
@@ -85,25 +80,19 @@ public class ProfileFragment extends Fragment {
     View.OnClickListener lis = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            editdata.add(name.getText().toString());
-            editdata.add(mail.getText().toString());
-            editdata.add(birthday.getText().toString());
-            editdata.add(gender.getText().toString());
-            editdata.add(height.getText().toString());
-            editdata.add(weight.getText().toString());
-            editdata.add(Account);
-            //打包資料
-            EditprofileFragment fragment = new EditprofileFragment();
-            Bundle bundle = new Bundle();
-            bundle.putStringArrayList("editdata",editdata);
-            fragment.setArguments(bundle);
+            //取得資料
+            Note.name = name.getText().toString();
+            Note.mail = mail.getText().toString();
+            Note.birthday = birthday.getText().toString();
+            Note.gender = gender.getText().toString();
+            Note.height = height.getText().toString();
+            Note.weight = weight.getText().toString();
+
             //切換頁面
+            EditprofileFragment fragment = new EditprofileFragment();
             FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.relativ_profile,fragment);
             fragmentTransaction.commit();
-            Log.d("data1",""+bundle);
-            //清空陣列
-            editdata.clear();
         }
     };
 

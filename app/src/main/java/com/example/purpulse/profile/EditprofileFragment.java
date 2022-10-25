@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.purpulse.Note;
 import com.example.purpulse.R;
 import com.example.purpulse.SqlDataBaseHelper;
 import com.facebook.stetho.Stetho;
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 
 public class EditprofileFragment extends Fragment {
 
-    private ArrayList data;
     EditText editText_nickname, edit_mail, edit_birthday, edit_height, edit_weight;
     Spinner spin_sex;
     Button btn_signup;
@@ -34,7 +35,7 @@ public class EditprofileFragment extends Fragment {
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
     private String nickname, mail, birthday, height, weight, gender;
-    private String account;
+    private String account = Note.account;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -59,26 +60,25 @@ public class EditprofileFragment extends Fragment {
         sp_sex.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spin_sex.setAdapter(sp_sex);
 
-        //設定預設值
-        int sp;
-        data = getArguments().getStringArrayList("editdata");
-        editText_nickname.setText("" + data.get(0));
-        edit_mail.setText("" + data.get(1));
-        edit_birthday.setText("" + data.get(2));
-        if (data.get(3).equals("男")) {
+//        設定預設值
+        editText_nickname.setText("" + Note.name);
+        edit_mail.setText("" + Note.mail);
+        edit_birthday.setText("" + Note.birthday);
+        if (Note.gender.equals("男")) {
             spin_sex.setSelection(0, true);
         }
-        if (data.get(3).equals("女")) {
+        if (Note.gender.equals("女")) {
             spin_sex.setSelection(1, true);
         }
-        edit_height.setText("" + data.get(4));
-        edit_weight.setText("" + data.get(5));
+        edit_height.setText("" + Note.height);
+        edit_weight.setText("" + Note.weight);
 
+        //查看資料庫的套件
         Stetho.initializeWithDefaults(getActivity());
         // 建立SQLiteOpenHelper物件
         sqlDataBaseHelper = new SqlDataBaseHelper(getActivity(), DataBaseName, null, DataBaseVersion, DataBaseTable);
         DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
-        Cursor D = DB.rawQuery("SELECT * FROM Users WHERE email LIKE '" + data.get(1) + "'", null);
+        Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '" + Note.account + "'", null);
         D.moveToFirst();
         return view;
     }
@@ -88,6 +88,7 @@ public class EditprofileFragment extends Fragment {
         public void onClick(View view) {
             switch (view.getId()) {
                 case R.id.btn_signup: {
+                    //設定變數給要寫到資料庫的資料
                     nickname = editText_nickname.getText().toString();
                     birthday = edit_birthday.getText().toString();
                     height = edit_height.getText().toString();
@@ -99,24 +100,12 @@ public class EditprofileFragment extends Fragment {
                     if (mail.matches(emailPattern)) {    //符合格式
                         //判斷格子是否為空
                         if (nickname.length() != 0 && mail.length() != 0 && birthday.length() != 0 && height.length() != 0 && weight.length() != 0) {
-//                            Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+account+"'",null);
-//                            D.moveToFirst();
-//                            ContentValues cv = new ContentValues();
-////                            cv.put("name",nickname);
-////                            cv.put("email",mail);
-////                            cv.put("birthday",birthday);
-////                            cv.put("gender",gender);
-////                            cv.put("height",height);
-//                            cv.put("weight",10);
-//                            Log.d("cv",""+cv);
-//                            DB.update("Users",cv,"account="+data.get(6).toString(),null);
                             try {
+                                //更新資料
                                 DB.execSQL("UPDATE Users SET name='"+nickname+"',email='"+mail+"',birthday='"+birthday+"'," +
-                                        "gender='"+gender+"',height='"+height+"',weight='"+weight+"' WHERE account LIKE '"+data.get(6)+"'");
-                                Bundle bundle = new Bundle();
-                                bundle.putString("account",""+account);
+                                        "gender='"+gender+"',height='"+height+"',weight='"+weight+"' WHERE account LIKE '"+Note.account+"'");
+                                //切換畫面
                                 Fragment fragment = new ProfileFragment();
-                                fragment.setArguments(bundle);
                                 getFragmentManager().beginTransaction().replace(R.id.relativ_profile, fragment, "edit_end").addToBackStack(null).commit();
                             }catch (Exception e){
                                 Toast.makeText(getActivity(), "失敗", Toast.LENGTH_SHORT).show();

@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.purpulse.HomepageActivity;
 import com.example.purpulse.LoginActivity;
+import com.example.purpulse.Note;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
 import com.example.purpulse.RecordActivity;
@@ -28,22 +29,21 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
     private DrawerLayout pf_drawerlayout;
     private NavigationView pf_navigation;
     public String activity;
-    private String account;
+    private String account = Note.account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
         activity = "profile";
         pf_img = findViewById(R.id.pf_img);
         pf_img.setOnClickListener(lis);
         pf_drawerlayout = findViewById(R.id.pf_drawerlayout);
         pf_navigation = findViewById(R.id.pf_navigation);
         pf_navigation.setNavigationItemSelectedListener(NavigationLis);
+
         getSupportFragmentManager().addOnBackStackChangedListener(this);
-        Intent intent = this.getIntent();
-        Bundle bundle = intent.getExtras();
-        account = bundle.getString("account");
         Log.d("Act_account",""+account);
         if (savedInstanceState == null)
             getSupportFragmentManager().beginTransaction().add(R.id.relativ_profile, new ProfileFragment(), "profile").commit();
@@ -112,10 +112,6 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
             }
         }
     };
-    //傳帳號當識別資料
-    public String getAcc(){
-        return account;
-    }
 
     @Override
     public void onBackStackChanged() {

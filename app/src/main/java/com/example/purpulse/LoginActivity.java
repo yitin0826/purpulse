@@ -98,6 +98,8 @@ public class LoginActivity extends AppCompatActivity {
                                 intent.putExtras(bundle);
                                 startActivity(intent);
                                 login = true;
+                                Note.account = edittext_account.getText().toString();
+                                Log.d("note",""+Note.account);
                                 break;
                             }
                             D.moveToNext();     //指標往下
