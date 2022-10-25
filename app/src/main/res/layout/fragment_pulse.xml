@@ -14,8 +14,8 @@
         <com.example.purpulse.WaveView
             android:id="@+id/wave_view"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_350"
-            android:layout_margin="@dimen/dp_10"
+            android:layout_height="@dimen/dp_300"
+            android:layout_margin="@dimen/dp_5"
             android:visibility="invisible"
             app:draw_mode="normal"
             app:grid_visible="false"

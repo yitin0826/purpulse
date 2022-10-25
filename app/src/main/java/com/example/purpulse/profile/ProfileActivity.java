@@ -49,8 +49,6 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
             getSupportFragmentManager().beginTransaction().add(R.id.relativ_profile, new ProfileFragment(), "profile").commit();
         else
             onBackStackChanged();
-
-
     }
 
     View.OnClickListener lis = new View.OnClickListener() {

@@ -49,85 +49,13 @@
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_55"
-            android:text="以下為您的測量結果："
-            android:textColor="@color/blue"
-            android:textSize="@dimen/sp_15"
-            android:fontFamily="@font/jf_openhuninn"/>
-
         <RelativeLayout
+            android:id="@+id/relativ_result"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20">
-
-            <ImageView
-                android:id="@+id/img_circle"
-                android:layout_width="@dimen/dp_170"
-                android:layout_height="@dimen/dp_170"
-                android:layout_centerHorizontal="true"
-                app:srcCompat="@drawable/circle_green"/>
-
-            <TextView
-                android:id="@+id/txt_heartrate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:text="79"
-                android:textSize="@dimen/sp_86"
-                android:textColor="@color/white"
-                android:fontFamily="@font/kookminchejo"/>
-
-            <ImageButton
-                android:id="@+id/btn_info"
-                android:layout_width="@dimen/dp_30"
-                android:layout_height="@dimen/dp_30"
-                android:layout_toRightOf="@+id/img_circle"
-                android:layout_alignBottom="@+id/img_circle"
-                android:scaleType="fitCenter"
-                android:backgroundTint="@null"
-                android:background="@null"
-                app:srcCompat="@drawable/info"/>
-
-        </RelativeLayout>
-
-        <ImageView
-            android:layout_width="@dimen/dp_250"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_20"
-            android:layout_gravity="center"
-            app:srcCompat="@drawable/divider"/>
-
-        <com.google.android.material.tabs.TabLayout
-            android:id="@+id/tl_result"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_60"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginStart="@dimen/dp_55"
-            android:layout_marginEnd="@dimen/dp_55"
-            app:tabGravity="fill"/>
-
-        <androidx.viewpager.widget.ViewPager
-            android:id="@+id/vp_result"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_270"
-            android:paddingTop="@dimen/dp_10"
-            android:layout_marginStart="@dimen/dp_55"
-            android:layout_marginEnd="@dimen/dp_55"/>
-
-        <Button
-            android:id="@+id/btn_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/buttonborder2"
-            android:text="下一頁"
-            android:textSize="@dimen/sp_15"
-            android:textColor="@color/white"/>
+            android:layout_height="@dimen/dp_640"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginStart="@dimen/dp_45"
+            android:layout_marginEnd="@dimen/dp_45"/>
 
     </LinearLayout>
 
