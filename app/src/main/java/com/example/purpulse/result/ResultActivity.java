@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
@@ -26,6 +27,7 @@ import com.example.purpulse.profile.ProfileActivity;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
 import com.example.purpulse.RecordActivity;
+import com.example.purpulse.profile.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
