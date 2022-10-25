@@ -5,6 +5,7 @@ import android.os.Bundle;
 
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
@@ -36,15 +37,12 @@ public class ResultFragment extends Fragment{
     private TextView txt_heartrate,text_g,text_y,text_r,text_p;
     private ViewPager vp_result;
     private TabLayout tl_result;
-    private List<Fragment> fragmentList = new ArrayList<>();
     public static int lastPosition = 0;
-    private ImageButton result_img,btn_info;
+    private ImageButton btn_info;
     private Button btn_ok,btn_next;
-    private DrawerLayout result_drawerlayout;
-    private NavigationView result_navigation;
     public String activity;
     private PopupWindow info;
-    private Context context;
+    private View view;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -54,7 +52,7 @@ public class ResultFragment extends Fragment{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_result, container, false);
+        view = inflater.inflate(R.layout.fragment_result, container, false);
         btn_info = view.findViewById(R.id.btn_info);
         btn_next = view.findViewById(R.id.btn_next);
         btn_info.setOnClickListener(lis);
@@ -138,6 +136,7 @@ public class ResultFragment extends Fragment{
     }
 
     public void initView(){
+        //tl_result = view.findViewById(R.id.tl_result);
         vp_result.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -161,6 +160,7 @@ public class ResultFragment extends Fragment{
     }
 
     private void setupViewPager(ViewPager viewPager){
+        List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new ScatterFragment());
         fragmentList.add(new TaijiFragment());
         ResultPagerAdapter adapter = new ResultPagerAdapter(getActivity().getSupportFragmentManager(),fragmentList);

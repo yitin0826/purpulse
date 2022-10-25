@@ -125,7 +125,8 @@ public class ResultActivity extends AppCompatActivity {
     public boolean onKeyDown(int keycode, KeyEvent event){
         if (keycode == KeyEvent.KEYCODE_BACK){
             if (getSupportFragmentManager().getBackStackEntryCount()>0){
-                getSupportFragmentManager().popBackStackImmediate();
+                getSupportFragmentManager().beginTransaction().replace(R.id.relativ_result, new ResultFragment(), "result").commit();
+                //getSupportFragmentManager().popBackStack();
             }else{
                 finish();
             }
