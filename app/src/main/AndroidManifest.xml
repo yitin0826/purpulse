@@ -135,6 +135,7 @@
                 android:value="" />
         </activity>
         <activity android:name=".LoginActivity" />
+        <activity android:name=".OutPutCSV"/>
         <service android:name="com.example.purpulse.SerialService"/>
 
         <receiver
