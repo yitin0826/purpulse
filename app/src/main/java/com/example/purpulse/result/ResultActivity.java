@@ -4,9 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.fragment.NavHostFragment;
-import androidx.viewpager.widget.ViewPager;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,24 +12,14 @@ import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.PopupWindow;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.purpulse.BackHandlerHelper;
 import com.example.purpulse.NotifyActivity;
 import com.example.purpulse.profile.ProfileActivity;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
 import com.example.purpulse.RecordActivity;
-import com.example.purpulse.profile.ProfileFragment;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.tabs.TabLayout;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class ResultActivity extends AppCompatActivity {
 

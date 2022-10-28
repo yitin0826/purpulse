@@ -13,7 +13,7 @@ android {
         versionCode 1
         versionName "1.0"
         vectorDrawables.useSupportLibrary true
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -50,4 +50,5 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.5.0'
     implementation group: 'uk.me.berndporr', name:'iirj', version: '1.5'
+    implementation 'androidx.multidex:multidex:2.0.1'
 }

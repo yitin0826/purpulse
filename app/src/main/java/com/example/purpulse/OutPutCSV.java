@@ -167,7 +167,8 @@ public class OutPutCSV extends AppCompatActivity {
                     Request request = new Request.Builder()
 //                            .url("http://192.168.2.210:8090")
 //                            .url("http://59.127.211.178:8090")
-                            .url("http://192.168.2.94:8090")
+//                            .url("http://192.168.2.94:8090")
+                            .url("http://59.126.42.176:8090")
                             .post(requestBody)
                             .build();
                     try (Response response = client.newCall(request).execute()) {
@@ -195,7 +196,7 @@ public class OutPutCSV extends AppCompatActivity {
         public void handleMessage(@NonNull Message msg) {
             super.handleMessage(msg);
             json = msg.obj.toString();
-            tv_result.setText("" + msg.obj.toString());
+            //tv_result.setText("" + msg.obj.toString());
             catchData();
         }
     }

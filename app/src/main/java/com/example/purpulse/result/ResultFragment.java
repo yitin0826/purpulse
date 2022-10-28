@@ -3,9 +3,7 @@ package com.example.purpulse.result;
 import android.content.Context;
 import android.os.Bundle;
 
-import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
@@ -23,10 +21,7 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.example.purpulse.BackHandlerHelper;
-import com.example.purpulse.FragmentBackHandler;
 import com.example.purpulse.R;
-import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -43,6 +38,8 @@ public class ResultFragment extends Fragment{
     public String activity;
     private PopupWindow info;
     private View view;
+    private Context context;
+    private ResultPagerAdapter adapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,6 +50,7 @@ public class ResultFragment extends Fragment{
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_result, container, false);
+        context = getActivity();
         btn_info = view.findViewById(R.id.btn_info);
         btn_next = view.findViewById(R.id.btn_next);
         btn_info.setOnClickListener(lis);
@@ -60,10 +58,21 @@ public class ResultFragment extends Fragment{
         txt_heartrate = view.findViewById(R.id.txt_heartrate);
         vp_result = view.findViewById(R.id.vp_result);
         tl_result = view.findViewById(R.id.tl_result);
-        initView();
         infoWindow();
         setText();
         return view;
+    }
+
+    @Override
+    public void onStart(){
+        super.onStart();
+        initView();
+    }
+
+    @Override
+    public void onStop(){
+        adapter.clear(vp_result);
+        super.onStop();
     }
 
     public void infoWindow(){
@@ -136,7 +145,6 @@ public class ResultFragment extends Fragment{
     }
 
     public void initView(){
-        //tl_result = view.findViewById(R.id.tl_result);
         vp_result.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -163,7 +171,7 @@ public class ResultFragment extends Fragment{
         List<Fragment> fragmentList = new ArrayList<>();
         fragmentList.add(new ScatterFragment());
         fragmentList.add(new TaijiFragment());
-        ResultPagerAdapter adapter = new ResultPagerAdapter(getActivity().getSupportFragmentManager(),fragmentList);
+        adapter = new ResultPagerAdapter(getChildFragmentManager(),context,fragmentList);
         viewPager.setAdapter(adapter);
     }
 }

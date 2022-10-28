@@ -239,7 +239,7 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                 }
             }
             /** 重要 **/
-            Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+            (getActivity()).runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     for (int i = 0; i < integerList.size(); i++) {
