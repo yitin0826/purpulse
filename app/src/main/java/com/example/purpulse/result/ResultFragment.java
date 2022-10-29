@@ -1,6 +1,8 @@
 package com.example.purpulse.result;
 
 import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -21,7 +23,9 @@ import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.purpulse.Note;
 import com.example.purpulse.R;
+import com.example.purpulse.SqlDataBaseHelper;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -40,6 +44,12 @@ public class ResultFragment extends Fragment{
     private View view;
     private Context context;
     private ResultPagerAdapter adapter;
+    private static final String DataBaseName = "db";
+    private static final int DataBaseVersion = 6;
+    private static String DataBaseTable = "Users";
+    private static SQLiteDatabase DB;
+    private SqlDataBaseHelper sqlDataBaseHelper;
+    private String account = Note.account;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -130,7 +140,12 @@ public class ResultFragment extends Fragment{
     };
 
     public void setText(){
-        txt_heartrate.setText("180bpm");
+        // 建立SQLiteOpenHelper物件，從SQL抓值
+        sqlDataBaseHelper = new SqlDataBaseHelper(getActivity(),DataBaseName,null,DataBaseVersion,DataBaseTable);
+        DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+        Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ account +"'",null);
+        D.moveToFirst();
+        txt_heartrate.setText(D.getString(13));
         SpannableStringBuilder span = new SpannableStringBuilder(txt_heartrate.getText().toString());
         span.setSpan(new AbsoluteSizeSpan(sp2px(getActivity(),70)),
                 0,3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
