@@ -226,8 +226,8 @@ public class OutPutCSV extends AppCompatActivity {
                     double RR = (double) RRArray.get(i);
                     Log.d("JsonTT", "catchData: "+RR);
                     RRi.add(RR);
+                    Note.RRi.add(RR);
                 }
-                Log.d("RRi",""+RRi);
 
                 // 建立SQLiteOpenHelper物件
                 sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
