@@ -207,14 +207,18 @@ public class OutPutCSV extends AppCompatActivity {
                 RMSSD = jsonObject.getDouble("RMSSD");
                 Log.d("JsonTT", "" + jsonObject.getDouble("RMSSD"));
                 sdNN = jsonObject.getDouble("sdNN");
+                Note.sdNN = jsonObject.getDouble("sdNN");
                 Log.d("JsonTT", "" + jsonObject.getDouble("sdNN"));
                 LFHF = jsonObject.getDouble("LF/HF");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LF/HF"));
                 LFn = jsonObject.getDouble("LFn");
+                Note.LFn = jsonObject.getDouble("LFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LFn"));
                 HFn = jsonObject.getDouble("HFn");
+                Note.HFn = jsonObject.getDouble("HFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("HFn"));
                 Heart = jsonObject.getDouble("ecg_hr_mean");
+
                 Log.d("JsonTT", "" + jsonObject.getDouble("ecg_hr_mean"));
 
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");

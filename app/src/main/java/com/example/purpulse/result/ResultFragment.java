@@ -45,7 +45,7 @@ public class ResultFragment extends Fragment{
     private Context context;
     private ResultPagerAdapter adapter;
     private static final String DataBaseName = "db";
-    private static final int DataBaseVersion = 6;
+    private static final int DataBaseVersion = 9;
     private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
