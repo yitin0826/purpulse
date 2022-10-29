@@ -2,15 +2,21 @@ package com.example.purpulse.result;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.widget.ListView;
 
 import com.example.purpulse.NameMapping;
+import com.example.purpulse.Note;
 import com.example.purpulse.R;
+import com.example.purpulse.SqlDataBaseHelper;
 
 import java.util.ArrayList;
 
 public class TaijiActivity extends AppCompatActivity {
+
+    private String Account = Note.account;
 
     ArrayList<NameMapping> taiji = new ArrayList<NameMapping>();
 
