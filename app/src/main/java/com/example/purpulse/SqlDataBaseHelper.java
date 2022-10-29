@@ -9,7 +9,7 @@ import androidx.annotation.Nullable;
 
 public class SqlDataBaseHelper extends SQLiteOpenHelper {
     private static final String DataBaseName = "db";
-    private static final int DataBaseVersion = 8;
+    private static final int DataBaseVersion = 9;
 
     public SqlDataBaseHelper(@Nullable Context context, @Nullable String name,
                              @Nullable SQLiteDatabase.CursorFactory factory, int version, String TableName) {
@@ -35,14 +35,28 @@ public class SqlDataBaseHelper extends SQLiteOpenHelper {
                 "Heart NONE," +
                 "RRi NONE" +
                 ")";
+        String DataTable = "CREATE TABLE IF NOT EXISTS Data (" +
+                "account TEXT not null," +
+                "time," +
+                "RMSSD NONE," +
+                "sdNN NONE," +
+                "LFHF NONE," +
+                "LFn NONE," +
+                "HFn NONE," +
+                "Heart NONE," +
+                "RRi NONE" +
+                ")";
         Log.d("test","test");
         sqLiteDatabase.execSQL(SqlTable);
+        sqLiteDatabase.execSQL(DataTable);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         final String SQL = "DROP TABLE IF EXISTS Users";
+        final String Data = "DROP TABLE IF EXISTS Data";
         sqLiteDatabase.execSQL(SQL);
+        sqLiteDatabase.execSQL(Data);
         onCreate(sqLiteDatabase);
     }
 }

@@ -27,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -48,7 +49,9 @@ public class OutPutCSV extends AppCompatActivity {
     private static final String DataBaseName = "db";
     private static final int DataBaseVersion = 6;
     private static String DataBaseTable = "Users";
+    private static String DataBaseTable2 = "Data";
     private static SQLiteDatabase DB;
+    private static SQLiteDatabase DB2;
     private SqlDataBaseHelper sqlDataBaseHelper;
     private String account = Note.account;
     private ArrayList<Double> RRi = new ArrayList<Double>();
@@ -60,12 +63,6 @@ public class OutPutCSV extends AppCompatActivity {
         //tv_result = findViewById(R.id.tv_result);
         mHandler = new MHandler();
         makeCSV();
-
-        // 建立SQLiteOpenHelper物件
-        sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
-        DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
-        Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '" + Note.account + "'", null);
-        D.moveToFirst();
     }
 
     /**
@@ -228,7 +225,12 @@ public class OutPutCSV extends AppCompatActivity {
                 }
                 Log.d("RRi",""+RRi);
 
-                //更新資料
+                // 建立SQLiteOpenHelper物件
+                sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                Cursor U = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '" + Note.account + "'", null);
+                U.moveToFirst();
+                //更新資料(當下量測)
                 DB.execSQL("UPDATE Users SET RMSSD = '"+jsonObject.getDouble("RMSSD")+"'," +
                         "sdNN = '"+jsonObject.getDouble("sdNN")+"'," +
                         "LFHF = '"+jsonObject.getDouble("LF/HF")+"'," +
@@ -236,6 +238,26 @@ public class OutPutCSV extends AppCompatActivity {
                         "HFn = '"+jsonObject.getDouble("HFn")+"'," +
                         "Heart = '"+jsonObject.getDouble("ecg_hr_mean")+"'," +
                         "RRi = '"+RRi+"' WHERE account LIKE '"+Note.account+"'");
+
+                // 建立SQLiteOpenHelper物件
+                sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable2);
+                DB2 = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                //取得今天日期
+                String dateformat = "yyyy/MM/dd"; //日期的格式
+                Calendar mCal = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat(dateformat);
+                String today = df.format(mCal.getTime());
+                //更新資料(存歷史紀錄)
+                DB2.execSQL( "INSERT INTO Data (account,time,RMSSD,sdNN,LFHF,LFn,HFn,Heart,RRi) " +
+                        "VALUES('"+Note.account+"'," +
+                        "'"+today+"'," +
+                        "'"+jsonObject.getDouble("RMSSD")+"'," +
+                        "'"+jsonObject.getDouble("sdNN")+"'," +
+                        "'"+jsonObject.getDouble("LF/HF")+"'," +
+                        "'"+jsonObject.getDouble("LFn")+"'," +
+                        "'"+jsonObject.getDouble("HFn")+"'," +
+                        "'"+jsonObject.getDouble("ecg_hr_mean")+"'," +
+                        "'"+RRi+"')");
 
                 //清空陣列
                 RRi.clear();
