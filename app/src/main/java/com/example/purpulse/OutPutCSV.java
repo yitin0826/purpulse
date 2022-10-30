@@ -54,7 +54,7 @@ public class OutPutCSV extends AppCompatActivity {
     private static SQLiteDatabase DB2;
     private SqlDataBaseHelper sqlDataBaseHelper;
     private String account = Note.account;
-    private ArrayList<Double> RRi = new ArrayList<Double>();
+    private ArrayList<Float> RRi = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -223,7 +223,7 @@ public class OutPutCSV extends AppCompatActivity {
 
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");
                 for (int i = 0; i < RRArray.length(); i++) {
-                    double RR = (double) RRArray.get(i);
+                    float RR = (float) RRArray.get(i);
                     Log.d("JsonTT", "catchData: "+RR);
                     RRi.add(RR);
                     Note.RRi.add(RR);

@@ -7,6 +7,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.graphics.Color;
 import android.os.Bundle;
 
+import com.example.purpulse.Note;
 import com.example.purpulse.R;
 import com.example.purpulse.connection.ConnectionPagerAdapter;
 import com.example.purpulse.scatter.FastFragment;
@@ -212,17 +213,13 @@ public class ScatterActivity extends AppCompatActivity{
 
         ArrayList<Float> rr_intervals = new ArrayList<>();
         ArrayList<Entry> values = new ArrayList<>();
-        float k,a,b;
-        for (float i=0;i<123;i++){
-            k = (float) (Math.random()*1650)+100;
-            rr_intervals.add(k);
-        }
-        for (int i=0;i < rr_intervals.size();i++) {
-            a = rr_intervals.get(i);
-            if (i + 2 > rr_intervals.size()) {
+        float a,b;
+        for (int i = 0; i < Note.RRi.size(); i++) {
+            a = Note.RRi.get(i);
+            if (i + 2 > Note.RRi.size()) {
                 break;
             }
-            b = rr_intervals.get(i+1);
+            b = Note.RRi.get(i+1);
             values.add(new Entry(a,b));
         }
 
