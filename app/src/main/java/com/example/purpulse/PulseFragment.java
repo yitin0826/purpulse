@@ -33,6 +33,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.purpulse.result.ResultActivity;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -166,6 +168,9 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                 case R.id.btn_start:{
                     getDialog();
                     break;
+                }
+                case R.id.btn_resultconfirm:{
+                    startActivity(new Intent(getActivity(), ResultActivity.class));
                 }
             }
         }
@@ -309,11 +314,13 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                 if (i>100){
                     /** 停止接收數據 **/
                     receiveData = false;
-                    Intent intent = new Intent(getActivity(), OutPutCSV.class);
-                    Bundle bundle = new Bundle();
-                    bundle.putStringArrayList("saveList", (ArrayList<String>) saveList);
-                    intent.putExtras(bundle);
-                    getActivity().startActivity(intent);
+                    btn_resultconfirm.setVisibility(View.VISIBLE);
+                    btn_resultconfirm.setOnClickListener(lis);
+//                    Intent intent = new Intent(getActivity(), OutPutCSV.class);
+//                    Bundle bundle = new Bundle();
+//                    bundle.putStringArrayList("saveList", (ArrayList<String>) saveList);
+//                    intent.putExtras(bundle);
+//                    getActivity().startActivity(intent);
                 }
             }
         },200);

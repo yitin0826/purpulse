@@ -21,7 +21,16 @@
     <string name="next">Next</string>
     <string name="previous">Previous</string>
     <string name="rate_normal">RR間期連續性變化呈整體性，心電散點圖呈棒球拍形，沿45°線分布，任意横、縱坐標點的位置分布在600～1000ms之間，近端纖細，遠端粗大。</string>
-    <string name="rate_slow"></string>
-    <string name="rate_fast"></string>
-    <string name="rate_irregular"></string>
+    <string name="tired_great">憂鬱指數良好！</string>
+    <string name="tired_good">憂鬱指數中等！</string>
+    <string name="tired_bad">憂鬱指數嚴重！</string>
+    <string name="sad_great">疲勞指數良好！</string>
+    <string name="sad_good">疲勞指數中等！</string>
+    <string name="sad_bad">疲勞指數嚴重！</string>
+    <string name="tired_great_suggest">你的情緒狀況很穩定，請繼續保持！</string>
+    <string name="tired_good_suggest">情緒狀況稍微不穩定，不過在正常範圍內！</string>
+    <string name="tired_bad_suggest">目前身心狀況不是很好的樣子，也許目前有些事情困擾著你，如果最近感受很難過的話，建議到醫院做診斷！</string>
+    <string name="sad_great_suggest">你的身體狀況看起來很好，請繼續保持！</string>
+    <string name="sad_good_suggest">你的身體狀況還算可以，有提升的空間，或許能更有更多的休息！</string>
+    <string name="sad_bad_suggest">你的身體感受到很疲累，建議採取有助於減輕疲勞的飲食或運動 ，如果自己也認為不太對勁的話，建議到醫院尋求專業協助！</string>
 </resources>
