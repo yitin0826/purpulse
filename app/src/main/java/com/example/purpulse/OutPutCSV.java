@@ -54,7 +54,7 @@ public class OutPutCSV extends AppCompatActivity {
     private static SQLiteDatabase DB2;
     private SqlDataBaseHelper sqlDataBaseHelper;
     private String account = Note.account;
-    private ArrayList<Double> RRi = new ArrayList<Double>();
+    private ArrayList<Float> RRi = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -207,23 +207,27 @@ public class OutPutCSV extends AppCompatActivity {
                 RMSSD = jsonObject.getDouble("RMSSD");
                 Log.d("JsonTT", "" + jsonObject.getDouble("RMSSD"));
                 sdNN = jsonObject.getDouble("sdNN");
+                Note.sdNN = jsonObject.getDouble("sdNN");
                 Log.d("JsonTT", "" + jsonObject.getDouble("sdNN"));
                 LFHF = jsonObject.getDouble("LF/HF");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LF/HF"));
                 LFn = jsonObject.getDouble("LFn");
+                Note.LFn = jsonObject.getDouble("LFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LFn"));
                 HFn = jsonObject.getDouble("HFn");
+                Note.HFn = jsonObject.getDouble("HFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("HFn"));
                 Heart = jsonObject.getDouble("ecg_hr_mean");
+
                 Log.d("JsonTT", "" + jsonObject.getDouble("ecg_hr_mean"));
 
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");
                 for (int i = 0; i < RRArray.length(); i++) {
-                    double RR = (double) RRArray.get(i);
+                    float RR = (float) RRArray.get(i);
                     Log.d("JsonTT", "catchData: "+RR);
                     RRi.add(RR);
+                    Note.RRi.add(RR);
                 }
-                Log.d("RRi",""+RRi);
 
                 // 建立SQLiteOpenHelper物件
                 sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable);

@@ -23,6 +23,7 @@ import com.google.android.material.navigation.NavigationView;
 
 public class HomepageActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
 
+    //全域變數
     private ImageButton hp_img;
     private Toolbar hp_toolbar;
     private DrawerLayout hp_drawerlayout;
@@ -46,14 +47,14 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
         else
             onBackStackChanged();
     }
-
+    //點選右上按鈕
     View.OnClickListener lis = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
             hp_drawerlayout.openDrawer(Gravity.RIGHT);
         }
     };
-
+        //側邊攔
     NavigationView.OnNavigationItemSelectedListener NavigationLis = new NavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -65,35 +66,35 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
 
             // 依照id判斷點了哪個項目並做相應事件
             if (id == R.id.action_profile) {
-                if (activity.equals("profile")){
+                if (activity.equals("profile")){    //會員資料
                     return true;
                 }else {
                     startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_record) {
-                if (activity.equals("record")){
+                if (activity.equals("record")){     //量測記錄
                     return true;
                 }else {
                     startActivity(new Intent(HomepageActivity.this,RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){
-                if (activity.equals("device")){
+                if (activity.equals("device")){     //裝置連接
                     return true;
                 }else {
                     startActivity(new Intent(HomepageActivity.this,ProfileActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_pulse){
-                if (activity.equals("pulse")){
+                if (activity.equals("pulse")){      //心跳測量
                     return true;
                 }else {
                     startActivity(new Intent(HomepageActivity.this, ConnectionActivity.class));
                     return true;
                 }
             }else {
-                if (activity.equals("notify")){
+                if (activity.equals("notify")){     //定時通知
                     return true;
                 }else {
                     startActivity(new Intent(HomepageActivity.this,NotifyActivity.class));
@@ -114,6 +115,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
         return true;
     }
 
+    //手機返回鍵
     @Override
     public void onBackPressed() {
         new AlertDialog.Builder(this)
