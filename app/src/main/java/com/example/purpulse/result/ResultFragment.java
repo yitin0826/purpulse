@@ -69,7 +69,7 @@ public class ResultFragment extends Fragment{
         vp_result = view.findViewById(R.id.vp_result);
         tl_result = view.findViewById(R.id.tl_result);
         infoWindow();
-        setText();
+//        setText();
         return view;
     }
 

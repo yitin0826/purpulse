@@ -5,6 +5,9 @@ import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -81,25 +84,45 @@ public class ResultFragment2 extends Fragment{
     public void popup_tired(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.popwindow_tired,null);
         pop_tired = new PopupWindow(view);
-        pop_tired.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        pop_tired.setWidth(width*5/7);
         pop_tired.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         pop_tired.setFocusable(true);
         txt_level = view.findViewById(R.id.txt_level);
         txt_suggest = view.findViewById(R.id.txt_suggest);
-        pop_tired.showAsDropDown(tired);
         txt_level.setText(R.string.tired_good);
+        String status = "good";
+        setText(txt_level.getText().toString(),status);
         txt_suggest.setText(R.string.tired_good_suggest);
     }
 
     public void popup_sad(){
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.popwindow_tired,null);
         pop_sad = new PopupWindow(view);
-        pop_sad.setWidth(ViewGroup.LayoutParams.WRAP_CONTENT);
+        int width = getActivity().getWindowManager().getDefaultDisplay().getWidth();
+        pop_sad.setWidth(width*5/7);
         pop_sad.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
         pop_sad.setFocusable(true);
         txt_level = view.findViewById(R.id.txt_level);
         txt_suggest = view.findViewById(R.id.txt_suggest);
         txt_level.setText(R.string.sad_good);
+        String status = "good";
+        setText(txt_level.getText().toString(),status);
         txt_suggest.setText(R.string.sad_good_suggest);
+    }
+
+    public void setText(String str,String status){
+        SpannableStringBuilder builder = new SpannableStringBuilder(str);
+        ForegroundColorSpan greenSpan = new ForegroundColorSpan(getResources().getColor(R.color.green));
+        ForegroundColorSpan yellowSpan = new ForegroundColorSpan(getResources().getColor(R.color.yellow));
+        ForegroundColorSpan redSpan = new ForegroundColorSpan(getResources().getColor(R.color.red));
+        if (status.equals("great")){
+            builder.setSpan(greenSpan,4,6, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        }else if (status.equals("good")){
+            builder.setSpan(yellowSpan,4,6, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        }else{
+            builder.setSpan(redSpan,4,6, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        }
+        txt_level.setText(builder);
     }
 }
