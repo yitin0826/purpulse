@@ -69,7 +69,7 @@ public class ResultFragment extends Fragment{
         vp_result = view.findViewById(R.id.vp_result);
         tl_result = view.findViewById(R.id.tl_result);
         infoWindow();
-//        setText();
+        setText();
         return view;
     }
 
@@ -148,9 +148,9 @@ public class ResultFragment extends Fragment{
         txt_heartrate.setText(D.getString(13));
         SpannableStringBuilder span = new SpannableStringBuilder(txt_heartrate.getText().toString());
         span.setSpan(new AbsoluteSizeSpan(sp2px(getActivity(),70)),
-                0,3, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        span.setSpan(new AbsoluteSizeSpan(sp2px(getActivity(),10)),
-                3,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+//        span.setSpan(new AbsoluteSizeSpan(sp2px(getActivity(),10)),
+//                3,6, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         txt_heartrate.setText(span);
     }
 

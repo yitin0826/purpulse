@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
     Runnable r = new Runnable() {
         @Override
         public void run() {
-            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
             startActivity(intent);
             finish();
         }

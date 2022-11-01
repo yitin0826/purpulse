@@ -1,22 +1,30 @@
 package com.example.purpulse;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Paint;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.os.Environment;
 import android.os.Handler;
 import android.os.IBinder;
+import android.os.Message;
+import android.os.StrictMode;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -35,9 +43,27 @@ import android.widget.Toast;
 
 import com.example.purpulse.result.ResultActivity;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import uk.me.berndporr.iirj.Butterworth;
 
 public class PulseFragment extends Fragment implements ServiceConnection, SerialListener{
 
@@ -67,6 +93,24 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
     private Spinner spinner;
     Dialog dialog;
     View dialogView;
+
+    /** Output **/
+    @SuppressLint("HandlerLeak")
+    private double[] butterFilter;
+    private TextView tv_result;
+    public static Handler mHandler,mHandler2;
+    private String json;
+    private Double RMSSD,sdNN,LFHF,LFn,HFn,Heart;
+    private static final String DataBaseName = "db";
+    private static final int DataBaseVersion = 6;
+    private static String DataBaseTable = "Users";
+    private static String DataBaseTable2 = "Data";
+    private static SQLiteDatabase DB;
+    private static SQLiteDatabase DB2;
+    private SqlDataBaseHelper sqlDataBaseHelper;
+    private String account = Note.account;
+    private ArrayList<Float> RRi = new ArrayList<>();
+    private String success;
 
     /** Lifecycle **/
     @Override
@@ -170,7 +214,11 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                     break;
                 }
                 case R.id.btn_resultconfirm:{
-                    startActivity(new Intent(getActivity(), ResultActivity.class));
+                    Intent intent = new Intent(getActivity(), ResultActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putStringArrayList("saveList", (ArrayList<String>) saveList);
+                    intent.putExtras(bundle);
+                    getActivity().startActivity(intent);
                 }
             }
         }
@@ -267,11 +315,10 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
          receive_text.append(spn);
     }
 
-
     /** SerialListener **/
     @Override
     public void onSerialConnect() {
-        status("connected");
+        status("連接成功，點擊開始測量");
         connected = Connected.True;
         btn_start.setVisibility(View.VISIBLE);
     }
@@ -305,7 +352,7 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                     progress_text.setText(""+i+"%");
                     progressbar.setProgress(i);
                     i+=1;
-                    handler.postDelayed(this,900);
+                    handler.postDelayed(this,300);
                 }
                 else {
                     handler.removeCallbacks(this);
@@ -314,13 +361,9 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                 if (i>100){
                     /** 停止接收數據 **/
                     receiveData = false;
+                    txt_end.setVisibility(View.VISIBLE);
                     btn_resultconfirm.setVisibility(View.VISIBLE);
                     btn_resultconfirm.setOnClickListener(lis);
-//                    Intent intent = new Intent(getActivity(), OutPutCSV.class);
-//                    Bundle bundle = new Bundle();
-//                    bundle.putStringArrayList("saveList", (ArrayList<String>) saveList);
-//                    intent.putExtras(bundle);
-//                    getActivity().startActivity(intent);
                 }
             }
         },200);
