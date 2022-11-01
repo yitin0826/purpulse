@@ -216,19 +216,19 @@ public class ScatterActivity extends AppCompatActivity{
         ScatterData d = new ScatterData();
 
 
-        ArrayList<Float> rr_intervals = new ArrayList<>();
+//        ArrayList<Float> rr_intervals = new ArrayList<>();
         ArrayList<Entry> values = new ArrayList<>();
         float a,b;
         Log.e("Note.RRi",""+Note.RRi);
         for (int i = 1; i <= Note.RRi.size(); i++) {
             a = Note.RRi.get(i);
-            if (i + 2 > Note.RRi.size()) {
+            if (i + 2 > Note.RRi.size()) {  //防止抓超過陣列
                 break;
             }
             b = Note.RRi.get(i+1);
             values.add(new Entry(a,b));
         }
-        Note.RRi.clear();
+        Note.RRi.clear();   //清空Note.RRi
 
         ScatterDataSet set = new ScatterDataSet(values, "Scatter DataSet");
         set.setColors(Color.BLUE);

@@ -291,16 +291,10 @@ public class ResultActivity extends AppCompatActivity {
                 Log.d("JsonTT", "" + jsonObject.getDouble("ecg_hr_mean"));
 
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");
-//                final int[] intArray = new int[RRArray.length()];
-//                for (int i=0; i<intArray.length; ++i) {
-//                    intArray[i] = (int) RRArray.get(i);
-//                    RRi.add(intArray[i]);
-//                    Note.RRi.add(intArray[i]);
-//                }
                 for (int i = 0; i < RRArray.length(); i++) {
                     Double RR = (double) RRArray.get(i);
-                    Math.floor(RR);
-                    int IntRR = Integer.valueOf(RR.intValue());
+                    Math.floor(RR); //無條件捨去
+                    int IntRR = Integer.valueOf(RR.intValue());     //轉成Int
 //                    Log.d("JsonTT", "catchData: "+RR);
                     Log.d("IntRR",""+IntRR);
                     RRi.add(IntRR);
