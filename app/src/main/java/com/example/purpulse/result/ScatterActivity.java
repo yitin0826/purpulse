@@ -4,11 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.example.purpulse.Note;
 import com.example.purpulse.R;
+import com.example.purpulse.SqlDataBaseHelper;
 import com.example.purpulse.connection.ConnectionPagerAdapter;
 import com.example.purpulse.scatter.FastFragment;
 import com.example.purpulse.scatter.IrregularFragment;
@@ -211,10 +215,12 @@ public class ScatterActivity extends AppCompatActivity{
 
         ScatterData d = new ScatterData();
 
+
         ArrayList<Float> rr_intervals = new ArrayList<>();
         ArrayList<Entry> values = new ArrayList<>();
         float a,b;
-        for (int i = 0; i < Note.RRi.size(); i++) {
+        Log.e("Note.RRi",""+Note.RRi);
+        for (int i = 1; i <= Note.RRi.size(); i++) {
             a = Note.RRi.get(i);
             if (i + 2 > Note.RRi.size()) {
                 break;
@@ -222,6 +228,7 @@ public class ScatterActivity extends AppCompatActivity{
             b = Note.RRi.get(i+1);
             values.add(new Entry(a,b));
         }
+        Note.RRi.clear();
 
         ScatterDataSet set = new ScatterDataSet(values, "Scatter DataSet");
         set.setColors(Color.BLUE);

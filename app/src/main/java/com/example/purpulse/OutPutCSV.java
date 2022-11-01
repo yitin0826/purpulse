@@ -236,7 +236,7 @@ public class OutPutCSV extends AppCompatActivity {
                     float RR = (float) RRArray.get(i);
                     Log.d("JsonTT", "catchData: " + RR);
                     RRi.add(RR);
-                    Note.RRi.add(RR);
+//                    Note.RRi.add(RR);
                 }
             } catch (JSONException e) {
                 e.printStackTrace();

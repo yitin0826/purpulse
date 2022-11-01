@@ -41,6 +41,7 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -79,7 +80,7 @@ public class ResultActivity extends AppCompatActivity {
     private static SQLiteDatabase DB2;
     private SqlDataBaseHelper sqlDataBaseHelper;
     private String account = Note.account;
-    private ArrayList<Double> RRi = new ArrayList<>();
+    private ArrayList<Integer> RRi = new ArrayList<>();
     private String success;
     private ProgressDialog progressDialog;
 
@@ -276,23 +277,37 @@ public class ResultActivity extends AppCompatActivity {
                 RMSSD = jsonObject.getDouble("RMSSD");
                 Log.d("JsonTT", "" + jsonObject.getDouble("RMSSD"));
                 sdNN = jsonObject.getDouble("sdNN");
+                Note.sdNN = Math.floor(jsonObject.getDouble("sdNN"));
                 Log.d("JsonTT", "" + jsonObject.getDouble("sdNN"));
                 LFHF = jsonObject.getDouble("LF/HF");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LF/HF"));
                 LFn = jsonObject.getDouble("LFn");
+                Note.LFn = jsonObject.getDouble("LFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("LFn"));
                 HFn = jsonObject.getDouble("HFn");
+                Note.HFn = jsonObject.getDouble("HFn");
                 Log.d("JsonTT", "" + jsonObject.getDouble("HFn"));
                 Heart = jsonObject.getDouble("ecg_hr_mean");
                 Log.d("JsonTT", "" + jsonObject.getDouble("ecg_hr_mean"));
 
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");
+//                final int[] intArray = new int[RRArray.length()];
+//                for (int i=0; i<intArray.length; ++i) {
+//                    intArray[i] = (int) RRArray.get(i);
+//                    RRi.add(intArray[i]);
+//                    Note.RRi.add(intArray[i]);
+//                }
                 for (int i = 0; i < RRArray.length(); i++) {
-                    double RR = (double) RRArray.get(i);
-                    Log.d("JsonTT", "catchData: "+RR);
-                    RRi.add(RR);
+                    Double RR = (double) RRArray.get(i);
+                    Math.floor(RR);
+                    int IntRR = Integer.valueOf(RR.intValue());
+//                    Log.d("JsonTT", "catchData: "+RR);
+                    Log.d("IntRR",""+IntRR);
+                    RRi.add(IntRR);
+                    Note.RRi.add(IntRR);
                 }
                 Log.d("RRi",""+RRi);
+                Log.v("Note.RRi",""+Note.RRi);
 
                 // 建立SQLiteOpenHelper物件
                 sqlDataBaseHelper = new SqlDataBaseHelper(ResultActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
@@ -333,6 +348,7 @@ public class ResultActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }).start();
+
     }
 
     View.OnClickListener lis = new View.OnClickListener() {
