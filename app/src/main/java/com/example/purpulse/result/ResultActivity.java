@@ -290,6 +290,7 @@ public class ResultActivity extends AppCompatActivity {
                 Heart = jsonObject.getDouble("ecg_hr_mean");
                 Log.d("JsonTT", "" + jsonObject.getDouble("ecg_hr_mean"));
 
+                Note.RRi.clear();   //清空Note.RRi
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");
                 for (int i = 0; i < RRArray.length(); i++) {
                     Double RR = (double) RRArray.get(i);
