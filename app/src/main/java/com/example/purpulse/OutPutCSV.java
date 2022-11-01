@@ -45,7 +45,7 @@ public class OutPutCSV extends AppCompatActivity {
     private TextView tv_result;
     public static Handler mHandler;
     private String json;
-    private Double RMSSD,sdNN,LFHF,LFn,HFn,Heart;
+    private Double RMSSD, sdNN, LFHF, LFn, HFn, Heart;
     private static final String DataBaseName = "db";
     private static final int DataBaseVersion = 6;
     private static String DataBaseTable = "Users";
@@ -142,7 +142,10 @@ public class OutPutCSV extends AppCompatActivity {
             });
         }).start();
     }//makeCSV
-    /** 檔案上傳*/
+
+    /**
+     * 檔案上傳
+     */
     public static class FileUpload {
         private static final MediaType MEDIA_TYPE_CSV = MediaType.parse("text/csv");
         private static final OkHttpClient client = new OkHttpClient();
@@ -187,7 +190,10 @@ public class OutPutCSV extends AppCompatActivity {
         }
 
     }
-    /** 接收線程裡的檔案*/
+
+    /**
+     * 接收線程裡的檔案
+     */
     class MHandler extends Handler {
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -197,9 +203,13 @@ public class OutPutCSV extends AppCompatActivity {
             catchData();
         }
     }
-    /** 計算完後得到的資料*/
+
+    /**
+     * 計算完後得到的資料
+     */
     private void catchData() {
         new Thread(() -> {
+                            //取值
             try {
                 JSONObject jsonObject = new JSONObject(json);
                 Log.d("JsonTT", "" + jsonObject.getString("f_name"));
@@ -224,27 +234,32 @@ public class OutPutCSV extends AppCompatActivity {
                 JSONArray RRArray = jsonObject.getJSONArray("ecg_R_intervals");
                 for (int i = 0; i < RRArray.length(); i++) {
                     float RR = (float) RRArray.get(i);
-                    Log.d("JsonTT", "catchData: "+RR);
+                    Log.d("JsonTT", "catchData: " + RR);
                     RRi.add(RR);
                     Note.RRi.add(RR);
                 }
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Log.e("value", "No Data");
+            }
 
+            try {           //寫到資料庫
                 // 建立SQLiteOpenHelper物件
-                sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this, DataBaseName, null, DataBaseVersion, DataBaseTable);
                 DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
                 Cursor U = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '" + Note.account + "'", null);
                 U.moveToFirst();
                 //更新資料(當下量測)
-                DB.execSQL("UPDATE Users SET RMSSD = '"+jsonObject.getDouble("RMSSD")+"'," +
-                        "sdNN = '"+jsonObject.getDouble("sdNN")+"'," +
-                        "LFHF = '"+jsonObject.getDouble("LF/HF")+"'," +
-                        "LFn = '"+jsonObject.getDouble("LFn")+"'," +
-                        "HFn = '"+jsonObject.getDouble("HFn")+"'," +
-                        "Heart = '"+jsonObject.getDouble("ecg_hr_mean")+"'," +
-                        "RRi = '"+RRi+"' WHERE account LIKE '"+Note.account+"'");
+                DB.execSQL("UPDATE Users SET RMSSD = '" + RMSSD + "'," +
+                        "sdNN = '" + sdNN + "'," +
+                        "LFHF = '" + LFHF + "'," +
+                        "LFn = '" + LFn + "'," +
+                        "HFn = '" + HFn + "'," +
+                        "Heart = '" + Heart + "'," +
+                        "RRi = '" + RRi + "' WHERE account LIKE '" + Note.account + "'");
 
                 // 建立SQLiteOpenHelper物件
-                sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this,DataBaseName,null,DataBaseVersion,DataBaseTable2);
+                sqlDataBaseHelper = new SqlDataBaseHelper(OutPutCSV.this, DataBaseName, null, DataBaseVersion, DataBaseTable2);
                 DB2 = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
                 //取得今天日期
                 String dateformat = "yyyy/MM/dd"; //日期的格式
@@ -252,22 +267,23 @@ public class OutPutCSV extends AppCompatActivity {
                 SimpleDateFormat df = new SimpleDateFormat(dateformat);
                 String today = df.format(mCal.getTime());
                 //更新資料(存歷史紀錄)
-                DB2.execSQL( "INSERT INTO Data (account,time,RMSSD,sdNN,LFHF,LFn,HFn,Heart,RRi) " +
-                        "VALUES('"+Note.account+"'," +
-                        "'"+today+"'," +
-                        "'"+jsonObject.getDouble("RMSSD")+"'," +
-                        "'"+jsonObject.getDouble("sdNN")+"'," +
-                        "'"+jsonObject.getDouble("LF/HF")+"'," +
-                        "'"+jsonObject.getDouble("LFn")+"'," +
-                        "'"+jsonObject.getDouble("HFn")+"'," +
-                        "'"+jsonObject.getDouble("ecg_hr_mean")+"'," +
-                        "'"+RRi+"')");
+                DB2.execSQL("INSERT INTO Data (account,time,RMSSD,sdNN,LFHF,LFn,HFn,Heart,RRi) " +
+                        "VALUES('" + Note.account + "'," +
+                        "'" + today + "'," +
+                        "'" + RMSSD + "'," +
+                        "'" + sdNN + "'," +
+                        "'" + LFHF + "'," +
+                        "'" + LFn + "'," +
+                        "'" + HFn + "'," +
+                        "'" + Heart + "'," +
+                        "'" + RRi + "')");
 
                 //清空陣列
                 RRi.clear();
 
-            } catch (JSONException e) {
-                e.printStackTrace();
+            } catch (Exception e) {
+                Log.e("SQL", "SQL no use");
+                e.toString();
             }
 
         }).start();
