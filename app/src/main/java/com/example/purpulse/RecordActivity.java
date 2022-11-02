@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -161,12 +162,24 @@ public class RecordActivity extends AppCompatActivity {
                 item_heartrate = itemView.findViewById(R.id.item_heartrate);
                 item_status = itemView.findViewById(R.id.item_status);
                 item_date = itemView.findViewById(R.id.item_date);
-                Note.Date = item_date.getText().toString();
                 popRecord();
 
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+
+                        Note.Date = item_date.getText().toString();
+                        Log.d("date",""+Note.Date);
+
+                        // 建立SQLiteOpenHelper物件
+                        sqlDataBaseHelper = new SqlDataBaseHelper(RecordActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                        DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                        Cursor D = DB.rawQuery("SELECT * FROM Data WHERE time LIKE '"+Note.Date+"'",null);
+                        D.moveToFirst();
+                        txt_lf.setText(D.getString(6));
+                        txt_hf.setText(D.getString(7));
+                        txt_sdnn.setText(D.getString(5));
+
                         record.showAtLocation(view, Gravity.CENTER_HORIZONTAL, 0, 0);
                     }
                 });
@@ -193,13 +206,6 @@ public class RecordActivity extends AppCompatActivity {
         }
 
         public void popRecord(){
-
-            // 建立SQLiteOpenHelper物件
-            sqlDataBaseHelper = new SqlDataBaseHelper(RecordActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
-            DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
-            Cursor D = DB.rawQuery("SELECT * FROM Data WHERE time LIKE '"+Note.Date+"'",null);
-            D.moveToFirst();
-
             View view = LayoutInflater.from(RecordActivity.this).inflate(R.layout.popwindow_record,null);
             record = new PopupWindow(view);
             int width = getWindowManager().getDefaultDisplay().getWidth();
@@ -211,9 +217,7 @@ public class RecordActivity extends AppCompatActivity {
             txt_hf = view.findViewById(R.id.txt_hf);
             record_ok = view.findViewById(R.id.record_ok);
             record_ok.setOnClickListener(lis);
-//            txt_lf.setText(D.getString(6));
-//            txt_hf.setText(D.getString(7));
-//            txt_sdnn.setText(D.getString(5));
+
         }
     }
 }
