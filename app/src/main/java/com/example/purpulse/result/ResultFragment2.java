@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
+import com.example.purpulse.Note;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
 import com.example.purpulse.RecordActivity;
@@ -70,10 +71,12 @@ public class ResultFragment2 extends Fragment{
                     break;
                 }
                 case R.id.btn_restart:{
+                    Note.RRi.clear();
                     startActivity(new Intent(getActivity(), PulseActivity.class));
                     break;
                 }
                 case R.id.btn_sure:{
+                    Note.RRi.clear();
                     startActivity(new Intent(getActivity(), RecordActivity.class));
                     break;
                 }
