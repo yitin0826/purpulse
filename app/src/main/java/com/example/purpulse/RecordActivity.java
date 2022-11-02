@@ -176,9 +176,15 @@ public class RecordActivity extends AppCompatActivity {
                         DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
                         Cursor D = DB.rawQuery("SELECT * FROM Data WHERE time LIKE '"+Note.Date+"'",null);
                         D.moveToFirst();
+                        //點擊歷史紀錄顯示的值
                         txt_lf.setText(D.getString(6));
                         txt_hf.setText(D.getString(7));
                         txt_sdnn.setText(D.getString(5));
+                        //太極圖數據
+                        Note.HFn = D.getDouble(7);
+                        Note.LFn = D.getDouble(6);
+                        Note.sdNN = D.getDouble(4);
+//                        Note.RRi = D.getString(9);
 
                         record.showAtLocation(view, Gravity.CENTER_HORIZONTAL, 0, 0);
                     }
