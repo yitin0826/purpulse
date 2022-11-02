@@ -34,6 +34,9 @@ public class RecordActivity extends AppCompatActivity {
     RecyclerView  recyclerView;
     MyListAdapter myListAdapter;
     ArrayList<HashMap<String,String>> arrayList = new ArrayList<>();
+    ArrayList<String> Heart = new ArrayList<>();
+    ArrayList<String> Date = new ArrayList<>();
+    ArrayList<String> state = new ArrayList<>();
     ImageButton record_img;
     private DrawerLayout record_drawerlayout;
     private NavigationView record_navigation;
@@ -141,10 +144,9 @@ public class RecordActivity extends AppCompatActivity {
         recyclerView.setAdapter(myListAdapter);
         HashMap<String,String> hashMap = new HashMap<>();
         for (int i = 0;i<D.getCount();i++){     //按照順序顯示資料
-            hashMap.put("heart",D.getString(8));
-            hashMap.put("date",D.getString(1));
-            hashMap.put("status",D.getString(2));
-            arrayList.add(hashMap);
+            Heart.add(D.getString(8));
+            Date.add(D.getString(1));
+            state.add(D.getString(2));
             D.moveToNext();     //下一筆資料
         }
     }
@@ -180,14 +182,14 @@ public class RecordActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(@NonNull MyListAdapter.ViewHolder holder, int position) {
-            holder.item_heartrate.setText(arrayList.get(position).get("heart"));
-            holder.item_status.setText(arrayList.get(position).get("status"));
-            holder.item_date.setText(arrayList.get(position).get("date"));
+            holder.item_heartrate.setText(Heart.get(position));
+            holder.item_status.setText(state.get(position));
+            holder.item_date.setText(Date.get(position));
         }
 
         @Override
         public int getItemCount() {
-            return arrayList.size();
+            return Date.size();
         }
 
         public void popRecord(){

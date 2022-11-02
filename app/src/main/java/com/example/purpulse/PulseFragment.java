@@ -357,7 +357,7 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                 else {
                     handler.removeCallbacks(this);
                 }
-                /** 結束跳到OutPutCSV **/
+
                 if (i>100){
                     /** 停止接收數據 **/
                     receiveData = false;
