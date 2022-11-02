@@ -15,8 +15,11 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.purpulse.profile.ProfileActivity;
 import com.google.android.material.navigation.NavigationView;
@@ -33,6 +36,11 @@ public class RecordActivity extends AppCompatActivity {
     private DrawerLayout record_drawerlayout;
     private NavigationView record_navigation;
     private String activity;
+
+    /** itemClick **/
+    private PopupWindow record;
+    private TextView txt_lf,txt_sdnn,txt_hf;
+    private Button record_ok;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,7 +82,7 @@ public class RecordActivity extends AppCompatActivity {
                 if (activity.equals("device")){
                     return true;
                 }else {
-                    startActivity(new Intent(RecordActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(RecordActivity.this,HomepageActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_pulse){
@@ -103,12 +111,16 @@ public class RecordActivity extends AppCompatActivity {
                     record_drawerlayout.openDrawer(Gravity.RIGHT);
                     break;
                 }
+                case R.id.record_ok:{
+                    record.dismiss();
+                    break;
+                }
             }
         }
     };
 
     public void initRecycle(){
-        recyclerView = findViewById(R.id.recycleView);
+        recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         myListAdapter = new MyListAdapter();
@@ -130,13 +142,21 @@ public class RecordActivity extends AppCompatActivity {
                 item_heartrate = itemView.findViewById(R.id.item_heartrate);
                 item_status = itemView.findViewById(R.id.item_status);
                 item_date = itemView.findViewById(R.id.item_date);
+                popRecord();
+
+                itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        record.showAtLocation(view, Gravity.CENTER_HORIZONTAL, 0, 0);
+                    }
+                });
             }
         }
 
         @NonNull
         @Override
         public MyListAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.record_item,parent,false);
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_record,parent,false);
             return new ViewHolder(view);
         }
 
@@ -150,6 +170,20 @@ public class RecordActivity extends AppCompatActivity {
         @Override
         public int getItemCount() {
             return arrayList.size();
+        }
+
+        public void popRecord(){
+            View view = LayoutInflater.from(RecordActivity.this).inflate(R.layout.popwindow_record,null);
+            record = new PopupWindow(view);
+            int width = getWindowManager().getDefaultDisplay().getWidth();
+            record.setWidth(width*5/7);
+            record.setHeight(ViewGroup.LayoutParams.WRAP_CONTENT);
+            record.setFocusable(false);
+            txt_lf = view.findViewById(R.id.txt_lf);
+            txt_sdnn = view.findViewById(R.id.txt_sdnn);
+            txt_hf = view.findViewById(R.id.txt_hf);
+            record_ok = view.findViewById(R.id.record_ok);
+            record_ok.setOnClickListener(lis);
         }
     }
 }

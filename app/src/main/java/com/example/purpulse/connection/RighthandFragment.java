@@ -35,8 +35,6 @@ public class RighthandFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        deviceAddress = getArguments().getString("device");
-        Toast.makeText(getActivity(),deviceAddress,Toast.LENGTH_SHORT).show();
     }
 
     @Override

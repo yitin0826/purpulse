@@ -31,12 +31,6 @@ public class ConnectionActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
-        Intent intent = this.getIntent();
-        device = intent.getStringExtra("device");
-        //Toast.makeText(ConnectionActivity.this,device,Toast.LENGTH_SHORT).show();
-        Bundle args = new Bundle();
-        args.putString("device",device);
-        fragment.setArguments(args);
         initView();
         initFragment();
     }

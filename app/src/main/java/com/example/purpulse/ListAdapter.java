@@ -1,6 +1,5 @@
 package com.example.purpulse;
 
-import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -15,11 +14,9 @@ import android.widget.BaseAdapter;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Locale;
 
 public class ListAdapter extends BaseAdapter {
 
@@ -54,7 +51,7 @@ public class ListAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View view, ViewGroup parent) {
-        View v = inflater.inflate(R.layout.alarmlist_item, parent,false);
+        View v = inflater.inflate(R.layout.item_alarmlist, parent,false);
         TextView text1 = v.findViewById(R.id.text1);
         Switch switchbtn = v.findViewById(R.id.switchbtn);
         String time = alarm.get(position);

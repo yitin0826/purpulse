@@ -228,7 +228,6 @@ public class ScatterActivity extends AppCompatActivity{
             b = Note.RRi.get(i+1);
             values.add(new Entry(a,b));
         }
-        Note.RRi.clear();   //清空Note.RRi
 
         ScatterDataSet set = new ScatterDataSet(values, "Scatter DataSet");
         set.setColors(Color.BLUE);

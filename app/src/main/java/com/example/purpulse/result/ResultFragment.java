@@ -20,6 +20,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -33,6 +34,7 @@ import java.util.List;
 
 public class ResultFragment extends Fragment{
 
+    private ImageView img_circle;
     private TextView txt_heartrate,text_g,text_y,text_r,text_p;
     private ViewPager vp_result;
     private TabLayout tl_result;
@@ -61,6 +63,7 @@ public class ResultFragment extends Fragment{
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_result, container, false);
         context = getActivity();
+        img_circle = view.findViewById(R.id.img_circle);
         btn_info = view.findViewById(R.id.btn_info);
         btn_next = view.findViewById(R.id.btn_next);
         btn_info.setOnClickListener(lis);
@@ -145,6 +148,7 @@ public class ResultFragment extends Fragment{
         DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
         Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ account +"'",null);
         D.moveToFirst();
+        int heartrate = Integer.parseInt(D.getString(13));
         txt_heartrate.setText(D.getString(13));
         SpannableStringBuilder span = new SpannableStringBuilder(txt_heartrate.getText().toString());
         span.setSpan(new AbsoluteSizeSpan(sp2px(getActivity(),70)),

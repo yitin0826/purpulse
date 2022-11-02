@@ -147,7 +147,6 @@ public class NotifyActivity extends AppCompatActivity {
         alarm_ok = view.findViewById(R.id.alarm_ok);
         np_hr = view.findViewById(R.id.np_hr);
         np_min = view.findViewById(R.id.np_min);
-        edit_alarm = view.findViewById(R.id.edit_alarm);
         numpickerSet();
         alarm_ok.setOnClickListener(lis);
     }

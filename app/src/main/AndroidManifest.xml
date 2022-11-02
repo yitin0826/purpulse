@@ -90,13 +90,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".CodeActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".PasswordActivity"
             android:exported="false">
             <meta-data

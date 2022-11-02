@@ -117,7 +117,7 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        deviceAddress = getArguments().getString("device");
+        deviceAddress = Note.adress;
     }
 
     @Override
@@ -167,7 +167,6 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
         super.onResume();
         if (initialStart && service != null) {
             initialStart = false;
-//            receiveText.setText("");
             getActivity().runOnUiThread(this::connect);
         }
     }
@@ -282,8 +281,8 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
             if (receiveData == true) {
                 String[] buffer = msg.split("\n");
                 for (int i = 0; i < buffer.length; i++) {
-                    saveList.add(buffer[i]);
                     try {
+                        saveList.add(buffer[i]);
                         integerList.add(Integer.valueOf(buffer[i]));
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -298,6 +297,7 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                     for (int i = 0; i < integerList.size(); i++) {
                         try {
                             keepDraw = integerList.get(i);
+//                            Log.d("keepdraw", "run: "+keepDraw);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -352,7 +352,7 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
                     progress_text.setText(""+i+"%");
                     progressbar.setProgress(i);
                     i+=1;
-                    handler.postDelayed(this,300);
+                    handler.postDelayed(this,900);
                 }
                 else {
                     handler.removeCallbacks(this);

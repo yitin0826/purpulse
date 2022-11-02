@@ -22,14 +22,10 @@
             android:paddingTop="@dimen/dp_12"
             android:orientation="horizontal">
 
-            <ImageButton
+            <Space
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_40"
-                android:layout_weight="1"
-                android:layout_gravity="center"
-                android:backgroundTint="@null"
-                android:background="@null"
-                app:srcCompat="@drawable/chevron_back_svgrepo_com"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
             <ImageView
                 android:layout_width="0dp"
@@ -50,7 +46,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleView"
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dp_10"

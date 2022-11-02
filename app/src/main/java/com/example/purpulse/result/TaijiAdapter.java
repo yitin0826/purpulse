@@ -12,7 +12,6 @@ import com.example.purpulse.NameMapping;
 import com.example.purpulse.R;
 
 import java.util.ArrayList;
-import java.util.jar.Attributes;
 
 public class TaijiAdapter extends ArrayAdapter<NameMapping> {
     public TaijiAdapter(Activity context, ArrayList<NameMapping> tortoises){
@@ -26,7 +25,7 @@ public class TaijiAdapter extends ArrayAdapter<NameMapping> {
 
         //listItemView可能會是空的，例如App剛啟動時，沒有預先儲存的view可使用
         if(listItemView == null){
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.taiji_item, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.item_taiji, parent, false);
         }
 
         //找到data，並在View上設定正確的data

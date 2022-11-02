@@ -110,7 +110,7 @@ public class DeviceFragment extends ListFragment{
             public View getView(int position, View view, @NonNull ViewGroup parent) {
                 BluetoothDevice device = listItems.get(position);
                 if (view == null)
-                    view = getActivity().getLayoutInflater().inflate(R.layout.devicelist_item, parent, false);
+                    view = getActivity().getLayoutInflater().inflate(R.layout.item_devicelist, parent, false);
                 TextView text1 = view.findViewById(R.id.text1);
                 TextView text2 = view.findViewById(R.id.text2);
                 text3 = view.findViewById(R.id.text3);
@@ -278,12 +278,9 @@ public class DeviceFragment extends ListFragment{
     public void onListItemClick(@NonNull ListView l, @NonNull View v, int position, long id){
         stopScan();
         device = listItems.get(position);
-        Bundle args = new Bundle();
-        args.putString("device",device.getAddress());
         Intent intent = new Intent();
         intent.setClass(getActivity(), ConnectionActivity.class);
-        intent.putExtra("device",device.getAddress());
-        //Toast.makeText(getActivity(),device.getAddress(),Toast.LENGTH_SHORT).show();
+        Note.adress = device.getAddress();
         startActivity(intent);
     }
 }

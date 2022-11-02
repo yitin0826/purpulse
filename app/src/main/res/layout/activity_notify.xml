@@ -23,13 +23,10 @@
             android:paddingTop="@dimen/dp_12"
             android:orientation="horizontal">
 
-            <ImageButton
+            <Space
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dp_70"
-                android:layout_weight="1"
-                android:backgroundTint="@null"
-                android:background="@null"
-                app:srcCompat="@drawable/chevron_back_svgrepo_com"/>
+                android:layout_height="match_parent"
+                android:layout_weight="1"/>
 
             <ImageView
                 android:layout_width="0dp"

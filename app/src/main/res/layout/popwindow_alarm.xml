@@ -51,30 +51,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginStart="@dimen/dp_10"
-        android:layout_marginEnd="@dimen/dp_50"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="鬧鐘名稱："
-            android:textSize="@dimen/sp_20"
-            android:textColor="@color/blue"
-            android:fontFamily="@font/jf_openhuninn"/>
-
-        <EditText
-            android:id="@+id/edit_alarm"
-            android:layout_width="@dimen/dp_130"
-            android:layout_height="@dimen/dp_30"
-            android:background="@drawable/textinputborder2"/>
-
-    </LinearLayout>
-
     <Button
         android:id="@+id/alarm_ok"
         android:layout_width="@dimen/dp_70"
