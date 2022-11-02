@@ -322,14 +322,15 @@ public class ResultActivity extends AppCompatActivity {
                 sqlDataBaseHelper = new SqlDataBaseHelper(ResultActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable2);
                 DB2 = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
                 //取得今天日期
-                String dateformat = "yyyy/MM/dd"; //日期的格式
+                String dateformat = "yyyy/MM/dd HH:mm:ss"; //日期的格式
                 Calendar mCal = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat(dateformat);
                 String today = df.format(mCal.getTime());
                 //更新資料(存歷史紀錄)
-                DB2.execSQL( "INSERT INTO Data (account,time,RMSSD,sdNN,LFHF,LFn,HFn,Heart,RRi) " +
+                DB2.execSQL( "INSERT INTO Data (account,time,state,RMSSD,sdNN,LFHF,LFn,HFn,Heart,RRi) " +
                         "VALUES('"+Note.account+"'," +
                         "'"+today+"'," +
+                        "'"+Note.state+"'," +
                         "'"+jsonObject.getDouble("RMSSD")+"'," +
                         "'"+jsonObject.getDouble("sdNN")+"'," +
                         "'"+jsonObject.getDouble("LF/HF")+"'," +

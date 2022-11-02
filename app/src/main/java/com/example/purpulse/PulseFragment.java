@@ -391,6 +391,7 @@ public class PulseFragment extends Fragment implements ServiceConnection, Serial
         btn_yes.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Note.state = spinner.getSelectedItem().toString();
                 dialog.dismiss();
                 receive_text.setVisibility(View.INVISIBLE);
                 btn_start.setVisibility(View.INVISIBLE);
