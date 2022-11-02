@@ -63,6 +63,9 @@ public class TaijiView extends View {
         //半圆
         int SDNN = Note.sdNN.intValue();    //無條件捨去後面的小數
         int radius = SDNN*3/2;   //半徑，SDNN正常值約等於20~45，於是設直徑為SDNN*10
+        if (radius > 50){       //如果半徑大於50則設為50
+            radius = 50;
+        }
         Log.d("radius",""+radius);
         RectF rectF = new RectF(-radius, -radius, radius, radius);  //定義圓弧大小範圍、形狀(x,y,getwidth()-x,getheight()-y)
         Log.d("rectF",""+rectF);
