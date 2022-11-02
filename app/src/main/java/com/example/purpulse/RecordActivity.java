@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -36,6 +38,12 @@ public class RecordActivity extends AppCompatActivity {
     private DrawerLayout record_drawerlayout;
     private NavigationView record_navigation;
     private String activity;
+    private String Account = Note.account;
+    private static final String DataBaseName = "db";
+    private static final int DataBaseVersion = 9;
+    private static String DataBaseTable = "Data";
+    private static SQLiteDatabase DB;
+    private SqlDataBaseHelper sqlDataBaseHelper;
 
     /** itemClick **/
     private PopupWindow record;
@@ -120,16 +128,25 @@ public class RecordActivity extends AppCompatActivity {
     };
 
     public void initRecycle(){
+        // 建立SQLiteOpenHelper物件
+        sqlDataBaseHelper = new SqlDataBaseHelper(RecordActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+        DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+        Cursor D = DB.rawQuery("SELECT * FROM Data",null);
+        D.moveToFirst();
+
         recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.addItemDecoration(new DividerItemDecoration(this,DividerItemDecoration.VERTICAL));
         myListAdapter = new MyListAdapter();
         recyclerView.setAdapter(myListAdapter);
         HashMap<String,String> hashMap = new HashMap<>();
-        hashMap.put("heart","79");
-        hashMap.put("date","2022-10-18 14:57");
-        hashMap.put("status","睡前量測");
-        arrayList.add(hashMap);
+        for (int i = 0;i<D.getCount();i++){     //按照順序顯示資料
+            hashMap.put("heart",D.getString(8));
+            hashMap.put("date",D.getString(1));
+            hashMap.put("status",D.getString(2));
+            arrayList.add(hashMap);
+            D.moveToNext();     //下一筆資料
+        }
     }
 
     private class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.ViewHolder>{
@@ -142,6 +159,7 @@ public class RecordActivity extends AppCompatActivity {
                 item_heartrate = itemView.findViewById(R.id.item_heartrate);
                 item_status = itemView.findViewById(R.id.item_status);
                 item_date = itemView.findViewById(R.id.item_date);
+                Note.Date = item_date.getText().toString();
                 popRecord();
 
                 itemView.setOnClickListener(new View.OnClickListener() {
@@ -173,6 +191,13 @@ public class RecordActivity extends AppCompatActivity {
         }
 
         public void popRecord(){
+
+            // 建立SQLiteOpenHelper物件
+            sqlDataBaseHelper = new SqlDataBaseHelper(RecordActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+            DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+            Cursor D = DB.rawQuery("SELECT * FROM Data WHERE time LIKE '"+Note.Date+"'",null);
+            D.moveToFirst();
+
             View view = LayoutInflater.from(RecordActivity.this).inflate(R.layout.popwindow_record,null);
             record = new PopupWindow(view);
             int width = getWindowManager().getDefaultDisplay().getWidth();
@@ -184,6 +209,9 @@ public class RecordActivity extends AppCompatActivity {
             txt_hf = view.findViewById(R.id.txt_hf);
             record_ok = view.findViewById(R.id.record_ok);
             record_ok.setOnClickListener(lis);
+//            txt_lf.setText(D.getString(6));
+//            txt_hf.setText(D.getString(7));
+//            txt_sdnn.setText(D.getString(5));
         }
     }
 }
