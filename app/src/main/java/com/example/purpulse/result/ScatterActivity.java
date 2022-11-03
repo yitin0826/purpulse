@@ -226,7 +226,7 @@ public class ScatterActivity extends AppCompatActivity{
                 break;
             }
             b = Note.RRi.get(i+1);
-            values.add(new Entry(a,b));
+            values.add(new Entry(a*5,b*5));
         }
 
         ScatterDataSet set = new ScatterDataSet(values, "Scatter DataSet");
