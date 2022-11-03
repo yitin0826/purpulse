@@ -97,35 +97,35 @@
         android:layout_marginTop="@dimen/dp_200"
         android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/btn_restart"
-            android:layout_width="@dimen/dp_110"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginStart="@dimen/dp_10"
-            android:backgroundTint="@null"
-            android:background="@drawable/buttonborder2"
-            android:text="重新量測"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_20"
-            android:fontFamily="@font/jf_openhuninn"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_restart"-->
+<!--            android:layout_width="@dimen/dp_110"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginStart="@dimen/dp_10"-->
+<!--            android:backgroundTint="@null"-->
+<!--            android:background="@drawable/buttonborder2"-->
+<!--            android:text="重新量測"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="@dimen/sp_20"-->
+<!--            android:fontFamily="@font/jf_openhuninn"/>-->
 
-        <Space
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="wrap_content"/>
+<!--        <Space-->
+<!--            android:layout_width="@dimen/dp_40"-->
+<!--            android:layout_height="wrap_content"/>-->
 
-        <Button
-            android:id="@+id/btn_sure"
-            android:layout_width="@dimen/dp_110"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_marginEnd="@dimen/dp_10"
-            android:backgroundTint="@null"
-            android:background="@drawable/buttonborder2"
-            android:text="確認"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_20"
-            android:fontFamily="@font/jf_openhuninn"/>
+<!--        <Button-->
+<!--            android:id="@+id/btn_sure"-->
+<!--            android:layout_width="@dimen/dp_110"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_weight="1"-->
+<!--            android:layout_marginEnd="@dimen/dp_10"-->
+<!--            android:backgroundTint="@null"-->
+<!--            android:background="@drawable/buttonborder2"-->
+<!--            android:text="確認"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="@dimen/sp_20"-->
+<!--            android:fontFamily="@font/jf_openhuninn"/>-->
 
     </LinearLayout>
 

@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,13 +24,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.purpulse.profile.ProfileActivity;
+import com.example.purpulse.result.ResultPagerAdapter;
+import com.example.purpulse.result.ScatterFragment;
+import com.example.purpulse.result.TaijiFragment;
 import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class RecordActivity extends AppCompatActivity {
 
@@ -53,6 +59,10 @@ public class RecordActivity extends AppCompatActivity {
     private PopupWindow record;
     private TextView txt_lf,txt_sdnn,txt_hf;
     private Button record_ok;
+    public static int lastPosition = 0;
+    private ViewPager vp_record;
+    private TabLayout tl_record;
+    private ResultPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,8 +232,41 @@ public class RecordActivity extends AppCompatActivity {
             txt_sdnn = view.findViewById(R.id.txt_sdnn);
             txt_hf = view.findViewById(R.id.txt_hf);
             record_ok = view.findViewById(R.id.record_ok);
+            vp_record = view.findViewById(R.id.vp_record);
+            tl_record = view.findViewById(R.id.tl_record);
             record_ok.setOnClickListener(lis);
+            //initView();
+        }
 
+        public void initView(){
+            vp_record.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+                @Override
+                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+                }
+
+                @Override
+                public void onPageSelected(int position) {
+                    lastPosition = position;
+                }
+
+                @Override
+                public void onPageScrollStateChanged(int state) {
+
+                }
+            });
+            setupViewPager(vp_record);
+            tl_record.setupWithViewPager(vp_record);
+            tl_record.getTabAt(0).setIcon(R.drawable.scatter_graph);
+            tl_record.getTabAt(1).setIcon(R.drawable.yin_yang);
+        }
+
+        private void setupViewPager(ViewPager viewPager){
+            List<Fragment> fragmentList = new ArrayList<>();
+            fragmentList.add(new ScatterFragment());
+            fragmentList.add(new TaijiFragment());
+            adapter = new ResultPagerAdapter(getSupportFragmentManager(),RecordActivity.this,fragmentList);
+            viewPager.setAdapter(adapter);
         }
     }
 }

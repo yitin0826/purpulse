@@ -1,6 +1,7 @@
 package com.example.purpulse.result;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -25,7 +26,9 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.purpulse.Note;
+import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
+import com.example.purpulse.RecordActivity;
 import com.example.purpulse.SqlDataBaseHelper;
 import com.google.android.material.tabs.TabLayout;
 
@@ -40,7 +43,7 @@ public class ResultFragment extends Fragment{
     private TabLayout tl_result;
     public static int lastPosition = 0;
     private ImageButton btn_info;
-    private Button btn_ok,btn_next;
+    private Button btn_ok,btn_restart,btn_sure;
     public String activity;
     private PopupWindow info;
     private View view;
@@ -65,9 +68,11 @@ public class ResultFragment extends Fragment{
         context = getActivity();
         img_circle = view.findViewById(R.id.img_circle);
         btn_info = view.findViewById(R.id.btn_info);
-        btn_next = view.findViewById(R.id.btn_next);
+        btn_restart = view.findViewById(R.id.btn_restart);
+        btn_sure = view.findViewById(R.id.btn_sure);
         btn_info.setOnClickListener(lis);
-        btn_next.setOnClickListener(lis);
+        btn_restart.setOnClickListener(lis);
+        btn_sure.setOnClickListener(lis);
         txt_heartrate = view.findViewById(R.id.txt_heartrate);
         vp_result = view.findViewById(R.id.vp_result);
         tl_result = view.findViewById(R.id.tl_result);
@@ -130,12 +135,22 @@ public class ResultFragment extends Fragment{
                     info.dismiss();
                     break;
                 }
-                case R.id.btn_next:{
-                    //切換頁面
-                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                    fragmentTransaction.addToBackStack(null);
-                    fragmentTransaction.replace(R.id.relativ_result,new ResultFragment2());
-                    fragmentTransaction.commit();
+//                case R.id.btn_next:{
+//                    //切換頁面
+//                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.replace(R.id.relativ_result,new ResultFragment2());
+//                    fragmentTransaction.commit();
+//                    break;
+//                }
+                case R.id.btn_restart:{
+                    Note.RRi.clear();
+                    startActivity(new Intent(getActivity(), PulseActivity.class));
+                    break;
+                }
+                case R.id.btn_sure:{
+                    Note.RRi.clear();
+                    startActivity(new Intent(getActivity(), RecordActivity.class));
                     break;
                 }
             }

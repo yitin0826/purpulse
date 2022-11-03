@@ -28,7 +28,6 @@ public class ResultFragment2 extends Fragment{
 
     ImageView tired,sad;
     ImageButton btn_down1,btn_down2;
-    Button btn_restart,btn_sure;
 
     /** PopupWindow **/
     PopupWindow pop_tired,pop_sad;
@@ -47,12 +46,8 @@ public class ResultFragment2 extends Fragment{
         sad = view.findViewById(R.id.sad_img);
         btn_down1 = view.findViewById(R.id.btn_down1);
         btn_down2 = view.findViewById(R.id.btn_down2);
-        btn_restart = view.findViewById(R.id.btn_restart);
-        btn_sure = view.findViewById(R.id.btn_sure);
         btn_down1.setOnClickListener(lis);
         btn_down2.setOnClickListener(lis);
-        btn_restart.setOnClickListener(lis);
-        btn_sure.setOnClickListener(lis);
         popup_tired();
         popup_sad();
         return view;
