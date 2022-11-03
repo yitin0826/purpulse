@@ -195,6 +195,11 @@ public class RecordActivity extends AppCompatActivity {
                         Note.LFn = D.getDouble(6);
                         Note.sdNN = D.getDouble(4);
 //                        Note.RRi = D.getString(9);
+                        Log.d("SQL_RRi",""+D.getString(9));
+                        ArrayList<String> SQL_RRi = new ArrayList<>();
+//                        SQL_RRi.add();
+                        Log.d("SQLARRAY",""+D.getString(9));
+                        Log.d("SQL_LF",""+D.getString(6));
 
                         record.showAtLocation(view, Gravity.CENTER_HORIZONTAL, 0, 0);
                     }

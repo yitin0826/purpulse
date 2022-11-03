@@ -61,7 +61,7 @@
     <ListView
         android:id="@+id/list_taiji"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_340"
+        android:layout_height="@dimen/dp_330"
         android:layout_marginTop="@dimen/dp_10"
         android:layout_marginStart="@dimen/dp_55"
         android:layout_marginEnd="@dimen/dp_55"
