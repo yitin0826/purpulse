@@ -26,6 +26,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.example.purpulse.profile.ProfileActivity;
+import com.example.purpulse.result.ResultActivity;
 import com.example.purpulse.result.ResultPagerAdapter;
 import com.example.purpulse.result.ScatterFragment;
 import com.example.purpulse.result.TaijiFragment;
@@ -51,13 +52,13 @@ public class RecordActivity extends AppCompatActivity {
     private String Account = Note.account;
     private static final String DataBaseName = "db";
     private static final int DataBaseVersion = 9;
-    private static String DataBaseTable = "Data";
+    private static String DataBaseTable = "Users";
     private static SQLiteDatabase DB;
     private SqlDataBaseHelper sqlDataBaseHelper;
 
     /** itemClick **/
     private PopupWindow record;
-    private TextView txt_lf,txt_sdnn,txt_hf;
+    private TextView txt_lf,txt_sdnn,txt_hf,txtHead,txtMail;
     private Button record_ok;
     public static int lastPosition = 0;
     private ViewPager vp_record;
@@ -129,8 +130,19 @@ public class RecordActivity extends AppCompatActivity {
         @Override
         public void onClick(View view) {
             switch (view.getId()){
-                case R.id.record_img:{
+                case R.id.record_img:{      //側邊攔
                     record_drawerlayout.openDrawer(Gravity.RIGHT);
+
+                    txtHead = findViewById(R.id.txtHeader);
+                    txtMail = findViewById(R.id.txtHeader2);
+                    // 建立SQLiteOpenHelper物件
+                    sqlDataBaseHelper = new SqlDataBaseHelper(RecordActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                    DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                    Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ Account +"'",null);
+                    D.moveToFirst();
+                    //側邊欄的個人資訊
+                    txtHead.setText(D.getString(0));
+                    txtMail.setText(D.getString(3));
                     break;
                 }
                 case R.id.record_ok:{

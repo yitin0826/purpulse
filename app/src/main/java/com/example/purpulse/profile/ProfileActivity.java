@@ -7,12 +7,15 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.purpulse.HomepageActivity;
@@ -21,6 +24,7 @@ import com.example.purpulse.Note;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
 import com.example.purpulse.RecordActivity;
+import com.example.purpulse.SqlDataBaseHelper;
 import com.google.android.material.navigation.NavigationView;
 
 public class ProfileActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
@@ -30,6 +34,12 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
     private NavigationView pf_navigation;
     public String activity;
     private String account = Note.account;
+    private TextView txtHead,txtMail;
+    private static final String DataBaseName = "db";
+    private static final int DataBaseVersion = 9;
+    private static String DataBaseTable = "Users";
+    private static SQLiteDatabase DB;
+    private SqlDataBaseHelper sqlDataBaseHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +67,18 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
             switch (view.getId()){
                 case R.id.pf_img:{
                     pf_drawerlayout.openDrawer(Gravity.RIGHT);
+
+                    txtHead = findViewById(R.id.txtHeader);
+                    txtMail = findViewById(R.id.txtHeader2);
+
+                    // 建立SQLiteOpenHelper物件
+                    sqlDataBaseHelper = new SqlDataBaseHelper(ProfileActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                    DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                    Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ account +"'",null);
+                    D.moveToFirst();
+                    //側邊欄的個人資訊
+                    txtHead.setText(D.getString(0));
+                    txtMail.setText(D.getString(3));
                     break;
                 }
             }
@@ -104,7 +126,7 @@ public class ProfileActivity extends AppCompatActivity implements FragmentManage
                 if (activity.equals("notify")){
                     return true;
                 }else {
-                    //startActivity(new Intent(ProfileActivity.this,ProfileActivity.class));
+//                    startActivity(new Intent(ProfileActivity.this,ProfileActivity.class));
                     return true;
                 }
             }

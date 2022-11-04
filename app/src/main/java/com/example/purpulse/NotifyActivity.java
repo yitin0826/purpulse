@@ -7,6 +7,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -20,6 +22,7 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.PopupWindow;
 import android.widget.Switch;
+import android.widget.TextView;
 
 import com.example.purpulse.connection.ConnectionActivity;
 import com.example.purpulse.profile.ProfileActivity;
@@ -32,6 +35,7 @@ import java.util.Date;
 public class NotifyActivity extends AppCompatActivity {
 
     private ImageButton btn_alarmadd,notify_img;
+    private TextView txtHead,txtMail;
     private PopupWindow alarmset;
     private Context context;
     private Button alarm_ok;
@@ -44,6 +48,12 @@ public class NotifyActivity extends AppCompatActivity {
     private ArrayList<String> alarmList = new ArrayList();
     private ListAdapter alarm_adapter;
     private Switch switchbtn;
+    private static final String DataBaseName = "db";
+    private static final int DataBaseVersion = 9;
+    private static String DataBaseTable = "Users";
+    private static SQLiteDatabase DB;
+    private SqlDataBaseHelper sqlDataBaseHelper;
+    private String Account = Note.account;
     String s ;
     Date date = new Date();
 
@@ -121,6 +131,16 @@ public class NotifyActivity extends AppCompatActivity {
             switch (view.getId()){
                 case R.id.notify_img:{
                     notify_drawerlayout.openDrawer(Gravity.RIGHT);
+                    txtHead = findViewById(R.id.txtHeader);
+                    txtMail = findViewById(R.id.txtHeader2);
+                    // 建立SQLiteOpenHelper物件
+                    sqlDataBaseHelper = new SqlDataBaseHelper(NotifyActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                    DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                    Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ Account +"'",null);
+                    D.moveToFirst();
+                    //側邊欄的個人資訊
+                    txtHead.setText(D.getString(0));
+                    txtMail.setText(D.getString(3));
                     break;
                 }
                 case R.id.btn_alarmadd:{

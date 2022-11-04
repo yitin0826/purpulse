@@ -61,6 +61,7 @@ public class ResultActivity extends AppCompatActivity {
     private ImageButton result_img;
     private DrawerLayout result_drawerlayout;
     private NavigationView result_navigation;
+    private TextView txtHead,txtMail;
     public String activity;
     public Bundle instance;
     private Context context;
@@ -353,6 +354,17 @@ public class ResultActivity extends AppCompatActivity {
             switch (view.getId()){
                 case R.id.result_img:{
                     result_drawerlayout.openDrawer(Gravity.RIGHT);
+
+                    txtHead = findViewById(R.id.txtHeader);
+                    txtMail = findViewById(R.id.txtHeader2);
+                    // 建立SQLiteOpenHelper物件
+                    sqlDataBaseHelper = new SqlDataBaseHelper(ResultActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                    DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                    Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ account +"'",null);
+                    D.moveToFirst();
+                    //側邊欄的個人資訊
+                    txtHead.setText(D.getString(0));
+                    txtMail.setText(D.getString(3));
                     break;
                 }
             }

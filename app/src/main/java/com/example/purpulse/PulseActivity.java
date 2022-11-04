@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
@@ -28,10 +30,16 @@ public class PulseActivity extends AppCompatActivity implements FragmentManager.
     private DrawerLayout pulse_drawerlayout;
     private NavigationView pulse_navigation;
     private ProgressBar progressBar;
-    private TextView progressText;
+    private TextView progressText,txtHead,txtMail;
     int i = 0;
     private Button btn_resultconfirm;
     public String activity,device;
+    private static final String DataBaseName = "db";
+    private static final int DataBaseVersion = 9;
+    private static String DataBaseTable = "Users";
+    private static SQLiteDatabase DB;
+    private SqlDataBaseHelper sqlDataBaseHelper;
+    private String Account = Note.account;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +69,16 @@ public class PulseActivity extends AppCompatActivity implements FragmentManager.
             switch (view.getId()){
                 case R.id.pulse_img:{
                     pulse_drawerlayout.openDrawer(Gravity.RIGHT);
+                    txtHead = findViewById(R.id.txtHeader);
+                    txtMail = findViewById(R.id.txtHeader2);
+                    // 建立SQLiteOpenHelper物件
+                    sqlDataBaseHelper = new SqlDataBaseHelper(PulseActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable);
+                    DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
+                    Cursor D = DB.rawQuery("SELECT * FROM Users WHERE account LIKE '"+ Account +"'",null);
+                    D.moveToFirst();
+                    //側邊欄的個人資訊
+                    txtHead.setText(D.getString(0));
+                    txtMail.setText(D.getString(3));
                     break;
                 }
             }
