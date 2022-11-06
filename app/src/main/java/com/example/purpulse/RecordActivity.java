@@ -34,6 +34,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -206,12 +207,16 @@ public class RecordActivity extends AppCompatActivity {
                         Note.HFn = D.getDouble(7);
                         Note.LFn = D.getDouble(6);
                         Note.sdNN = D.getDouble(4);
-//                        Note.RRi = D.getString(9);
-                        Log.d("SQL_RRi",""+D.getString(9));
-                        ArrayList<String> SQL_RRi = new ArrayList<>();
-//                        SQL_RRi.add();
-                        Log.d("SQLARRAY",""+D.getString(9));
-                        Log.d("SQL_LF",""+D.getString(6));
+                        //散點圖數據
+                        Note.RRi.clear();   //先清空怕資料重疊
+                        String test = D.getString(9).replaceAll(" ","");    //取得數據以及清除當中的空格
+                        Log.d("test",""+test);
+                        String[] sqlrri = test.split("\\[|,|\\]",0);    //去除括弧和逗號
+                        Log.d("sqlrri",""+Arrays.toString(sqlrri));
+                        for (int i=1;i<sqlrri.length;i++){
+                            Note.RRi.add(Integer.parseInt(sqlrri[i]));      //轉成int並寫到Note.RRi當變數用
+                        }
+                        Log.d("Note.RRi",""+Note.RRi);
 
                         record.showAtLocation(view, Gravity.CENTER_HORIZONTAL, 0, 0);
                     }
@@ -285,5 +290,6 @@ public class RecordActivity extends AppCompatActivity {
             adapter = new ResultPagerAdapter(getSupportFragmentManager(),RecordActivity.this,fragmentList);
             viewPager.setAdapter(adapter);
         }
+
     }
 }
