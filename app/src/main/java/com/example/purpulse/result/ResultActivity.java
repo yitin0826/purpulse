@@ -31,7 +31,7 @@ import com.example.purpulse.SqlDataBaseHelper;
 import com.example.purpulse.profile.ProfileActivity;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
-import com.example.purpulse.RecordActivity;
+import com.example.purpulse.record.RecordActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import org.json.JSONArray;
@@ -41,7 +41,6 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;

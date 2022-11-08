@@ -26,6 +26,7 @@ import android.widget.TextView;
 
 import com.example.purpulse.connection.ConnectionActivity;
 import com.example.purpulse.profile.ProfileActivity;
+import com.example.purpulse.record.RecordActivity;
 import com.google.android.material.navigation.NavigationView;
 
 import java.text.SimpleDateFormat;
@@ -46,7 +47,7 @@ public class NotifyActivity extends AppCompatActivity {
     private String activity;
     private ListView list_alarm;
     private ArrayList<String> alarmList = new ArrayList();
-    private ListAdapter alarm_adapter;
+    private AlarmAdapter alarm_adapter;
     private Switch switchbtn;
     private static final String DataBaseName = "db";
     private static final int DataBaseVersion = 9;
@@ -72,7 +73,7 @@ public class NotifyActivity extends AppCompatActivity {
         notify_img.setOnClickListener(lis);
         list_alarm = findViewById(R.id.list_alarm);
         //list_alarm.setOnItemClickListener(list_lis);
-        alarm_adapter = new ListAdapter(NotifyActivity.this, alarmList);
+        alarm_adapter = new AlarmAdapter(NotifyActivity.this, alarmList);
         list_alarm.setAdapter(alarm_adapter);
         alarmWindow();
     }
@@ -97,7 +98,7 @@ public class NotifyActivity extends AppCompatActivity {
                 if (activity.equals("record")){
                     return true;
                 }else {
-                    startActivity(new Intent(NotifyActivity.this,RecordActivity.class));
+                    startActivity(new Intent(NotifyActivity.this, RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){

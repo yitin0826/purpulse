@@ -109,14 +109,14 @@
         app:srcCompat="@drawable/divider"/>
 
     <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tl_record"
+        android:id="@+id/tl_individual"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_60"
         android:layout_marginTop="@dimen/dp_5"
         app:tabGravity="fill"/>
 
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/vp_record"
+        android:id="@+id/vp_individual"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_270"
         android:paddingTop="@dimen/dp_10"/>

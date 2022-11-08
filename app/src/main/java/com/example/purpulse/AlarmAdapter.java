@@ -18,7 +18,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class ListAdapter extends BaseAdapter {
+public class AlarmAdapter extends BaseAdapter {
 
     private LayoutInflater inflater;
     public String switchCheck = "";
@@ -28,7 +28,7 @@ public class ListAdapter extends BaseAdapter {
     Context context;
     ArrayList<String> alarm = new ArrayList();
 
-    public ListAdapter(Context c, ArrayList list){
+    public AlarmAdapter(Context c, ArrayList list){
         context = c;
         inflater = LayoutInflater.from(c);
         alarm = list;

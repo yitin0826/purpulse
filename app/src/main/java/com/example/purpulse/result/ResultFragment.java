@@ -7,7 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import android.text.Spannable;
@@ -28,7 +27,7 @@ import android.widget.TextView;
 import com.example.purpulse.Note;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
-import com.example.purpulse.RecordActivity;
+import com.example.purpulse.record.RecordActivity;
 import com.example.purpulse.SqlDataBaseHelper;
 import com.google.android.material.tabs.TabLayout;
 

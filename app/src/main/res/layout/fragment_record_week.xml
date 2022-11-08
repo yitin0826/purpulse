@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".record.RecordWeek">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginStart="@dimen/dp_5"
+        android:layout_marginEnd="@dimen/dp_5"
+        android:orientation="horizontal">
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spin_month"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_32"
+            android:layout_weight="1"
+            tools:backgroundTint="@color/light_gray"/>
+
+        <Space
+            android:layout_width="@dimen/dp_10"
+            android:layout_height="wrap_content"/>
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spin_week"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/dp_32"
+            android:layout_weight="1"
+            tools:backgroundTint="@color/light_gray"/>
+
+    </LinearLayout>
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:id="@+id/lineChart"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_250"
+        android:layout_marginTop="@dimen/dp_10"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_week"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10"/>
+
+</LinearLayout>

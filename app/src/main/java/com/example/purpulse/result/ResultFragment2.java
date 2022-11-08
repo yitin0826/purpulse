@@ -8,12 +8,9 @@ import androidx.fragment.app.Fragment;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.PopupWindow;
@@ -22,7 +19,7 @@ import android.widget.TextView;
 import com.example.purpulse.Note;
 import com.example.purpulse.PulseActivity;
 import com.example.purpulse.R;
-import com.example.purpulse.RecordActivity;
+import com.example.purpulse.record.RecordActivity;
 
 public class ResultFragment2 extends Fragment{
 

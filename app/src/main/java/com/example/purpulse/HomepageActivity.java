@@ -12,16 +12,15 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.purpulse.connection.ConnectionActivity;
 import com.example.purpulse.profile.ProfileActivity;
+import com.example.purpulse.record.RecordActivity;
 import com.google.android.material.navigation.NavigationView;
 
 public class HomepageActivity extends AppCompatActivity implements FragmentManager.OnBackStackChangedListener{
@@ -98,7 +97,7 @@ public class HomepageActivity extends AppCompatActivity implements FragmentManag
                 if (activity.equals("record")){     //量測記錄
                     return true;
                 }else {
-                    startActivity(new Intent(HomepageActivity.this,RecordActivity.class));
+                    startActivity(new Intent(HomepageActivity.this, RecordActivity.class));
                     return true;
                 }
             }else if (id == R.id.action_device){
