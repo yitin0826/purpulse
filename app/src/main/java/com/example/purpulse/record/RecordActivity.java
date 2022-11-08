@@ -103,6 +103,7 @@ public class RecordActivity extends AppCompatActivity {
         }
     };
 
+    /** 日、週選擇 **/
     public void tabLayout(){
         fragmentList.add(new RecordDay());
         fragmentList.add(new RecordWeek());
