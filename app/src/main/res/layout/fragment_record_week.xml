@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".record.RecordWeek">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5"
@@ -14,25 +15,30 @@
         android:layout_marginEnd="@dimen/dp_5"
         android:orientation="horizontal">
 
-        <org.angmarch.views.NiceSpinner
-            android:id="@+id/spin_month"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_32"
-            android:layout_weight="1"
-            tools:backgroundTint="@color/light_gray"/>
+        <Button
+            android:id="@+id/btn_week"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_45"
+            android:background="@color/light_gray"
+            android:text="選擇週數"
+            android:textSize="@dimen/sp_18"
+            android:fontFamily="@font/jf_openhuninn"/>
 
         <Space
             android:layout_width="@dimen/dp_10"
             android:layout_height="wrap_content"/>
 
-        <org.angmarch.views.NiceSpinner
-            android:id="@+id/spin_week"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/dp_32"
-            android:layout_weight="1"
-            tools:backgroundTint="@color/light_gray"/>
+        <TextView
+            android:id="@+id/txt_getweek"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:text="2022/11 第二週"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/lineChart"
