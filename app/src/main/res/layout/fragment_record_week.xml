@@ -35,8 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="@dimen/dp_20"
-            android:text="2022/11 第二週"/>
+            android:layout_marginEnd="@dimen/dp_20"/>
 
     </RelativeLayout>
 

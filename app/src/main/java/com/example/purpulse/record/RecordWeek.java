@@ -73,6 +73,7 @@ public class RecordWeek extends Fragment {
     private NumberPicker np_year,np_month,np_week;
     private Button week_ok;
     private Date date = new Date();
+    private String s;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -112,6 +113,7 @@ public class RecordWeek extends Fragment {
         }
     }
 
+    /** 週數選擇的PopupWindow **/
     public void setWeek(){
         View weekView = LayoutInflater.from(getActivity()).inflate(R.layout.popwindow_week,null);
         weekset = new PopupWindow(weekView);
@@ -126,6 +128,7 @@ public class RecordWeek extends Fragment {
         week_ok.setOnClickListener(lis);
     }
 
+    /** NumberPicker值設定 **/
     public void npSet(){
         Calendar cal = Calendar.getInstance();
         Calendar calendar = Calendar.getInstance();
@@ -135,10 +138,11 @@ public class RecordWeek extends Fragment {
         np_year.setValue(year);
         np_month.setMinValue(1);
         np_month.setMaxValue(12);
-        np_month.setValue(cal.get(Calendar.MONTH));
+        np_month.setValue(cal.get(Calendar.MONTH)+1);
         int month = np_month.getValue();
-        int day = cal.getActualMaximum(month);
-        calendar.set(Calendar.DAY_OF_MONTH,day);
+        calendar.set(Calendar.MONTH,month);
+        int day = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar.set(Calendar.DATE,day);
         int week = calendar.get(Calendar.WEEK_OF_MONTH);
         np_week.setMinValue(1);
         np_week.setMaxValue(week);
@@ -160,6 +164,8 @@ public class RecordWeek extends Fragment {
                 }
                 case R.id.week_ok:{
                     weekset.dismiss();
+                    s = String.format("%04d/%02d 第%d週",np_year.getValue(),np_month.getValue(),np_week.getValue());
+                    txt_getweek.setText(s);
                     break;
                 }
             }
