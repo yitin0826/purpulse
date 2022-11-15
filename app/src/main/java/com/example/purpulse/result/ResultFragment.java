@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -164,6 +165,15 @@ public class ResultFragment extends Fragment{
         D.moveToFirst();
         int heartrate = Integer.parseInt(D.getString(13));
         txt_heartrate.setText(D.getString(13));
+        if (heartrate<80) {
+            img_circle.setColorFilter(Color.GREEN);
+        }else if (80<heartrate && heartrate<90){
+            img_circle.setColorFilter(Color.YELLOW);
+        }else if (90<heartrate && heartrate<100){
+            img_circle.setColorFilter(Color.RED);
+        }else if (heartrate>100){
+            img_circle.setColorFilter(R.color.purple_700);
+        }
         SpannableStringBuilder span = new SpannableStringBuilder(txt_heartrate.getText().toString());
         span.setSpan(new AbsoluteSizeSpan(sp2px(getActivity(),70)),
                 0,2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
