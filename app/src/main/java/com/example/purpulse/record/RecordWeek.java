@@ -34,6 +34,8 @@ import com.google.android.material.tabs.TabLayout;
 
 import org.angmarch.views.NiceSpinner;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -93,6 +95,9 @@ public class RecordWeek extends Fragment {
     }
 
     public void initRecycler(){
+        int year = np_year.getValue();
+        int month = np_month.getValue();
+        int week = np_week.getValue();
         // 建立SQLiteOpenHelper物件
         sqlDataBaseHelper = new SqlDataBaseHelper(getActivity(),DataBaseName,null,DataBaseVersion,DataBaseTable);
         DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
@@ -106,10 +111,28 @@ public class RecordWeek extends Fragment {
         rv_week.setAdapter(myListAdapter);
         //HashMap<String,String> hashMap = new HashMap<>();
         for (int i = 0;i<D.getCount();i++){     //按照順序顯示資料
-            Heart.add(D.getString(8));
-            Date.add(D.getString(1));
-            state.add(D.getString(2));
-            D.moveToNext();     //下一筆資料
+            SimpleDateFormat df = new SimpleDateFormat("yyyy/mm/dd");
+            Calendar calendar = Calendar.getInstance();
+            try{
+                calendar.setTime(df.parse(D.getString(1)));
+            }catch (ParseException e){
+                e.printStackTrace();
+            }
+
+            if (calendar.get(Calendar.YEAR) == year){
+                if (calendar.get(Calendar.MONTH)+1 == month){
+                    if (calendar.get(Calendar.WEEK_OF_MONTH) == week){
+                        Heart.add(D.getString(8));
+                        Date.add(D.getString(1));
+                        state.add(D.getString(2));
+                        D.moveToNext();
+                    }
+                }
+            }
+//            Heart.add(D.getString(8));
+//            Date.add(D.getString(1));
+//            state.add(D.getString(2));
+//            D.moveToNext();     //下一筆資料
         }
     }
 
