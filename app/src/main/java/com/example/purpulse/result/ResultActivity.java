@@ -321,15 +321,17 @@ public class ResultActivity extends AppCompatActivity {
                 // 建立SQLiteOpenHelper物件
                 sqlDataBaseHelper = new SqlDataBaseHelper(ResultActivity.this,DataBaseName,null,DataBaseVersion,DataBaseTable2);
                 DB2 = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
-                //取得今天日期
+                //取得今天日期、週數
                 String dateformat = "yyyy/MM/dd HH:mm:ss"; //日期的格式
                 Calendar mCal = Calendar.getInstance();
                 SimpleDateFormat df = new SimpleDateFormat(dateformat);
+                int week = mCal.get(Calendar.WEEK_OF_MONTH);        //取得當下時間在本月第幾周
                 String today = df.format(mCal.getTime());
                 //更新資料(存歷史紀錄)
                 DB2.execSQL( "INSERT INTO Data (account,time,state,RMSSD,sdNN,LFHF,LFn,HFn,Heart,RRi) " +
                         "VALUES('"+Note.account+"'," +
                         "'"+today+"'," +
+                        "'"+week+"'," +
                         "'"+Note.state+"'," +
                         "'"+jsonObject.getDouble("RMSSD")+"'," +
                         "'"+jsonObject.getDouble("sdNN")+"'," +

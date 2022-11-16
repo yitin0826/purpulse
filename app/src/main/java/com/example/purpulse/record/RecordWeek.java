@@ -89,12 +89,11 @@ public class RecordWeek extends Fragment {
         btn_week = view.findViewById(R.id.btn_week);
         txt_getweek = view.findViewById(R.id.txt_getweek);
         btn_week.setOnClickListener(lis);
-        initRecycler();
         setWeek();
         return view;
     }
 
-    public void initRecycler(){
+    public void initRecycler() throws ParseException {
         int year = np_year.getValue();
         int month = np_month.getValue();
         int week = np_week.getValue();
@@ -109,30 +108,18 @@ public class RecordWeek extends Fragment {
         rv_week.addItemDecoration(new DividerItemDecoration(getActivity(),DividerItemDecoration.VERTICAL));
         myListAdapter = new MyListAdapter();
         rv_week.setAdapter(myListAdapter);
-        //HashMap<String,String> hashMap = new HashMap<>();
+        String dateformat = "yyyy/MM/dd HH:mm:ss"; //日期的格式
+        SimpleDateFormat df = new SimpleDateFormat(dateformat);
         for (int i = 0;i<D.getCount();i++){     //按照順序顯示資料
-            SimpleDateFormat df = new SimpleDateFormat("yyyy/mm/dd");
-            Calendar calendar = Calendar.getInstance();
-            try{
-                calendar.setTime(df.parse(D.getString(1)));
-            }catch (ParseException e){
-                e.printStackTrace();
+            Date date = df.parse(D.getString(1));
+            SimpleDateFormat mon = new SimpleDateFormat("M");
+            int Mon = Integer.valueOf(mon.format(date));      //月
+            if (Mon == month && week == D.getInt(2)){
+                Heart.add(D.getString(9));
+                Date.add(D.getString(1));
+                state.add(D.getString(3));
             }
-
-            if (calendar.get(Calendar.YEAR) == year){
-                if (calendar.get(Calendar.MONTH)+1 == month){
-                    if (calendar.get(Calendar.WEEK_OF_MONTH) == week){
-                        Heart.add(D.getString(8));
-                        Date.add(D.getString(1));
-                        state.add(D.getString(2));
-                        D.moveToNext();
-                    }
-                }
-            }
-//            Heart.add(D.getString(8));
-//            Date.add(D.getString(1));
-//            state.add(D.getString(2));
-//            D.moveToNext();     //下一筆資料
+            D.moveToNext();     //下一筆資料
         }
     }
 
@@ -186,6 +173,11 @@ public class RecordWeek extends Fragment {
                     break;
                 }
                 case R.id.week_ok:{
+                    try {
+                        initRecycler();
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
                     weekset.dismiss();
                     s = String.format("%04d/%02d 第%d週",np_year.getValue(),np_month.getValue(),np_week.getValue());
                     txt_getweek.setText(s);
@@ -209,7 +201,7 @@ public class RecordWeek extends Fragment {
 
                 itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClick(View view) {        //點擊歷史紀錄
 
                         Note.Date = item_date.getText().toString();
                         Log.d("date",""+Note.Date);
@@ -219,10 +211,10 @@ public class RecordWeek extends Fragment {
                         DB = sqlDataBaseHelper.getWritableDatabase(); // 開啟資料庫
                         Cursor D = DB.rawQuery("SELECT * FROM Data WHERE time LIKE '"+Note.Date+"'",null);
                         D.moveToFirst();
-                        //點擊歷史紀錄顯示的值
-                        txt_lf.setText(D.getString(6));
-                        txt_hf.setText(D.getString(7));
-                        txt_sdnn.setText(D.getString(5));
+                        //點擊歷史紀錄顯示的值，取到小數後4位
+                        txt_lf.setText(D.getString(6).substring(0,6));
+                        txt_hf.setText(D.getString(7).substring(0,6));
+                        txt_sdnn.setText(D.getString(5).substring(0,6));
                         //太極圖數據
                         Note.HFn = D.getDouble(7);
                         Note.LFn = D.getDouble(6);
