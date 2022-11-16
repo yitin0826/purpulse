@@ -212,11 +212,7 @@ public class ScatterActivity extends AppCompatActivity{
     }
 
     private ScatterData generateScatterData() {
-
         ScatterData d = new ScatterData();
-
-
-//        ArrayList<Float> rr_intervals = new ArrayList<>();
         ArrayList<Entry> values = new ArrayList<>();
         float a,b;
         Log.e("Note.RRi",""+Note.RRi);
@@ -228,14 +224,12 @@ public class ScatterActivity extends AppCompatActivity{
             b = Note.RRi.get(i+1);
             values.add(new Entry(a,b));
         }
-
         ScatterDataSet set = new ScatterDataSet(values, "Scatter DataSet");
         set.setColors(Color.BLUE);
         set.setScatterShapeSize(7.5f);
         set.setDrawValues(false);
         set.setValueTextSize(10f);
         d.addDataSet(set);
-
         return d;
     }
 

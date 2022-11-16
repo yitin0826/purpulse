@@ -67,9 +67,11 @@ public class TaijiView extends View {
             radius = 50;
         }
         Log.d("radius",""+radius);
-        RectF rectF = new RectF(-radius, -radius, radius, radius);  //定義圓弧大小範圍、形狀(x,y,getwidth()-x,getheight()-y)
+        //定義圓弧大小範圍、形狀(x,y,getwidth()-x,getheight()-y)
+        RectF rectF = new RectF(-radius, -radius, radius, radius);
         Log.d("rectF",""+rectF);
-        canvas.drawArc(rectF,90,180,true,blackPaint); //(定義圓弧大小範圍、形狀,设置圆弧是从哪个角度来顺时针绘画,圆弧在绘画的时候，是否連接圆心,筆畫屬性)
+        //(定義圓弧大小範圍、形狀,设置圆弧是从哪个角度来顺时针绘画,圆弧在绘画的时候，是否連接圆心,筆畫屬性)
+        canvas.drawArc(rectF,90,180,true,blackPaint);
         canvas.drawArc(rectF,-90,180,true,whitePaint);
 
         //两个小圆
@@ -80,7 +82,8 @@ public class TaijiView extends View {
         int BC = (int)Math.round(blackcircle);
         int WC = (int)Math.round(whitecircle);
 //        int innerRadius = radius / 2;
-        canvas.drawCircle(0,-radius+BC,BC,blackPaint);  //(起點X,起點Y,半徑,筆畫)
+        //(起點X,起點Y,半徑,筆畫)
+        canvas.drawCircle(0,-radius+BC,BC,blackPaint);
         canvas.drawCircle(0,radius-WC,WC,whitePaint);
 
         Path path = new Path();

@@ -134,14 +134,6 @@ public class ResultFragment extends Fragment{
                     info.dismiss();
                     break;
                 }
-//                case R.id.btn_next:{
-//                    //切換頁面
-//                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-//                    fragmentTransaction.addToBackStack(null);
-//                    fragmentTransaction.replace(R.id.relativ_result,new ResultFragment2());
-//                    fragmentTransaction.commit();
-//                    break;
-//                }
                 case R.id.btn_restart:{
                     Note.RRi.clear();
                     startActivity(new Intent(getActivity(), PulseActivity.class));
@@ -152,6 +144,14 @@ public class ResultFragment extends Fragment{
                     startActivity(new Intent(getActivity(), RecordActivity.class));
                     break;
                 }
+//                case R.id.btn_next:{
+//                    //切換頁面
+//                    FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+//                    fragmentTransaction.addToBackStack(null);
+//                    fragmentTransaction.replace(R.id.relativ_result,new ResultFragment2());
+//                    fragmentTransaction.commit();
+//                    break;
+//                }
             }
         }
     };
